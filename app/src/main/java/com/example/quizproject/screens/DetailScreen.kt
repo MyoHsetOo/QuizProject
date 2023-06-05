@@ -11,6 +11,11 @@ fun DetailScreen() {
   Text(text = "Hello")
   Text(text = "Hello")
   Text(text = "Hello")
+  Text(text = "Hello")
+  Text(text = "Hello")
+  Text(text = "Hello")
+  Text(text = "Hello")
+  Text(text = "Hello")
 
 
  }
