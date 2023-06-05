@@ -1,4 +1,4 @@
-package com.example.quizproject.screens
+package com.example.quizproject.adminScreens
 
 import androidx.compose.runtime.Composable
 
