@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 fun DetailScreen() {
  Column( ) {
   Text(text = "Hello world")
+  Text(text = "Hello world")
+  Text(text = "Hello world")
 
 
 
