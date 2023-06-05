@@ -7,15 +7,8 @@ import androidx.compose.runtime.Composable
 @Composable
 fun DetailScreen() {
  Column( ) {
-  Text(text = "Hello")
-  Text(text = "Hello")
-  Text(text = "Hello")
-  Text(text = "Hello")
-  Text(text = "Hello")
-  Text(text = "Hello")
-  Text(text = "Hello")
-  Text(text = "Hello")
-  Text(text = "Hello")
+  Text(text = "Hello world")
+
 
 
  }
