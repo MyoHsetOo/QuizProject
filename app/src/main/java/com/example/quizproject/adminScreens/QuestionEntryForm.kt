@@ -9,10 +9,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Architecture
+import androidx.compose.material.icons.filled.AttachFile
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -34,7 +38,11 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun QuestionEntryForm () {
 
-    var questionNoField = remember {
+    var dateTextField = remember {
+        mutableStateOf("")
+    }
+
+    var questionField = remember {
         mutableStateOf("")
     }
 
@@ -55,9 +63,9 @@ fun QuestionEntryForm () {
                     color = Color.Black
                 ), modifier = Modifier.padding(horizontal = 15.dp))
                 OutlinedTextField(
-                    value = questionNoField.value,
+                    value = dateTextField.value,
                     enabled = true,
-                    onValueChange = { questionNoField.value = it },
+                    onValueChange = { dateTextField.value = it },
                     modifier = Modifier
                         .padding(8.dp)
                         .fillMaxWidth(),
@@ -65,6 +73,7 @@ fun QuestionEntryForm () {
 
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         unfocusedBorderColor = Color.Black,
+                        focusedBorderColor = Color.Black,
                         containerColor = MaterialTheme.colorScheme.secondary,
                         textColor = Color.Black
                     )
@@ -80,12 +89,15 @@ fun QuestionEntryForm () {
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = { expanded = !expanded },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(10.dp)
                 ) {
                     OutlinedTextField(
                         // The `menuAnchor` modifier must be passed to the text field for correctness.
-                        modifier = Modifier.menuAnchor().fillMaxWidth(),
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth(),
                         readOnly = true,
                         value = selectedOptionText,
                         onValueChange = {},
@@ -118,9 +130,9 @@ fun QuestionEntryForm () {
                 if( selectedOptionText.equals("Text Only")){
 
                     OutlinedTextField(
-                        value = questionNoField.value,
+                        value = questionField.value,
                         enabled = true,
-                        onValueChange = { questionNoField.value = it },
+                        onValueChange = { questionField.value = it },
                         modifier = Modifier
                             .padding(8.dp)
                             .fillMaxWidth(),
@@ -128,6 +140,28 @@ fun QuestionEntryForm () {
 
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             unfocusedBorderColor = Color.Black,
+                            focusedBorderColor = Color.Black,
+                            containerColor = MaterialTheme.colorScheme.secondary,
+                            textColor = Color.Black
+                        )
+                    )
+
+                }else {
+                    OutlinedTextField(
+                        value = questionField.value,
+                        enabled = true,
+                        onValueChange = { questionField.value = it },
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp),
+                        trailingIcon = {
+                                      Icon(imageVector = Icons.Default.AttachFile, contentDescription = "Attached")
+                        },
+
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            unfocusedBorderColor = Color.Black,
+                            focusedBorderColor = Color.Black,
                             containerColor = MaterialTheme.colorScheme.secondary,
                             textColor = Color.Black
                         )

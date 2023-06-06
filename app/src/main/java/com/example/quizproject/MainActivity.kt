@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.quizproject.adminScreens.QuestionEntryForm
@@ -35,16 +36,7 @@ class MainActivity : ComponentActivity() {
             QuizProjectThem {
                 // A surface container using the 'background' color from the theme
                 QuestionEntryForm()
-                /*Column (
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ){
-                    ExposedDropdownMenuSample()
-                    Spacer(modifier = Modifier.height(10.dp))
 
-
-                }*/
             }
         }
     }
@@ -71,7 +63,10 @@ fun ExposedDropdownMenuSample() {
             shape = RoundedCornerShape(20.dp),
 
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            colors = ExposedDropdownMenuDefaults.textFieldColors(
+                unfocusedIndicatorColor = Color.Black,
+                focusedIndicatorColor = Color.Black
+            ),
         )
         ExposedDropdownMenu(
             expanded = expanded,
