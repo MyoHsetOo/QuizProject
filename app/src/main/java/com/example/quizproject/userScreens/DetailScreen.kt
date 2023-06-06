@@ -1,4 +1,4 @@
-package com.example.quizproject.UserScreens
+package com.example.quizproject.userScreens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
