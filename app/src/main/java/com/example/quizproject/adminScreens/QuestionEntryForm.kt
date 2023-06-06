@@ -243,7 +243,7 @@ fun QuestionEntryForm () {
             }
 
             Box(modifier = Modifier
-
+///////
 
             ){
                 imageUri?.let {
