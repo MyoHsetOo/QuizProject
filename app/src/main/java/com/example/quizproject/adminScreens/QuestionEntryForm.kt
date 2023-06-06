@@ -70,7 +70,7 @@ fun QuestionEntryForm () {
                         .padding(8.dp)
                         .fillMaxWidth(),
                     shape = RoundedCornerShape(20.dp),
-
+///
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         unfocusedBorderColor = Color.Black,
                         focusedBorderColor = Color.Black,
