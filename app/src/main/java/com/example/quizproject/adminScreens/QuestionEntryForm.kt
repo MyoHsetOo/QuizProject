@@ -145,7 +145,7 @@ fun QuestionEntryForm () {
             Spacer(modifier = Modifier.height(5.dp))
 
             Text(
-                text = "Question Type", style = TextStyle(
+                text = "Questhuihyu8yhion Type", style = TextStyle(
                     fontSize = 12.sp,
                     color = Color.Black
                 ), modifier = Modifier.padding(horizontal = 15.dp)
