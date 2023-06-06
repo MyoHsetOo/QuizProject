@@ -51,6 +51,10 @@ class MainActivity : ComponentActivity() {
 }
 
 
+@Composable
+fun Hello () {
+    Text ( text =" hello")
+}
 
 
 @Preview(showBackground = true)
