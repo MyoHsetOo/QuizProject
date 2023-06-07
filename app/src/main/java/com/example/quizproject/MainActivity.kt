@@ -35,26 +35,13 @@ class MainActivity : ComponentActivity() {
             QuizProjectThem {
                 // A surface container using the 'background' color from the theme
                 QuestionEntryForm()
-                /*Column (
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ){
-                    ExposedDropdownMenuSample()
-                    Spacer(modifier = Modifier.height(10.dp))
 
-
-                }*/
             }
         }
     }
 }
 
 
-@Composable
-fun Hello () {
-    Text ( text =" hello")
-}
 
 
 @Preview(showBackground = true)
