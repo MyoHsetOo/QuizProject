@@ -343,7 +343,7 @@ fun QuestionEntryForm () {
                     color = Color.Black
                 ), modifier = Modifier.padding(horizontal = 15.dp)
             )
-
+/////
 
             ExposedDropdownMenuBox(
                 expanded = expandedAnswer,
@@ -361,9 +361,6 @@ fun QuestionEntryForm () {
                     value = selectedAnswerText,
                     onValueChange = {},
                     shape = RoundedCornerShape(20.dp),
-
-
-
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedAnswer) },
                     colors = ExposedDropdownMenuDefaults.textFieldColors(
                         containerColor = MaterialTheme.colorScheme.secondary,
