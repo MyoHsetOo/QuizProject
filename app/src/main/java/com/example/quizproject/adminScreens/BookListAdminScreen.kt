@@ -339,54 +339,6 @@ fun BookListAdminScreen () {
 
 
 
-//
-//                        Card(
-//
-//                            modifier = Modifier
-//                                .width(250.dp)
-//                                .height(150.dp)
-//                                .padding(start = 20.dp, end = 20.dp)
-//                                .clickable {
-//                                    count.value++
-//
-//                                    showAlert.value = true
-//
-//
-//                                },
-//                            elevation = CardDefaults.cardElevation(2.dp),
-//                            shape = RoundedCornerShape(30.dp),
-//                            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
-//
-//
-//
-//                        ) {
-//
-//                            Box(
-//                                modifier = Modifier
-//                                    .fillMaxSize()
-//                                    .padding(30.dp),
-//                                contentAlignment = Alignment.Center
-//                            ) {
-//
-//                                Column( modifier = Modifier
-//                                    .fillMaxSize(),
-//                                    horizontalAlignment = Alignment.CenterHorizontally,
-//                                    verticalArrangement = Arrangement.Center
-//                                    ) {
-//
-//                                    Icon(imageVector = Icons.Default.Add, contentDescription = "add", tint = Color.Black ,
-//                                        modifier = Modifier.size(50.dp))
-//                                    Spacer(modifier = Modifier.height(10.dp))
-//                                    Text(text = "Add Book" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
-//
-//                                }
-//
-//
-//                            }
-//
-//
-//                        }
-
 
 
                     /*    for( i in 1 .. count.value) {

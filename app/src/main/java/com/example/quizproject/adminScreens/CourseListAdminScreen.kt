@@ -342,7 +342,7 @@ fun CourseListAdminScreen() {
                             }
 
 
-                            Spacer(modifier = Modifier.height(50.dp))
+                            Spacer(modifier = Modifier.height(55.dp))
 
 
 
@@ -350,29 +350,6 @@ fun CourseListAdminScreen() {
 
 
                         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
