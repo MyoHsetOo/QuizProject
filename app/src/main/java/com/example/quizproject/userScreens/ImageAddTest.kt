@@ -69,7 +69,7 @@ fun ImageAddTest( ) {
                         bitmap = btn.asImageBitmap(),
                         contentDescription = null,
                         modifier = Modifier
-                            .size(400.dp)
+                            .size(200.dp)
                             .padding(20.dp)
                     )
 
@@ -84,7 +84,8 @@ fun ImageAddTest( ) {
             Button(onClick = { launcher.launch("image/*") }) {
                 
                 Text(text = "Pick Image")
-                
+
+
             }
 
         }
