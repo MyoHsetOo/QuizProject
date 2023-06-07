@@ -579,7 +579,7 @@ fun QuestionEntryForm () {
 
             }
             // Solution Type
-
+/////
             Text(
                 text = "Solution Type", style = TextStyle(
                     fontSize = 12.sp,
