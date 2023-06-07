@@ -1,8 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
-package com.example.quizproject.userScreens
+package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,8 +18,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,9 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
@@ -49,9 +46,13 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview()
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookListScreen () {
+fun BookListAdminScreen () {
+
+
+
+
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.book))
     var isPlaying by remember { mutableStateOf(true) }
@@ -124,7 +125,7 @@ fun BookListScreen () {
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.5f),
-                   verticalArrangement = Arrangement.Center,
+                    verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
 
                 ) {
@@ -142,7 +143,7 @@ fun BookListScreen () {
 
                 }
 
-////
+
                 Column(modifier = Modifier
                     .padding(20.dp)
                     .fillMaxSize()
@@ -159,10 +160,12 @@ fun BookListScreen () {
                             modifier = Modifier
                                 .width(250.dp)
                                 .height(150.dp)
-                                .padding(start = 20.dp, end = 20.dp),
+                                .padding(start = 20.dp, end = 20.dp)
+                                .clickable {  },
                             elevation = CardDefaults.cardElevation(2.dp),
                             shape = RoundedCornerShape(30.dp),
-                            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+                            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+
 
 
                         ) {
@@ -174,7 +177,19 @@ fun BookListScreen () {
                                 contentAlignment = Alignment.Center
                             ) {
 
-                                Text(text = "Information Technology - Vol.1" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
+                                Column( modifier = Modifier
+                                    .fillMaxSize(),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                    ) {
+
+                                    Icon(imageVector = Icons.Default.Add, contentDescription = "add", tint = Color.Black ,
+                                        modifier = Modifier.size(50.dp))
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Text(text = "Add Book" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
+
+                                }
+
 
                             }
 
@@ -182,32 +197,8 @@ fun BookListScreen () {
                         }
 
 
-                        Card(
-
-                            modifier = Modifier
-                                .width(250.dp)
-                                .height(150.dp)
-                                .padding(start = 20.dp, end = 20.dp),
-                            elevation = CardDefaults.cardElevation(2.dp),
-                            shape = RoundedCornerShape(30.dp),
-                            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
 
 
-                        ) {
-
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(30.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-
-                                Text(text = "Strategy and Management - Vol.2" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
-
-                            }
-
-
-                        }
 
 
                     }
@@ -232,7 +223,11 @@ fun BookListScreen () {
 
 
 
-        )
+    )
+
+
+
+
 
 
 
