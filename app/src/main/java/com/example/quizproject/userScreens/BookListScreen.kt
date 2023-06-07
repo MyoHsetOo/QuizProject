@@ -124,7 +124,7 @@ fun BookListScreen () {
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.5f),
-                   verticalArrangement = Arrangement.Center,
+                    verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
 
                 ) {
@@ -133,7 +133,7 @@ fun BookListScreen () {
                     ) {
                         LottieAnimation(
                             modifier = Modifier
-                                .size(330.dp),
+                                .size(350.dp),
                             iterations = 100,
                             composition = composition
                         )
@@ -142,13 +142,12 @@ fun BookListScreen () {
 
                 }
 
-////
                 Column(modifier = Modifier
-                    .padding(20.dp)
+                    .padding(10.dp)
                     .fillMaxSize()
                 ) {
 
-                    Text(text = "book List", fontSize = 25.sp, fontWeight = FontWeight.Bold, color = Color.Black )
+                    Text(text = "book List", fontSize = 25.sp, fontWeight = FontWeight.Bold)
 
                     Spacer(modifier = Modifier.height(60.dp))
 
@@ -159,8 +158,8 @@ fun BookListScreen () {
                             modifier = Modifier
                                 .width(250.dp)
                                 .height(150.dp)
-                                .padding(start = 20.dp, end = 20.dp),
-                            elevation = CardDefaults.cardElevation(2.dp),
+                                .padding(start = 30.dp,end = 20.dp)
+                                ,
                             shape = RoundedCornerShape(30.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
 
@@ -168,27 +167,21 @@ fun BookListScreen () {
                         ) {
 
                             Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(30.dp),
+                                modifier = Modifier.fillMaxSize().padding(30.dp),
                                 contentAlignment = Alignment.Center
                             ) {
 
-                                Text(text = "Information Technology - Vol.1" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
+                                Text(text = "Information Technology - Vol.1" , fontSize = 18.sp, fontWeight = FontWeight.Bold)
 
                             }
-
-
                         }
-
-
                         Card(
 
                             modifier = Modifier
                                 .width(250.dp)
                                 .height(150.dp)
-                                .padding(start = 20.dp, end = 20.dp),
-                            elevation = CardDefaults.cardElevation(2.dp),
+                                .padding(start = 20.dp,end = 20.dp)
+                            ,
                             shape = RoundedCornerShape(30.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
 
@@ -196,45 +189,17 @@ fun BookListScreen () {
                         ) {
 
                             Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(30.dp),
+                                modifier = Modifier.fillMaxSize().padding(30.dp),
                                 contentAlignment = Alignment.Center
                             ) {
 
-                                Text(text = "Strategy and Management - Vol.2" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
+                                Text(text = "Information Technology - Vol.1" , fontSize = 18.sp, fontWeight = FontWeight.Bold)
 
                             }
-
-
                         }
-
-
                     }
                 }
-
-
-
             }
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-        )
-
-
-
-
+    )
 }

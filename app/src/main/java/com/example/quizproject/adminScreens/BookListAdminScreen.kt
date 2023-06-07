@@ -50,10 +50,6 @@ import com.example.quizproject.R
 @Composable
 fun BookListAdminScreen () {
 
-
-
-
-
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.book))
     var isPlaying by remember { mutableStateOf(true) }
 
@@ -71,12 +67,9 @@ fun BookListAdminScreen () {
         }
     }
 
-
-
     Scaffold(
 
         containerColor = MaterialTheme.colorScheme.secondary,
-
 
         topBar = {
             Column(
@@ -93,9 +86,6 @@ fun BookListAdminScreen () {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
 
-
-
-
                     Box(
                         modifier = Modifier.padding(8.dp)
 
@@ -103,21 +93,11 @@ fun BookListAdminScreen () {
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
                     }
 
-
-
-
-                    /*Text(text = "", style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    )*/
                 }
             }
         },
 
         content = {
-
-
             Column() {
 
 
@@ -142,8 +122,6 @@ fun BookListAdminScreen () {
                     }
 
                 }
-
-
                 Column(modifier = Modifier
                     .padding(20.dp)
                     .fillMaxSize()
@@ -166,8 +144,6 @@ fun BookListAdminScreen () {
                             shape = RoundedCornerShape(30.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
 
-
-
                         ) {
 
                             Box(
@@ -189,47 +165,11 @@ fun BookListAdminScreen () {
                                     Text(text = "Add Book" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
 
                                 }
-
-
                             }
-
-
                         }
-
-
-
-
-
-
                     }
                 }
-
-
-
             }
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
     )
-
-
-
-
-
-
-
-
 }
