@@ -262,51 +262,6 @@ fun CourseListScreen () {
 
 
 
-//                    Card(
-//
-//                        modifier = Modifier
-//                            .fillMaxWidth(0.8f)
-//                            //.height(100.dp)
-//                            ,
-//                        elevation = CardDefaults.cardElevation(2.dp),
-//                        shape = RoundedCornerShape(30.dp),
-//                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-//
-//
-//                    ) {
-//
-//
-//
-//
-//
-//                        Box(
-//                            modifier = Modifier
-//                                .fillMaxSize(),
-//                            contentAlignment = Alignment.Center
-//                        ) {
-//
-//                            Row (modifier = Modifier
-//                                .fillMaxWidth(0.8f)
-//                                .padding(top = 20.dp, bottom = 20.dp),
-//                                verticalAlignment = Alignment.CenterVertically,
-//                                horizontalArrangement = Arrangement.Center
-//
-//                               ) {
-//
-//                                Icon(imageVector = Icons.Default.Description, contentDescription = "Description", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-//
-//
-//                                Text(text = "Fundamental Engineering Exam (FE)" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
-//                            }
-//
-//
-//                        }
-//
-//
-//                    }
-
-                //    Spacer(modifier = Modifier.height(50.dp))
-
 
 
 
