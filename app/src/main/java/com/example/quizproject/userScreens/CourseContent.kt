@@ -98,9 +98,9 @@ fun CourseContent(){
                         }
                     }
                 })
-        },
+            },
         content = {
-            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.presentation)  )
+            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.book)  )
             Column {
                 Spacer(modifier = Modifier.height(40.dp))
                 Column(
@@ -133,136 +133,20 @@ fun CourseContent(){
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    /* Card(
-                         shape = RoundedCornerShape(topStart = 60.dp, topEnd = 60.dp),
-                         modifier = Modifier
-                             .fillMaxWidth()
-                             .fillMaxHeight(1f),
-                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
-                         ) {
-                         Spacer(modifier = Modifier.width(16.dp))
-                         Column(
-                             modifier = Modifier
-                                 .padding(25.dp)
-                                 .fillMaxSize(),
-                             verticalArrangement = Arrangement.Center,
-                             horizontalAlignment = Alignment.CenterHorizontally
-                         ) {
 
-                             Spacer(modifier = Modifier.height(16.dp))
-
-                             Row {
-
-                                Button(onClick ={},
-                                    modifier = Modifier.size(100.dp),
-                                    shape = RoundedCornerShape(20.dp),
-                                    elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
-                                    //ButtonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onSecondary)
-                                   border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.tertiary)
-                                ) {
-                                     Text(text = "FE",
-                                         style = androidx.compose.ui.text.TextStyle(
-                                             color = Color.Black
-                                         )
-                                     )
-                                }
-                                 Spacer(modifier = Modifier.width(16.dp))
-
-                                 Button(onClick ={},
-                                     modifier = Modifier.size(100.dp),
-                                     shape = RoundedCornerShape(20.dp),
-                                     elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
-                                     border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.tertiary)
-
-                                 ) {
-
-                                     Text(text = "Favorite",
-                                         style = androidx.compose.ui.text.TextStyle(
-                                             color = Color.Black
-                                         )
-                                     )
-
-
-                                 }
-                             }
-
-                             Spacer(modifier = Modifier.height(16.dp))
-
-                             Row {
-
-                                 Button(onClick ={},
-                                     modifier = Modifier.size(100.dp),
-                                     shape = RoundedCornerShape(20.dp),
-                                     elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
-                                     border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.tertiary)
-
-                                 ) {
-
-                                     Text(text = "Quiz",
-                                         style = androidx.compose.ui.text.TextStyle(
-                                             color = Color.Black
-                                         )
-                                     )
-
-
-                                 }
-                                 Spacer(modifier = Modifier.width(16.dp))
-
-                                 Button(onClick ={},
-                                     modifier = Modifier.size(100.dp),
-                                     shape = RoundedCornerShape(20.dp),
-                                     elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
-                                     border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.tertiary)
-
-                                 ) {
-
-                                     Text(text = "Test",
-                                         style = androidx.compose.ui.text.TextStyle(
-                                             color = Color.Black
-                                         )
-                                     )
-
-
-                                 }
-                             }
-                         }
-
-
-                     }*/
 
                     Spacer(modifier = Modifier.width(20.dp))
                     Column {
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center) {
-                            Card (modifier = Modifier
-                                .size(150.dp),
-                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
-                                onClick = {}
-                            ){
-
-                                Box(modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ){ Text(text = "FE",
-                                    style = androidx.compose.ui.text.TextStyle(
-                                        color = Color.Black ,
-                                        fontSize = 16.sp)
-                                )
-                                }
-                            }
+                            CustomCard(
+                                modifier = Modifier ,
+                                text = "FE")
                             Spacer(modifier = Modifier.width(20.dp))
-                            Card (modifier = Modifier
-                                .size(150.dp),
-                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-                            ){
-                                Box(modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ){ Text(text = "Favorite",
-                                    style = androidx.compose.ui.text.TextStyle(
-                                        color = Color.Black  ,
-                                        fontSize = 16.sp)
-                                )
-                                }
-                            }
+
+                            CustomCard(
+                                modifier = Modifier ,
+                                text = "Favorite")
                         }
                     }
 
@@ -270,34 +154,17 @@ fun CourseContent(){
 
                     Column(verticalArrangement = Arrangement.Center) {
                         Row(verticalAlignment = Alignment.CenterVertically,
+
                             horizontalArrangement = Arrangement.Center) {
-                            Card (modifier = Modifier
-                                .size(150.dp),
-                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-                            ){
-                                Box(modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ){ Text(text = "Quiz",
-                                    style = androidx.compose.ui.text.TextStyle(
-                                        color = Color.Black  ,
-                                        fontSize = 16.sp)
-                                )
-                                }
-                            }
+                            CustomCard(
+                                modifier = Modifier ,
+                                text = "Quiz")
+
                             Spacer(modifier = Modifier.width(20.dp))
-                            Card (modifier = Modifier
-                                .size(150.dp),
-                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-                            ){
-                                Box(modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ){ Text(text = "Test",
-                                    style = androidx.compose.ui.text.TextStyle(
-                                        color = Color.Black ,
-                                        fontSize = 16.sp)
-                                )
-                                }
-                            }
+
+                            CustomCard(
+                                modifier = Modifier ,
+                                text = "Test")
                         }
                     }
                 }
@@ -305,4 +172,22 @@ fun CourseContent(){
         }
 
     )
+}
+
+@Composable
+fun CustomCard( modifier:Modifier,text:String){
+    Card (modifier = Modifier
+        .size(150.dp),
+        elevation = CardDefaults.cardElevation(10.dp),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+    ){
+        Box(modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ){ Text(text = text,
+            style = androidx.compose.ui.text.TextStyle(
+                color = Color.Black ,
+                fontSize = 16.sp)
+        )
+        }
+    }
 }

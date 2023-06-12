@@ -55,34 +55,17 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.quizproject.R
+import com.example.quizproject.R@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookListAdminScreen () {
 
-
     val itemList = remember { mutableStateListOf<String>() }
     val textFieldValue = remember { mutableStateOf("") }
-
-
-
     val showAlert = remember { mutableStateOf(false) }
 
-
-
-
-
     val context = LocalContext.current
-
-
-
-
-
-
-
-
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.book))
     var isPlaying by remember { mutableStateOf(true) }
@@ -101,20 +84,19 @@ fun BookListAdminScreen () {
         }
     }
 
-
-
     Scaffold(
 
         containerColor = MaterialTheme.colorScheme.secondary,
 
-
         topBar = {
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
                     .height(56.dp),
             ){
+
                 Row (
                     modifier = Modifier
                         .fillMaxWidth()
@@ -123,26 +105,19 @@ fun BookListAdminScreen () {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
 
-
-
-
                     Box(
                         modifier = Modifier.padding(8.dp)
 
                     ){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
                     }
-
-
                 }
             }
         },
 
         content = {
 
-
             Column() {
-
 
                 Column(
                     modifier = Modifier
@@ -166,30 +141,18 @@ fun BookListAdminScreen () {
 
                 }
 
-
-
-
                 if (showAlert.value) {
                     AlertDialog(
                         onDismissRequest = { showAlert.value = false },
-
-
                         title = { Text(text = "Enter Book name") },
                         text = {
-
 
                             TextField(
                                 value = textFieldValue.value,
                                 onValueChange = { textFieldValue.value = it }
-
                             )
-
-
-
                         },
                         confirmButton = {
-
-
 
                             Button(onClick = { showAlert.value = false
 
@@ -197,28 +160,14 @@ fun BookListAdminScreen () {
                                     itemList.add(textFieldValue.value)
                                 }
 
-
-
                                 textFieldValue.value = ""
-
-
-
 
                             }) {
                                 Text(text = "OK")
-
-
                             }
-
-
-
-
                         }
                     )
                 }
-
-
-
 
                 Column(modifier = Modifier
                     .padding(20.dp)
@@ -229,11 +178,7 @@ fun BookListAdminScreen () {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
 
-
-
-
                         Text(text = "book List", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black , modifier =  Modifier.padding(end = 70.dp))
-
 
                         Button(
                             onClick = { showAlert.value = true },
@@ -254,29 +199,14 @@ fun BookListAdminScreen () {
                                 fontWeight = FontWeight.SemiBold,
                             ), color = Color.Black
                             )
-
-
-
-
                         }
-
-
-
-
-
-
-
                     }
 
-
                     Spacer(modifier = Modifier.height(60.dp))
-
 
                     LazyRow( ) {
 
                         items(itemList) {item ->
-
-
 
                             Card(
 
@@ -287,8 +217,6 @@ fun BookListAdminScreen () {
                                 elevation = CardDefaults.cardElevation(2.dp),
                                 shape = RoundedCornerShape(30.dp),
                                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
-
-
 
                                 ) {
 
@@ -306,62 +234,14 @@ fun BookListAdminScreen () {
                                         verticalArrangement = Arrangement.Center
                                     ) {
 
-
                                         Text(text = "$item" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
-
                                     }
-
-
                                 }
-
-
                             }
-
-//hello
-
-
-
-
-
                         }
-
-
-
-
-
-
-
-
-
                     }
                 }
-
-
-
             }
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
     )
-
-
-
-
-
-
-
-
 }

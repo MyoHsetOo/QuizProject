@@ -148,7 +148,7 @@ fun ChapterScreen( ) {
                                             maxLines = 1,
                                             colors = TextFieldDefaults.textFieldColors(
                                                 containerColor = MaterialTheme.colorScheme.secondary,
-                                                textColor = Color.Black
+                                                //textColor = Color.Black
                                             )
                                         )
                                     }
