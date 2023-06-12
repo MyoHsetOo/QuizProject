@@ -64,6 +64,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 import kotlinx.coroutines.launch
 
@@ -71,7 +72,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 //////
-fun QuestionScreen() {
+fun QuestionScreen(navController: NavController) {
 
     val scaffoldState = rememberBottomSheetScaffoldState()
 
@@ -115,8 +116,8 @@ fun QuestionScreen() {
                     .background(MaterialTheme.colorScheme.secondary),
 
                 ){
-                IconButton(onClick = {}) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Localized description", tint = Color.Black)
+                IconButton(onClick = {navController.popBackStack()}) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Localized description", tint = Color.Black )
                 }
 
             }
