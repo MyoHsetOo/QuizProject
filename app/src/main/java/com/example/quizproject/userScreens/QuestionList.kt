@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Notification.Style
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,13 +38,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
+import androidx.navigation.NavController
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuestionList() {
+fun QuestionList(navController: NavController) {
     val list = listOf(
         Question("Question", 1),
         Question("Question", 2),
@@ -59,7 +60,8 @@ fun QuestionList() {
                     .background(MaterialTheme.colorScheme.secondary)
             ) {
                 Row {
-                    Box(modifier = Modifier.padding(10.dp)) {
+                    Box(modifier = Modifier.padding(10.dp)
+                        .clickable { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "back",
                             tint = Color.Black)
                     }
@@ -80,7 +82,7 @@ fun QuestionList() {
                 LazyColumn {
                     items(list) { item ->
                         Button(
-                            onClick = {},
+                            onClick = { navController.navigate("QuestionScreen")},
                             modifier = Modifier
                                 .fillMaxWidth(0.8f)
                                 .fillMaxHeight(5f),

@@ -30,19 +30,11 @@ import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.navigation.Nav
 import com.example.quizproject.ui.theme.QuizProjectThem
 import com.example.quizproject.userScreens.CourseListScreen
+import com.example.quizproject.userScreens.FavoriteScreen
 import com.example.quizproject.userScreens.HomeScreen
 
 
 class MainActivity : ComponentActivity() {
-
-
-
-
-
-
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
