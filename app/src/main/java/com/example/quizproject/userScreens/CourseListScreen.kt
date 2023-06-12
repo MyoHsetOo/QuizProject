@@ -2,6 +2,7 @@ package com.example.quizproject.userScreens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +43,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -51,10 +53,7 @@ import com.example.quizproject.R
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CourseListScreen () {
-
-
-
+fun CourseListScreen (navController: NavController) {
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.course))
     var isPlaying by remember { mutableStateOf(true) }
@@ -73,19 +72,11 @@ fun CourseListScreen () {
         }
     }
 
-
-
-
-
     Scaffold (
 
     containerColor = MaterialTheme.colorScheme.primary,
 
-
-
-
-
-    topBar = {
+        topBar = {
 
             Row (
                 modifier = Modifier
@@ -95,12 +86,9 @@ fun CourseListScreen () {
 
             ){
 
-
-
-
-
-                    Box(
+                Box(
                         modifier = Modifier.padding(start = 8.dp , end = 8.dp)
+                            .clickable { navController.popBackStack() }
 
                     ){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
@@ -112,35 +100,24 @@ fun CourseListScreen () {
                     ) {
                         Text(text = "ITPEC" , fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.Black )
                     }
-
-
-
-
-
-
-
-
-                
             }
 
     },
 
+        content =  {
 
-    content =  {
-
-        Column () {
+         Column () {
 
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.36f),
+             Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.36f),
                 verticalArrangement = Arrangement.Bottom,
                 horizontalAlignment = Alignment.End
 
             ) {
-
-                Box(
+                 Box(
                 ) {
                     LottieAnimation(
                         modifier = Modifier
@@ -148,10 +125,8 @@ fun CourseListScreen () {
                         iterations = 100,
                         composition = composition
                     )
-
-                }
-
-            }
+                 }
+             }
 
             Box (
                 modifier = Modifier.padding(start = 15.dp )
@@ -159,17 +134,14 @@ fun CourseListScreen () {
                 Text(text = "Course Lists" , fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Black )
             }
 
+             Spacer(modifier = Modifier.height(30.dp))
 
-         Spacer(modifier = Modifier.height(30.dp))
-
-
-
-            Card ( modifier = Modifier
+             Card ( modifier = Modifier
                 .fillMaxSize(),
                 shape = RoundedCornerShape(  topStart = 30.dp , topEnd = 30.dp ),
                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
 
-            ){
+                 ){
 
                 Column(
                     modifier = Modifier
@@ -180,16 +152,15 @@ fun CourseListScreen () {
                     verticalArrangement = Arrangement.Center
                     ) {
 
-
                     Card(
 
                         modifier = Modifier
-                            .fillMaxWidth(0.8f),
+                            .fillMaxWidth(0.8f)
+                            .clickable { navController.navigate("BookListScreen") },
 
                         elevation = CardDefaults.cardElevation(2.dp),
                         border = BorderStroke(1.dp, Color(0xFF3A416D)),
                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-
 
                     ) {
 
@@ -207,31 +178,24 @@ fun CourseListScreen () {
                                 horizontalArrangement = Arrangement.Center
                             ) {
 
-
                                 Icon(imageVector = Icons.Default.Description, contentDescription = "Description", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-
 
                                 Text(text = "IT passport Exam (IP)  " , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
                             }
-
                         }
-
-
                     }
 
                     Spacer(modifier = Modifier.height(60.dp))
 
-
-
                     Card(
 
                         modifier = Modifier
-                            .fillMaxWidth(0.8f),
+                            .fillMaxWidth(0.8f)
+                            .clickable { navController.navigate("BookListScreen") },
 
                         elevation = CardDefaults.cardElevation(2.dp),
                         border = BorderStroke(1.dp, Color(0xFF3A416D)),
                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-
 
                     ) {
 
@@ -248,86 +212,14 @@ fun CourseListScreen () {
                                 horizontalArrangement = Arrangement.Center
                             ) {
 
-
                                 Icon(imageVector = Icons.Default.Description, contentDescription = "Description", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-
 
                                 Text(text = "Fundamental Engineering Exam (FE)  " , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
                             }
-
                         }
-
-
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 }
-
-
-
             }
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-
-
+    } )
 }

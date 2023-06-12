@@ -55,29 +55,18 @@ import com.example.quizproject.R
 @Composable
 fun CourseListAdminScreen() {
 
-
     val itemList = remember { mutableStateListOf<String>() }
     val textFieldValue = remember { mutableStateOf("") }
-
-
-
     val showAlert = remember { mutableStateOf(false) }
 
-
-
-
-
     val context = LocalContext.current
-
-
-
 
     var count = remember {
         mutableStateOf(0)
     }
 
-
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.course))
+
     var isPlaying by remember { mutableStateOf(true) }
 
     val progress by animateLottieCompositionAsState(
@@ -94,17 +83,9 @@ fun CourseListAdminScreen() {
         }
     }
 
-
-
-
-
     Scaffold (
 
         containerColor = MaterialTheme.colorScheme.primary,
-
-
-
-
 
         topBar = {
             Column(
@@ -120,10 +101,6 @@ fun CourseListAdminScreen() {
 
                     ){
 
-
-
-
-
                     Box(
                         modifier = Modifier.padding(start = 8.dp , end = 8.dp)
 
@@ -137,24 +114,13 @@ fun CourseListAdminScreen() {
                     ) {
                         Text(text = "ITPEC" , fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black )
                     }
-
-
-
-
-
-
-
-
-
                 }
             }
         },
 
-
         content =  {
 
             Column () {
-
 
                 Column(
                     modifier = Modifier
@@ -167,15 +133,14 @@ fun CourseListAdminScreen() {
 
                     Box(
                     ) {
+
                         LottieAnimation(
                             modifier = Modifier
                                 .size(250.dp),
                             iterations = 100,
                             composition = composition
                         )
-
                     }
-
                 }
 
                 Box (
@@ -184,69 +149,40 @@ fun CourseListAdminScreen() {
                     Text(text = "Course Lists" , fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black )
                 }
 
-
                 Spacer(modifier = Modifier.height(30.dp))
-
-
 
                 if (showAlert.value) {
                     AlertDialog(
                         onDismissRequest = { showAlert.value = false },
-
-
                         title = { Text(text = "Enter Course name") },
                         text = {
-
 
                             TextField(
                                 value = textFieldValue.value,
                                 onValueChange = { textFieldValue.value = it }
 
                             )
-
-
-
                         },
                         confirmButton = {
-
-
-
                             Button(onClick = { showAlert.value = false
 
                                 if(textFieldValue.value.isNotEmpty()) {
                                     itemList.add(textFieldValue.value)
                                 }
 
-
-
                                 textFieldValue.value = ""
-
-
-
-
-
-
 
                             }) {
                                 Text(text = "OK")
-
-
                             }
-
-
-
-
                         }
                     )
                 }
-
-
 
                 Card ( modifier = Modifier
                     .fillMaxSize(),
                     shape = RoundedCornerShape(topStart = 30.dp),
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
-
                     ){
 
                     Column(
@@ -258,9 +194,7 @@ fun CourseListAdminScreen() {
                         verticalArrangement = Arrangement.Center
                     ) {
 
-
                         Card(
-
                             modifier = Modifier
                                 .fillMaxWidth(0.8f)
                                 .height(100.dp)
@@ -269,8 +203,6 @@ fun CourseListAdminScreen() {
                             elevation = CardDefaults.cardElevation(2.dp),
                             shape = RoundedCornerShape(30.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-
-
                         ) {
 
                             Box(
@@ -284,25 +216,15 @@ fun CourseListAdminScreen() {
                                     .padding(top = 20.dp, bottom = 20.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.Center) {
-
-
                                     Icon(imageVector = Icons.Default.Add, contentDescription = "Add", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-
-
                                     Text(text = " Add Course  " , fontSize = 14.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
                                 }
-
                             }
-
-
                         }
 
                         Spacer(modifier = Modifier.height(50.dp))
 
-
                         for(item in itemList) {
-
-
 
                             Card(
 
@@ -313,7 +235,6 @@ fun CourseListAdminScreen() {
                                 elevation = CardDefaults.cardElevation(2.dp),
                                 shape = RoundedCornerShape(30.dp),
                                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-
 
                             ) {
 
@@ -329,78 +250,18 @@ fun CourseListAdminScreen() {
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.Center) {
 
-
                                         Icon(imageVector = Icons.Default.Description, contentDescription = "Description", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-
 
                                         Text(text = "$item" , fontSize = 14.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
                                     }
-
                                 }
-
-
                             }
 
-
                             Spacer(modifier = Modifier.height(55.dp))
-
-
-
-
-
-
                         }
-
-
-
-
-
                     }
-
-
-
                 }
-
-
-
-
-
-
-
-
-
-
-
             }
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
     )
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
