@@ -24,8 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.quizproject.adminScreens.BookListAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.ui.theme.QuizProjectThem
+import com.example.quizproject.userScreens.FavoriteScreen
+import com.example.quizproject.userScreens.ImageAddTest
 
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +37,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuizProjectThem {
                 // A surface container using the 'background' color from the theme
-                QuestionEntryForm()
+               QuestionEntryForm()
 
             }
         }

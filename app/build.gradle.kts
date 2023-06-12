@@ -72,4 +72,7 @@ dependencies {
 
     //Lottie
     implementation("com.airbnb.android:lottie-compose:6.0.0")
+
+    // Image Picker
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
