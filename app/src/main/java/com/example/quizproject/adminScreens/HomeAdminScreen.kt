@@ -55,7 +55,7 @@ import com.example.quizproject.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun HomeAdminScreen ( ) {
+fun HomeAdminScreen ( navController: NavController ) {
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.personexam1))
 

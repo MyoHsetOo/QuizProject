@@ -19,7 +19,7 @@ fun Nav() {
     val navController = rememberNavController()
 
     NavHost(navController,
-        startDestination = "HomeScreen") {
+        startDestination = "SplashScreen") {
 
         composable(route = "HomeScreen" ) {
 
@@ -32,6 +32,15 @@ fun Nav() {
             CourseListScreen(navController)
 
         }
+
+
+        composable(route = "SplashScreen" ) {
+
+            CourseListScreen(navController)
+
+        }
+
+
 
 
         composable(route = "BookListScreen" ) {
