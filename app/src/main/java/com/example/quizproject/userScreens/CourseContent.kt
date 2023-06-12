@@ -62,6 +62,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.airbnb.lottie.animation.content.Content
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -72,11 +73,11 @@ import java.time.format.TextStyle
 import kotlin.random.Random
 
 
-@Preview
+
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "NewApi")
 @Composable
-fun CourseContent(){
+fun CourseContent(navController: NavController){
     Scaffold(
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
@@ -139,11 +140,13 @@ fun CourseContent(){
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
+                                navController,
                                 text = "FE"
                             )
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
+                                navController,
                                 text = "Favorite"
                             )
                         }
@@ -156,12 +159,14 @@ fun CourseContent(){
 
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
+                                navController,
                                 text = "Quiz"
                             )
 
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
+                                navController,
                                 text = "Test"
                             )
                         }
@@ -174,10 +179,10 @@ fun CourseContent(){
 }
 
 @Composable
-fun CustomCard( text:String){
+fun CustomCard( navController: NavController,text:String){
     Card (modifier = Modifier
         .size(150.dp)
-        .clickable {  },
+        .clickable { navController.navigate("BookListScreen")},
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
     ){

@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
+import com.example.quizproject.userScreens.CourseContent
 import com.example.quizproject.userScreens.CourseListScreen
 import com.example.quizproject.userScreens.HomeScreen
 import com.example.quizproject.userScreens.QuestionList
@@ -62,6 +63,14 @@ fun Nav() {
             QuestionScreen(navController)
 
         }
+
+        composable(route = "CourseContent" ) {
+
+            CourseContent(navController)
+
+        }
+
+
 
 
 
