@@ -574,9 +574,6 @@ fun QuestionEntryForm () {
 
             }
 
-
-
-
         }
         items(answerlist) { item ->
 
