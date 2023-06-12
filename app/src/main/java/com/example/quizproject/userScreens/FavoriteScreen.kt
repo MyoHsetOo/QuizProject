@@ -9,9 +9,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -41,101 +44,109 @@ import com.example.quizproject.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FavoriteScreen(){
+    val list = listOf(
+        Question("Question", 1),
+        Question("Question", 2),
+        Question("Question", 3)
+    )
     Scaffold (
         containerColor = MaterialTheme.colorScheme.secondary,
 
         topBar = {
-            Row(modifier=Modifier.fillMaxWidth()
-                .height(56.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Column(modifier = Modifier.height(56.dp)) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    verticalAlignment = Alignment.CenterVertically
 
 
-
-            ) {
-                Box(modifier = Modifier.padding(10.dp)) {
-                    Icon(
-                        Icons.Default.ArrowBack, contentDescription = "back",
-                        tint = Color.Black
-                    )
-                }
-                Box(modifier = Modifier.padding(10.dp)) {
-                    Text(
-                        text = "Your Favorite List",
-                        style = TextStyle(color = Color.Black,
-                            fontWeight = FontWeight.Bold)
-
-                    )
+                ) {
+                    Box(modifier = Modifier.padding(10.dp)) {
+                        Icon(
+                            Icons.Default.ArrowBack, contentDescription = "back",
+                            tint = Color.Black
+                        )
+                    }
+                    Box(modifier = Modifier.padding(10.dp)) {
+                        Text(
+                            text = "Your Favorite List",
+                            style = TextStyle(
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                    }
                 }
             }
-                 },
+        },
         content = {
 
-            /*Column(horizontalAlignment = Alignment.CenterHorizontally,
-               verticalArrangement = Arrangement.Center,
-               modifier = Modifier.fillMaxWidth()) {
-               Spacer(modifier = Modifier.height(50.dp))
-               Button(
-                   onClick = {},
-                   modifier = Modifier
-                       .fillMaxWidth(0.7f)
-                   ,
-                   shape = RoundedCornerShape(20.dp),
-                   elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
-                   colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
-                   border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.secondary)
-               ) {
-                  Row(modifier=Modifier.fillMaxWidth(),
-                      horizontalArrangement = Arrangement.Start){
-                      Text(text = "Question - 1"
-                          , style = TextStyle(
-                              color = Color.Black
-                          )
-                      )
+            Column(modifier = Modifier.padding(10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally){
+                Spacer(modifier = Modifier.height(50.dp))
+                val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.empty1))
 
-                      Row(modifier=Modifier.fillMaxWidth(),
-                          horizontalArrangement = Arrangement.End) {
-                          Icon(
-                              Icons.Default.Delete, contentDescription = "back",
-                              tint = Color.Black
-                          )
-                      }
-                  }
-
-               }
-           }*/
-
-            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.empty1))
-            Column {
-                Spacer(modifier = Modifier.height(40.dp))
+            if (list.isEmpty()) {
+                Column {
+                    Spacer(modifier = Modifier.height(40.dp))
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight(0.8f),
+                        verticalArrangement = Arrangement.Bottom,
+                        //  horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        LottieAnimation(
+                            //  modifier = Modifier.fillMaxSize(),
+                            iterations = 1000, composition = composition
+                        )
+                    }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(MaterialTheme.colorScheme.secondary),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Your Favorite List is Empty",
+                            style = TextStyle(
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                    }
+                }
+            } else {
                 Column(
                     modifier = Modifier
-                        .fillMaxHeight(0.8f),
-                    verticalArrangement = Arrangement.Bottom,
-                    //  horizontalAlignment = Alignment.CenterHorizontally
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    LottieAnimation(
-                        //  modifier = Modifier.fillMaxSize(),
-                        iterations = 1000, composition = composition
-                    )
+                    LazyColumn {
+                        items(list) { item ->
+                            Button(
+                                onClick = { },
+                                modifier = Modifier
+                                    .fillMaxWidth(0.8f)
+                                    .fillMaxHeight(),
+                                shape = RoundedCornerShape(20.dp),
+                                elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
+                                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
+
+                                ) {
+                                Text(
+                                    text = item.question + " - " + item.number, style = TextStyle(
+                                        color = Color.Black
+                                    )
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(20.dp))
+                        }
+                    }
                 }
-            Column(
-                modifier = Modifier.fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.secondary),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Your Favorite List is Empty",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold
-                    )
-                )
             }
         }
         }
     )
-
-
-
-
 }
