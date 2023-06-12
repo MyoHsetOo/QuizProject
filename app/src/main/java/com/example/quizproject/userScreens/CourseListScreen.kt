@@ -53,9 +53,6 @@ import com.example.quizproject.R
 @Composable
 fun CourseListScreen () {
 
-
-
-
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.course))
     var isPlaying by remember { mutableStateOf(true) }
 
@@ -73,19 +70,11 @@ fun CourseListScreen () {
         }
     }
 
-
-
-
-
     Scaffold (
 
     containerColor = MaterialTheme.colorScheme.primary,
 
-
-
-
-
-    topBar = {
+        topBar = {
 
             Row (
                 modifier = Modifier
@@ -95,11 +84,7 @@ fun CourseListScreen () {
 
             ){
 
-
-
-
-
-                    Box(
+                Box(
                         modifier = Modifier.padding(start = 8.dp , end = 8.dp)
 
                     ){
@@ -112,35 +97,24 @@ fun CourseListScreen () {
                     ) {
                         Text(text = "ITPEC" , fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.Black )
                     }
-
-
-
-
-
-
-
-
-                
             }
 
     },
 
+        content =  {
 
-    content =  {
-
-        Column () {
+         Column () {
 
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.36f),
+             Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.36f),
                 verticalArrangement = Arrangement.Bottom,
                 horizontalAlignment = Alignment.End
 
             ) {
-
-                Box(
+                 Box(
                 ) {
                     LottieAnimation(
                         modifier = Modifier
@@ -148,10 +122,8 @@ fun CourseListScreen () {
                         iterations = 100,
                         composition = composition
                     )
-
-                }
-
-            }
+                 }
+             }
 
             Box (
                 modifier = Modifier.padding(start = 15.dp )
@@ -159,17 +131,14 @@ fun CourseListScreen () {
                 Text(text = "Course Lists" , fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Black )
             }
 
+             Spacer(modifier = Modifier.height(30.dp))
 
-         Spacer(modifier = Modifier.height(30.dp))
-
-
-
-            Card ( modifier = Modifier
+             Card ( modifier = Modifier
                 .fillMaxSize(),
                 shape = RoundedCornerShape(  topStart = 30.dp , topEnd = 30.dp ),
                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
 
-            ){
+                 ){
 
                 Column(
                     modifier = Modifier
@@ -180,7 +149,6 @@ fun CourseListScreen () {
                     verticalArrangement = Arrangement.Center
                     ) {
 
-
                     Card(
 
                         modifier = Modifier
@@ -189,7 +157,6 @@ fun CourseListScreen () {
                         elevation = CardDefaults.cardElevation(2.dp),
                         border = BorderStroke(1.dp, Color(0xFF3A416D)),
                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-
 
                     ) {
 
@@ -207,21 +174,14 @@ fun CourseListScreen () {
                                 horizontalArrangement = Arrangement.Center
                             ) {
 
-
                                 Icon(imageVector = Icons.Default.Description, contentDescription = "Description", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-
 
                                 Text(text = "IT passport Exam (IP)  " , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
                             }
-
                         }
-
-
                     }
 
                     Spacer(modifier = Modifier.height(60.dp))
-
-
 
                     Card(
 
@@ -231,7 +191,6 @@ fun CourseListScreen () {
                         elevation = CardDefaults.cardElevation(2.dp),
                         border = BorderStroke(1.dp, Color(0xFF3A416D)),
                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-
 
                     ) {
 
@@ -248,86 +207,14 @@ fun CourseListScreen () {
                                 horizontalArrangement = Arrangement.Center
                             ) {
 
-
                                 Icon(imageVector = Icons.Default.Description, contentDescription = "Description", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-
 
                                 Text(text = "Fundamental Engineering Exam (FE)  " , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
                             }
-
                         }
-
-
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 }
-
-
-
             }
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-
-
+    } )
 }

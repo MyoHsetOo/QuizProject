@@ -70,12 +70,9 @@ fun BookListScreen () {
         }
     }
 
-
-
     Scaffold(
 
         containerColor = MaterialTheme.colorScheme.secondary,
-
 
         topBar = {
             Column(
@@ -92,33 +89,19 @@ fun BookListScreen () {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
 
-
-
-
                     Box(
                         modifier = Modifier.padding(8.dp)
 
                     ){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
                     }
-
-
-
-
-                    /*Text(text = "", style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    )*/
                 }
             }
         },
 
         content = {
 
-
             Column() {
-
 
                 Column(
                     modifier = Modifier
@@ -137,9 +120,7 @@ fun BookListScreen () {
                             iterations = 100,
                             composition = composition
                         )
-
                     }
-
                 }
 
                 Column(modifier = Modifier
@@ -154,7 +135,6 @@ fun BookListScreen () {
                     Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
 
                         Card(
-
                             modifier = Modifier
                                 .width(250.dp)
                                 .height(150.dp)
@@ -162,8 +142,6 @@ fun BookListScreen () {
                                 ,
                             shape = RoundedCornerShape(30.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-
-
                         ) {
 
                             Box(
@@ -184,7 +162,6 @@ fun BookListScreen () {
                             ,
                             shape = RoundedCornerShape(30.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-
 
                         ) {
 
