@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -100,7 +101,7 @@ fun CourseContent(){
                 })
             },
         content = {
-            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.book)  )
+            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.datapresentation)  )
             Column {
                 Spacer(modifier = Modifier.height(40.dp))
                 Column(
@@ -133,20 +134,18 @@ fun CourseContent(){
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-
-
                     Spacer(modifier = Modifier.width(20.dp))
                     Column {
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
-                                modifier = Modifier ,
-                                text = "FE")
+                                text = "FE"
+                            )
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
-                                modifier = Modifier ,
-                                text = "Favorite")
+                                text = "Favorite"
+                            )
                         }
                     }
 
@@ -157,14 +156,14 @@ fun CourseContent(){
 
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
-                                modifier = Modifier ,
-                                text = "Quiz")
+                                text = "Quiz"
+                            )
 
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
-                                modifier = Modifier ,
-                                text = "Test")
+                                text = "Test"
+                            )
                         }
                     }
                 }
@@ -175,11 +174,12 @@ fun CourseContent(){
 }
 
 @Composable
-fun CustomCard( modifier:Modifier,text:String){
+fun CustomCard( text:String){
     Card (modifier = Modifier
-        .size(150.dp),
+        .size(150.dp)
+        .clickable {  },
         elevation = CardDefaults.cardElevation(10.dp),
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
     ){
         Box(modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
