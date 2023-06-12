@@ -32,6 +32,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -49,9 +50,12 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
+import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -238,19 +242,24 @@ fun QuestionEntryForm () {
                         .fillMaxWidth(),
                     shape = RoundedCornerShape(20.dp),
 
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        unfocusedBorderColor = Color.Black,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                         focusedBorderColor = Color.Black,
-                        containerColor = MaterialTheme.colorScheme.secondary,
-                        textColor = Color.Black
+                        unfocusedBorderColor = Color.Black,
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black,
+                        cursorColor = Color.Black,
                     )
+
+
                 )
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
                     text = "Question Type", style = TextStyle(
                         fontSize = 12.sp,
-                        color = Color.Black
+
                     ), modifier = Modifier.padding(horizontal = 15.dp)
                 )
 
@@ -261,6 +270,7 @@ fun QuestionEntryForm () {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp)
+                        .background(MaterialTheme.colorScheme.secondary)
 
                 ) {
                     OutlinedTextField(
@@ -275,17 +285,24 @@ fun QuestionEntryForm () {
 
 
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedQuestion) },
-                        colors = ExposedDropdownMenuDefaults.textFieldColors(
-                            containerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedIndicatorColor = Color.Black,
-                            focusedIndicatorColor = Color.Black,
-                            textColor = Color.Black
+                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedBorderColor = Color.Black,
+                            focusedBorderColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedTextColor = Color.Black,
+                            selectionColors = TextSelectionColors(
+                                handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
+                            )
+
                         ),
                     )
 
                     ExposedDropdownMenu(
                         expanded = expandedQuestion,
                         onDismissRequest = { expandedQuestion = false },
+                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary)
                     ) {
                         optionQuestion.forEach { selectionOption ->
                             DropdownMenuItem(
@@ -294,7 +311,11 @@ fun QuestionEntryForm () {
                                     selectedQuestionText = selectionOption
                                     expandedQuestion = false
                                 },
+                                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
                                 contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                                colors = MenuDefaults.itemColors(
+                                    textColor = Color.Black
+                                )
                             )
                         }
                     }
@@ -311,11 +332,14 @@ fun QuestionEntryForm () {
                             .padding(vertical = 10.dp),
                         shape = RoundedCornerShape(20.dp),
 
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            unfocusedBorderColor = Color.Black,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                             focusedBorderColor = Color.Black,
-                            containerColor = MaterialTheme.colorScheme.secondary,
-                            textColor = Color.Black
+                            unfocusedBorderColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedTextColor = Color.Black,
+                            cursorColor = Color.Black,
                         )
                     )
 
@@ -340,11 +364,14 @@ fun QuestionEntryForm () {
                             )
                         },
 
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            unfocusedBorderColor = Color.Black,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                             focusedBorderColor = Color.Black,
-                            containerColor = MaterialTheme.colorScheme.secondary,
-                            textColor = Color.Black
+                            unfocusedBorderColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedTextColor = Color.Black,
+                            cursorColor = Color.Black,
                         )
                     )
                 }
@@ -392,16 +419,23 @@ fun QuestionEntryForm () {
                         onValueChange = {},
                         shape = RoundedCornerShape(20.dp),
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedAnswer) },
-                        colors = ExposedDropdownMenuDefaults.textFieldColors(
-                            containerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedIndicatorColor = Color.Black,
-                            focusedIndicatorColor = Color.Black,
-                            textColor = Color.Black,
+                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedBorderColor = Color.Black,
+                            focusedBorderColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedTextColor = Color.Black,
+                            selectionColors = TextSelectionColors(
+                                handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
+                            )
+
                         ),
                     )
                     ExposedDropdownMenu(
                         expanded = expandedAnswer,
                         onDismissRequest = { expandedAnswer = false },
+                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
                     ) {
                         optionsAnswer.forEach { selectionOption ->
                             DropdownMenuItem(
@@ -410,7 +444,11 @@ fun QuestionEntryForm () {
                                     selectedAnswerText = selectionOption
                                     expandedAnswer = false
                                 },
+                                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
                                 contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                                colors = MenuDefaults.itemColors(
+                                    textColor = Color.Black
+                                )
                             )
                         }
                     }
@@ -436,11 +474,14 @@ fun QuestionEntryForm () {
                                 .fillMaxWidth(),
                             shape = RoundedCornerShape(20.dp),
 
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
-                                unfocusedBorderColor = Color.Black,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 focusedBorderColor = Color.Black,
-                                containerColor = MaterialTheme.colorScheme.secondary,
-                                textColor = Color.Black
+                                unfocusedBorderColor = Color.Black,
+                                focusedTextColor = Color.Black,
+                                unfocusedTextColor = Color.Black,
+                                cursorColor = Color.Black,
                             )
                         )
 
@@ -463,11 +504,16 @@ fun QuestionEntryForm () {
                                     }
                                 )
                             },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
-                                unfocusedBorderColor = Color.Black,
+
+
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 focusedBorderColor = Color.Black,
-                                containerColor = MaterialTheme.colorScheme.secondary,
-                                textColor = Color.Black
+                                unfocusedBorderColor = Color.Black,
+                                focusedTextColor = Color.Black,
+                                unfocusedTextColor = Color.Black,
+                                cursorColor = Color.Black,
                             )
                         )
 
@@ -615,17 +661,24 @@ fun QuestionEntryForm () {
                         onValueChange = {},
                         shape = RoundedCornerShape(20.dp),
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSolution) },
-                        colors = ExposedDropdownMenuDefaults.textFieldColors(
-                            containerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedIndicatorColor = Color.Black,
-                            focusedIndicatorColor = Color.Black,
-                            textColor = Color.Black
+                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedBorderColor = Color.Black,
+                            focusedBorderColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedTextColor = Color.Black,
+                            selectionColors = TextSelectionColors(
+                                handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
+                            )
+
                         ),
                     )
 
                     ExposedDropdownMenu(
                         expanded = expandedSolution,
                         onDismissRequest = { expandedSolution = false },
+                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
                     ) {
                         optionsSolution.forEach { selectionOption ->
                             DropdownMenuItem(
@@ -634,7 +687,12 @@ fun QuestionEntryForm () {
                                     selectedSolutionText = selectionOption
                                     expandedSolution = false
                                 },
+                                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
                                 contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                                colors = MenuDefaults.itemColors(
+                                    textColor = Color.Black
+                                )
+
                             )
                         }
                     }
@@ -643,19 +701,22 @@ fun QuestionEntryForm () {
                 if (selectedSolutionText.equals("Text Only")) {
 
                     OutlinedTextField(
-                        value = questionField.value,
+                        value = solutionTextField.value,
                         enabled = true,
-                        onValueChange = { questionField.value = it },
+                        onValueChange = { solutionTextField.value = it },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 10.dp),
                         shape = RoundedCornerShape(20.dp),
 
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            unfocusedBorderColor = Color.Black,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                             focusedBorderColor = Color.Black,
-                            containerColor = MaterialTheme.colorScheme.secondary,
-                            textColor = Color.Black
+                            unfocusedBorderColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedTextColor = Color.Black,
+                            cursorColor = Color.Black,
                         )
                     )
 
@@ -678,11 +739,14 @@ fun QuestionEntryForm () {
                             )
                         },
 
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            unfocusedBorderColor = Color.Black,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                             focusedBorderColor = Color.Black,
-                            containerColor = MaterialTheme.colorScheme.secondary,
-                            textColor = Color.Black
+                            unfocusedBorderColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedTextColor = Color.Black,
+                            cursorColor = Color.Black,
                         )
                     )
                 }
