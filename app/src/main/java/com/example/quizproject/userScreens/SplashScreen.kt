@@ -21,10 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(navController: NavController) {
     var startAnimation by remember { mutableStateOf(false) }
     val alphaAnim = animateFloatAsState(
         targetValue = if (startAnimation) 1f else 0f,
@@ -36,8 +37,8 @@ fun SplashScreen() {
     LaunchedEffect(key1 = true) {
         startAnimation = true
         delay(7000)
-       // navController.popBackStack()
-       // navController.navigate()
+
+        navController.navigate("HomeScreen")
     }
     Splash(alpha = alphaAnim.value)
 }
@@ -46,7 +47,7 @@ fun SplashScreen() {
 fun Splash(alpha: Float) {
     Box(
         modifier = Modifier
-            .background(if (isSystemInDarkTheme()) Color.White else Color.Yellow)
+            .background(if (isSystemInDarkTheme()) Color.White else Color.Gray)
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {

@@ -141,6 +141,7 @@ fun BookListScreen (navController: NavController) {
                                 .width(250.dp)
                                 .height(150.dp)
                                 .padding(start = 30.dp,end = 20.dp)
+                                .clickable { navController.navigate("ChapterScreen") }
                                 ,
                             shape = RoundedCornerShape(30.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
@@ -161,6 +162,7 @@ fun BookListScreen (navController: NavController) {
                                 .width(250.dp)
                                 .height(150.dp)
                                 .padding(start = 20.dp,end = 20.dp)
+                                .clickable { navController.navigate("ChapterScreen") }
                             ,
                             shape = RoundedCornerShape(30.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
