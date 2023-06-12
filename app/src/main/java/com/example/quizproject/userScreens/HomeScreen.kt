@@ -81,11 +81,14 @@ fun HomeScreen (navController: NavController) {
                         modifier = Modifier.padding(8.dp)
 
                     ){
-                        Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+                        Icon(imageVector = Icons.Default.Menu,
+                            contentDescription = "Menu",
+                            tint = Color.Black)
                     }
-                    Text(text = "Old Question", style = TextStyle(
+                    Text(text = "Quiz", style = TextStyle(
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
                     ))
                 }
             }
@@ -132,7 +135,8 @@ fun HomeScreen (navController: NavController) {
                                 ){
                                     Text(text = "Choose your Category", style = TextStyle(
                                         fontSize = 20.sp,
-                                        fontWeight = FontWeight.ExtraBold
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color.Black
                                     ))
                                 }
                                 Box(
@@ -174,7 +178,8 @@ fun HomeScreen (navController: NavController) {
                                     ) {
                                     Text(text = "ITPEC", style = TextStyle(
                                         fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.Black
                                     ))
 
                                 }
@@ -193,7 +198,9 @@ fun HomeScreen (navController: NavController) {
                                 ) {
                                     Text(text = "Japanese", style = TextStyle(
                                         fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.Black
+
                                     ))
                                 }
                             }

@@ -67,11 +67,11 @@ fun Nav() {
 
         }
 
-        composable(route = "QuestionScreen" ) {
+        /*composable(route = "QuestionScreen" ) {
 
             QuestionScreen(navController)
 
-        }
+        }*/
 
         composable(route = "CourseContent" ) {
 

@@ -209,7 +209,6 @@ fun BookListAdminScreen () {
                         items(itemList) {item ->
 
                             Card(
-
                                 modifier = Modifier
                                     .width(250.dp)
                                     .height(150.dp)
