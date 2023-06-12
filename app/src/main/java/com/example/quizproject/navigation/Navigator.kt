@@ -5,8 +5,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.quizproject.userScreens.BookListScreen
+import com.example.quizproject.userScreens.ChapterScreen
 import com.example.quizproject.userScreens.CourseListScreen
 import com.example.quizproject.userScreens.HomeScreen
+import com.example.quizproject.userScreens.SplashScreen
 
 @Composable
 fun Nav() {
@@ -14,7 +16,7 @@ fun Nav() {
     val navController = rememberNavController()
 
     NavHost(navController,
-        startDestination = "HomeScreen") {
+        startDestination = "SplashScreen") {
 
         composable(route = "HomeScreen" ) {
 
@@ -34,6 +36,19 @@ fun Nav() {
             BookListScreen(navController)
 
         }
+
+        composable(route = "ChapterScreen" ) {
+
+            ChapterScreen(navController)
+
+        }
+
+        composable(route = "SplashScreen" ) {
+
+            SplashScreen(navController)
+
+        }
+
 
 
 

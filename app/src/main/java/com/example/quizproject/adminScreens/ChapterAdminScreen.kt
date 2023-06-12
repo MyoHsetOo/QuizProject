@@ -1,13 +1,11 @@
-package com.example.quizproject.userScreens
+package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,7 +14,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,7 +32,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,7 +42,7 @@ import androidx.navigation.NavController
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChapterScreen( navController: NavController) {
+fun ChapterScreenAdmin( ) {
 
     var addChapterField = remember {
         mutableStateOf("")
@@ -67,10 +63,9 @@ fun ChapterScreen( navController: NavController) {
                 ){
                     Box(
                         modifier = Modifier.padding(8.dp)
-                            .clickable { navController.popBackStack() }
 
                     ){
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                        Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
                     }
                     Text(text = "Old Question", style = TextStyle(
                         fontSize = 18.sp,
@@ -107,15 +102,11 @@ fun ChapterScreen( navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ){
 
-
-
                                 Row(
                                     horizontalArrangement = Arrangement.Center,
                                     verticalAlignment = Alignment.CenterVertically,
 
                                     ){
-
-
 
                                     Card(
                                         modifier = Modifier
@@ -125,17 +116,18 @@ fun ChapterScreen( navController: NavController) {
                                         shape = CircleShape,
                                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
                                     ) {
-
-
-
-
                                         Box(
                                             contentAlignment = Alignment.Center,
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .fillMaxHeight()
                                         ){
-                                            Text(text = "1", color = Color.Black)
+                                            Icon(
+                                                imageVector = Icons.Default.Add,
+                                                contentDescription = "menu",
+
+                                                modifier = Modifier.size(25.dp)
+                                            )
                                         }
                                     }
                                     Card (
@@ -147,13 +139,17 @@ fun ChapterScreen( navController: NavController) {
                                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
 
                                     ){
-                                        Box (modifier = Modifier.fillMaxSize()
-                                        , contentAlignment = Alignment.Center){
-
-                                            Text(text = "Hardware", color = Color.Black)
-
-                                        }
-
+                                        TextField(
+                                            value = addChapterField.value,
+                                            enabled = true,
+                                            onValueChange = { addChapterField.value = it },
+                                            modifier = Modifier.height(100.dp),
+                                            maxLines = 1,
+                                            colors = TextFieldDefaults.textFieldColors(
+                                                containerColor = MaterialTheme.colorScheme.secondary,
+                                                //textColor = Color.Black
+                                            )
+                                        )
                                     }
 
                                 }
