@@ -3,6 +3,7 @@
 package com.example.quizproject.userScreens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -49,9 +51,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview()
 @Composable
-fun BookListScreen () {
+fun BookListScreen (navController: NavController) {
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.book))
     var isPlaying by remember { mutableStateOf(true) }
@@ -91,6 +92,7 @@ fun BookListScreen () {
 
                     Box(
                         modifier = Modifier.padding(8.dp)
+                            .clickable { navController.popBackStack()}
 
                     ){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)

@@ -2,6 +2,7 @@ package com.example.quizproject.userScreens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +43,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -51,7 +53,7 @@ import com.example.quizproject.R
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CourseListScreen () {
+fun CourseListScreen (navController: NavController) {
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.course))
     var isPlaying by remember { mutableStateOf(true) }
@@ -86,6 +88,7 @@ fun CourseListScreen () {
 
                 Box(
                         modifier = Modifier.padding(start = 8.dp , end = 8.dp)
+                            .clickable { navController.popBackStack() }
 
                     ){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
@@ -152,7 +155,8 @@ fun CourseListScreen () {
                     Card(
 
                         modifier = Modifier
-                            .fillMaxWidth(0.8f),
+                            .fillMaxWidth(0.8f)
+                            .clickable { navController.navigate("BookListScreen") },
 
                         elevation = CardDefaults.cardElevation(2.dp),
                         border = BorderStroke(1.dp, Color(0xFF3A416D)),
@@ -186,7 +190,8 @@ fun CourseListScreen () {
                     Card(
 
                         modifier = Modifier
-                            .fillMaxWidth(0.8f),
+                            .fillMaxWidth(0.8f)
+                            .clickable { navController.navigate("BookListScreen") },
 
                         elevation = CardDefaults.cardElevation(2.dp),
                         border = BorderStroke(1.dp, Color(0xFF3A416D)),

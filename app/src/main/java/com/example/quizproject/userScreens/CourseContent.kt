@@ -100,7 +100,7 @@ fun CourseContent(){
                 })
             },
         content = {
-            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.datapresentation)  )
+            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.book)  )
             Column {
                 Spacer(modifier = Modifier.height(40.dp))
                 Column(

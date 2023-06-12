@@ -36,6 +36,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -45,7 +46,7 @@ import com.example.quizproject.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun HomeScreen () {
+fun HomeScreen (navController: NavController) {
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.personexam1))
     var isPlaying by remember { mutableStateOf(true) }
@@ -160,7 +161,7 @@ fun HomeScreen () {
 
                             ){
                                 Button(
-                                    onClick = { /*TODO*/ },
+                                    onClick = { navController.navigate("CourseListScreen") },
                                     modifier = Modifier
                                         .padding(
                                             horizontal = 20.dp,
@@ -179,7 +180,7 @@ fun HomeScreen () {
                                 }
                                 //Spacer( modifier = Modifier.height(3.dp))
                                 Button(
-                                    onClick = { /*TODO*/ },
+                                    onClick = { navController.navigate("CourseListScreen") },
                                     modifier = Modifier
                                         .padding(
                                             horizontal = 20.dp,
