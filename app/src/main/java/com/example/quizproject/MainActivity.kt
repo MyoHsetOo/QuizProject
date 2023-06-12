@@ -24,26 +24,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.quizproject.adminScreens.AdminQuestionList
 import com.example.quizproject.adminScreens.BookListAdminScreen
 import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.navigation.Nav
 import com.example.quizproject.ui.theme.QuizProjectThem
+import com.example.quizproject.userScreens.ChapterScreen
+import com.example.quizproject.userScreens.CourseContent
 import com.example.quizproject.userScreens.CourseListScreen
-import com.example.quizproject.userScreens.FavoriteScreen
 import com.example.quizproject.userScreens.HomeScreen
+import com.example.quizproject.userScreens.SplashScreen
 
 
 class MainActivity : ComponentActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             QuizProjectThem {
                 // A surface container using the 'background' color from the theme
-              //  HomeScreen()
-                Nav()
-            }
+                //  HomeScreen()
+           }
         }
     }
 }
@@ -51,10 +54,3 @@ class MainActivity : ComponentActivity() {
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    QuizProjectThem {
-
-    }
-}
