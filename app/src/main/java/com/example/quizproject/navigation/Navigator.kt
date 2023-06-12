@@ -8,6 +8,8 @@ import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
 import com.example.quizproject.userScreens.CourseListScreen
 import com.example.quizproject.userScreens.HomeScreen
+import com.example.quizproject.userScreens.QuestionList
+import com.example.quizproject.userScreens.QuestionScreen
 import com.example.quizproject.userScreens.SplashScreen
 
 @Composable
@@ -16,7 +18,7 @@ fun Nav() {
     val navController = rememberNavController()
 
     NavHost(navController,
-        startDestination = "SplashScreen") {
+        startDestination = "HomeScreen") {
 
         composable(route = "HomeScreen" ) {
 
@@ -46,6 +48,18 @@ fun Nav() {
         composable(route = "SplashScreen" ) {
 
             SplashScreen(navController)
+
+        }
+
+        composable(route = "QuestionList" ) {
+
+            QuestionList(navController)
+
+        }
+
+        composable(route = "QuestionScreen" ) {
+
+            QuestionScreen(navController)
 
         }
 

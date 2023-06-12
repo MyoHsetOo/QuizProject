@@ -122,7 +122,7 @@ fun ChapterScreen( navController: NavController) {
                                             .fillMaxHeight(0.1f)
                                             .fillMaxWidth(0.18f)
                                             .padding(start = 10.dp),
-                                        shape = CircleShape,
+                                        shape = RoundedCornerShape(20.dp),
                                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
                                     ) {
 
@@ -142,8 +142,9 @@ fun ChapterScreen( navController: NavController) {
                                         modifier = Modifier
                                             .padding(8.dp)
                                             .fillMaxWidth()
-                                            .fillMaxHeight(0.1f),
-                                        shape = RoundedCornerShape(80.dp),
+                                            .fillMaxHeight(0.1f)
+                                            .clickable { navController.navigate("QuestionList") },
+                                        shape = RoundedCornerShape(20.dp),
                                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
 
                                     ){
@@ -157,6 +158,58 @@ fun ChapterScreen( navController: NavController) {
                                     }
 
                                 }
+
+                            //2nd
+                            Row(
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically,
+
+                                ){
+
+
+
+                                Card(
+                                    modifier = Modifier
+                                        .fillMaxHeight(0.1f)
+                                        .fillMaxWidth(0.18f)
+                                        .padding(start = 10.dp),
+                                    shape = RoundedCornerShape(20.dp),
+                                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
+                                ) {
+
+
+
+
+                                    Box(
+                                        contentAlignment = Alignment.Center,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .fillMaxHeight()
+                                    ){
+                                        Text(text = "2", color = Color.Black)
+                                    }
+                                }
+                                Card (
+                                    modifier = Modifier
+                                        .padding(8.dp)
+                                        .fillMaxWidth()
+                                        .fillMaxHeight(0.1f)
+                                        .clickable { navController.navigate("QuestionList") },
+                                    shape = RoundedCornerShape(20.dp),
+                                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
+
+                                ){
+                                    Box (modifier = Modifier.fillMaxSize()
+                                        , contentAlignment = Alignment.Center){
+
+                                        Text(text = "Software", color = Color.Black)
+
+                                    }
+
+                                }
+
+                            }
+
                         }
 
                     }
