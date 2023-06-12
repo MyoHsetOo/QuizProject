@@ -19,6 +19,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -27,6 +28,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -41,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -56,8 +60,8 @@ import com.example.quizproject.R
 fun CourseListAdminScreen() {
 
     val itemList = remember { mutableStateListOf<String>() }
-    val textFieldValue = remember { mutableStateOf("") }
-    val showAlert = remember { mutableStateOf(false) }
+    val addCourseTextField = remember { mutableStateOf("") }
+    var isAddingCourse by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
 
@@ -151,29 +155,48 @@ fun CourseListAdminScreen() {
 
                 Spacer(modifier = Modifier.height(30.dp))
 
-                if (showAlert.value) {
+                if ( isAddingCourse ) {
+
                     AlertDialog(
-                        onDismissRequest = { showAlert.value = false },
-                        title = { Text(text = "Enter Course name") },
+                        onDismissRequest = { isAddingCourse = false },
+                        title = { Text(text = "Enter course name", style = TextStyle(
+                            color = Color.Black
+                        )
+                        ) },
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                        icon = {
+                            Icon(imageVector = Icons.Default.BorderColor, contentDescription = "Heart", tint = MaterialTheme.colorScheme.primary )
+                        },
                         text = {
 
-                            TextField(
-                                value = textFieldValue.value,
-                                onValueChange = { textFieldValue.value = it }
+                            OutlinedTextField(
+                                value = addCourseTextField.value,
+                                onValueChange = { addCourseTextField.value = it },
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.primary,
+                                    unfocusedTextColor = Color.Black,
+                                    focusedTextColor = Color.Black
+
+                                )
 
                             )
                         },
                         confirmButton = {
-                            Button(onClick = { showAlert.value = false
+                            Button(onClick = { isAddingCourse = false
 
-                                if(textFieldValue.value.isNotEmpty()) {
+                                /*if(textFieldValue.value.isNotEmpty()) {
                                     itemList.add(textFieldValue.value)
-                                }
+                                }*/
 
-                                textFieldValue.value = ""
+                                itemList.add (addCourseTextField.value)
+
+                                addCourseTextField.value = ""
 
                             }) {
-                                Text(text = "OK")
+                                Text(text = "Submit")
                             }
                         }
                     )
@@ -196,9 +219,9 @@ fun CourseListAdminScreen() {
 
                         Card(
                             modifier = Modifier
-                                .fillMaxWidth(0.8f)
+                                .fillMaxWidth(0.85f)
                                 .height(100.dp)
-                                .clickable { showAlert.value = true },
+                                .clickable { isAddingCourse = !isAddingCourse },
 
                             elevation = CardDefaults.cardElevation(2.dp),
                             shape = RoundedCornerShape(30.dp),
@@ -215,7 +238,8 @@ fun CourseListAdminScreen() {
                                     .fillMaxWidth(0.8f)
                                     .padding(top = 20.dp, bottom = 20.dp),
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.Center) {
+                                    horizontalArrangement = Arrangement.Center
+                                ) {
                                     Icon(imageVector = Icons.Default.Add, contentDescription = "Add", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
                                     Text(text = " Add Course  " , fontSize = 14.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
                                 }
