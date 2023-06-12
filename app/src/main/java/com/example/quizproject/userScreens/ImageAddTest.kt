@@ -45,8 +45,6 @@ fun ImageAddTest( ) {
 
     val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()){ uri: Uri? ->
         imageUri  = uri
-
-
     }
 
         Column (modifier = Modifier.fillMaxSize(),
@@ -62,16 +60,16 @@ fun ImageAddTest( ) {
                     bitmap.value = ImageDecoder.decodeBitmap(source)
                 }
 
-
                 bitmap.value?.let { btn ->
 
-                    Image(
+
+                    /*Image(
                         bitmap = btn.asImageBitmap(),
                         contentDescription = null,
                         modifier = Modifier
                             .size(200.dp)
                             .padding(20.dp)
-                    )
+                    )*/
 
                 }
 
