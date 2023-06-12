@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
 import com.example.quizproject.userScreens.CourseContent
@@ -18,49 +19,62 @@ fun Nav() {
 
     val navController = rememberNavController()
 
+
     NavHost(navController,
         startDestination = "SplashScreen") {
 
+        //UserScreen
+
+        //HomeScreen
         composable(route = "HomeScreen" ) {
 
             HomeScreen(navController)
 
         }
 
+        //AdminUserConnectedScreen
+        composable(route = "AdminUserConnectedScreen" ) {
+
+            AdminUserConnectedScreen(navController)
+
+        }
+
+        //CourseListScreen
         composable(route = "CourseListScreen" ) {
 
             CourseListScreen(navController)
 
         }
 
-
+        //SplashScreen
         composable(route = "SplashScreen" ) {
 
             CourseListScreen(navController)
 
         }
 
-
-
-
+        //BookListScreen
         composable(route = "BookListScreen" ) {
 
             BookListScreen(navController)
 
         }
 
+        //ChapterScreen
         composable(route = "ChapterScreen" ) {
 
             ChapterScreen(navController)
 
         }
 
+        //SplashScreen
         composable(route = "SplashScreen" ) {
 
             SplashScreen(navController)
 
         }
 
+        //QuestionList
         composable(route = "QuestionList" ) {
 
             QuestionList(navController)
@@ -73,11 +87,18 @@ fun Nav() {
 
         }*/
 
+        //CourseContent
         composable(route = "CourseContent" ) {
 
             CourseContent(navController)
 
         }
+
+
+
+        //Admin Screen
+
+
 
 
 

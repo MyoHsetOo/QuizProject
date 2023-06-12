@@ -43,7 +43,7 @@ import com.example.quizproject.userScreens.CustomCard
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CourseContentAdmin(){
+fun CourseContentAdminScreen(){
     Scaffold(
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
