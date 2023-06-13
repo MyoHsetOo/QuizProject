@@ -2,6 +2,7 @@ package com.example.quizproject.adminScreens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,10 +42,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.quizproject.userScreens.Question
 
 @Composable
-fun AdminQuestionList(){
+fun AdminQuestionList(navController: NavController){
 
     val itemList = remember { mutableStateListOf<String>() }
     val textFieldValue = remember { mutableStateOf("") }
@@ -69,7 +71,10 @@ fun AdminQuestionList(){
                     .background(MaterialTheme.colorScheme.secondary)
             ) {
                 Row {
-                    Box(modifier = Modifier.padding(10.dp)) {
+                    Box(modifier = Modifier.padding(10.dp)
+                        .clickable {
+                            navController.popBackStack()
+                        }) {
                         Icon(
                             Icons.Default.ArrowBack, contentDescription = "back",
                             tint = Color.Black
@@ -123,7 +128,9 @@ fun AdminQuestionList(){
                 }
 
                 Button(
-                    onClick = { showAlert.value = true },
+                    onClick = {
+                              navController.navigate("QuestionEntryForm")
+                    },
                     modifier = Modifier,
                     shape = RoundedCornerShape(20.dp),
                     elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
@@ -132,7 +139,7 @@ fun AdminQuestionList(){
                     ) {
 
                     Icon(
-                        Icons.Default.Add, contentDescription = "back",
+                        Icons.Default.Add, contentDescription = "Add",
                         tint = Color.Black
                     )
 
@@ -155,7 +162,9 @@ fun AdminQuestionList(){
             LazyColumn {
                 items(list) { item ->
                     Button(
-                        onClick = {},
+                        onClick = {
+                                  navController.navigate("AdminQuestionScreen")
+                        },
                         modifier = Modifier
                             .fillMaxWidth(0.8f)
                             .fillMaxHeight(),

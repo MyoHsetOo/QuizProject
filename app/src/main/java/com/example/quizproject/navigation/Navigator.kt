@@ -4,10 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.quizproject.adminScreens.AdminQuestionList
+import com.example.quizproject.adminScreens.AdminQuestionScreen
 import com.example.quizproject.adminScreens.BookListAdminScreen
-import com.example.quizproject.adminScreens.ChapterScreenAdmin
+import com.example.quizproject.adminScreens.ChapterAdminScreen
+import com.example.quizproject.adminScreens.CourseContentAdminScreen
 import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.adminScreens.HomeAdminScreen
+import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
@@ -116,7 +120,7 @@ fun Nav() {
 
         //CourseContentAdminScreen
         composable(route = "CourseContentAdminScreen") {
-            CourseListAdminScreen(navController)
+            CourseContentAdminScreen(navController)
         }
 
         //BookListAdminScreen
@@ -125,9 +129,24 @@ fun Nav() {
         }
 
         //ChpterAdminScreen
-        composable(route = "Chapter") {
-            ChapterScreenAdmin(navController)
+        composable(route = "ChapterAdminScreen") {
+            ChapterAdminScreen(navController)
         }
+
+        composable(route = "AdminQuestionList") {
+            AdminQuestionList(navController)
+        }
+
+
+        composable(route = "QuestionEntryForm") {
+            QuestionEntryForm(navController)
+        }
+
+
+        composable(route = "AdminQuestionScreen") {
+            AdminQuestionScreen(navController)
+        }
+
 
 
 

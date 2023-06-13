@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -48,7 +49,7 @@ import com.example.quizproject.dataModel.Chapter
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChapterScreenAdmin( navController: NavController ) {
+fun ChapterAdminScreen( navController: NavController ) {
 
     var addChapterField = remember {
         mutableStateOf("")
@@ -83,13 +84,18 @@ fun ChapterScreenAdmin( navController: NavController ) {
                 ){
                     Box(
                         modifier = Modifier.padding(8.dp)
+                            .clickable { navController.popBackStack() }
 
                     ){
-                        Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+                        Icon(imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "back",
+                            tint = Color.Black
+                        )
                     }
                     Text(text = "Old Question", style = TextStyle(
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
                     )
                     )
                 }
@@ -162,7 +168,7 @@ fun ChapterScreenAdmin( navController: NavController ) {
                                             Icon(
                                                 imageVector = Icons.Default.Add,
                                                 contentDescription = "menu",
-
+                                                tint = Color.Black,
                                                 modifier = Modifier.size(25.dp)
                                             )
                                         }
@@ -208,9 +214,7 @@ fun ChapterScreenAdmin( navController: NavController ) {
                                                 .fillMaxHeight(0.1f)
                                                 .fillMaxWidth(0.18f)
                                                 .padding(start = 10.dp)
-                                                .clickable {
-
-                                                },
+                                                ,
                                             shape = RoundedCornerShape(20.dp),
                                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
                                         ) {
@@ -221,7 +225,10 @@ fun ChapterScreenAdmin( navController: NavController ) {
                                                     .fillMaxHeight(),
 
                                                 ){
-                                                Text(text = "${item.chapterNo}", modifier = Modifier.padding(15.dp))
+                                                Text(text = "${item.chapterNo}",
+                                                    modifier = Modifier.padding(15.dp),
+                                                    color = Color.Black
+                                                )
                                             }
                                         }
                                         Card (
@@ -229,11 +236,16 @@ fun ChapterScreenAdmin( navController: NavController ) {
                                                 .padding(8.dp)
                                                 .fillMaxWidth()
                                                 .fillMaxHeight(0.1f),
+                                            onClick = {
+                                                navController.navigate("AdminQuestionList")
+                                                      },
                                             shape = RoundedCornerShape(20.dp),
                                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
 
                                         ){
-                                            Text(text = "${item.chapterName}", modifier = Modifier.padding(15.dp))
+                                            Text(text = "${item.chapterName}",
+                                                modifier = Modifier.padding(15.dp),
+                                                color = Color.Black)
                                         }
                                     }
 

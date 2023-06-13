@@ -130,19 +130,24 @@ fun BookListScreen (navController: NavController) {
                     .fillMaxSize()
                 ) {
 
-                    Text(text = "book List", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "book List",
+                        fontSize = 25.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
 
                     Spacer(modifier = Modifier.height(60.dp))
 
-                    Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
+                    Row(
+                        modifier = Modifier.horizontalScroll(rememberScrollState())
+                    ) {
 
                         Card(
                             modifier = Modifier
                                 .width(250.dp)
                                 .height(150.dp)
                                 .padding(start = 30.dp,end = 20.dp)
-                                .clickable { navController.navigate("ChapterScreen") }
-                                ,
+                                .clickable { navController.navigate("ChapterScreen") },
                             shape = RoundedCornerShape(30.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
                         ) {
@@ -152,7 +157,12 @@ fun BookListScreen (navController: NavController) {
                                 contentAlignment = Alignment.Center
                             ) {
 
-                                Text(text = "Information Technology - Vol.1" , fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                                Text(text = "Information Technology - Vol.1" ,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.Black
+                                )
+
 
                             }
                         }
@@ -174,7 +184,11 @@ fun BookListScreen (navController: NavController) {
                                 contentAlignment = Alignment.Center
                             ) {
 
-                                Text(text = "Information Technology - Vol.1" , fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                                Text(text = "Information Technology - Vol.1" ,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.Black
+                                    )
 
                             }
                         }

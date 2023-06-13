@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,6 +33,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -144,31 +147,49 @@ fun BookListAdminScreen (navController: NavController) {
                 }
 
                 if (showAlert.value) {
+
                     AlertDialog(
                         onDismissRequest = { showAlert.value = false },
-                        title = { Text(text = "Enter Book name") },
+                        title = { Text(text = "Enter Book name", style = TextStyle(
+                            color = Color.Black
+                        )
+                        ) },
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                        icon = {
+                            Icon(imageVector = Icons.Default.BorderColor, contentDescription = "Heart", tint = Color.Black )
+                        },
                         text = {
 
-                            TextField(
+                            OutlinedTextField(
                                 value = textFieldValue.value,
-                                onValueChange = { textFieldValue.value = it }
+                                onValueChange = { textFieldValue.value = it },
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    focusedBorderColor = Color.Black,
+                                    unfocusedBorderColor = Color.Black,
+                                    unfocusedTextColor = Color.Black,
+                                    focusedTextColor = Color.Black
+
+                                )
+
                             )
                         },
                         confirmButton = {
-
                             Button(onClick = { showAlert.value = false
-
-                                if(textFieldValue.value.isNotEmpty()) {
-                                    itemList.add(textFieldValue.value)
-                                }
+                                itemList.add(textFieldValue.value)
 
                                 textFieldValue.value = ""
 
-                            }) {
-                                Text(text = "OK")
+                            },
+                                colors = ButtonDefaults.buttonColors(Color.Black)
+                            ) {
+                                Text(text = "Submit")
                             }
                         }
                     )
+
+
                 }
 
                 Column(modifier = Modifier
@@ -215,7 +236,8 @@ fun BookListAdminScreen (navController: NavController) {
                                     .width(250.dp)
                                     .height(150.dp)
                                     .padding(start = 20.dp, end = 20.dp)
-                                    .clickable { navController.navigate("ChapterAdminScreen") },
+                                    ,
+                                onClick = { navController.navigate("ChapterAdminScreen")} ,
                                 elevation = CardDefaults.cardElevation(2.dp),
                                 shape = RoundedCornerShape(30.dp),
                                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
