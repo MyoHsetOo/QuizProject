@@ -85,7 +85,8 @@ fun CourseContent(navController: NavController){
                 colors =TopAppBarDefaults.smallTopAppBarColors(MaterialTheme.colorScheme.secondary),
                 title = {
                     Row {
-                        Box(modifier = Modifier.padding(10.dp)) {
+                        Box(modifier = Modifier.padding(10.dp)
+                            .clickable { navController.popBackStack() }) {
                             Icon(Icons.Default.ArrowBack, contentDescription = "back",
                                 tint = Color.Black)
                         }

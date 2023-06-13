@@ -34,6 +34,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -43,7 +44,7 @@ import com.example.quizproject.userScreens.CustomCard
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CourseContentAdminScreen(){
+fun CourseContentAdminScreen(navController: NavController){
     Scaffold(
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
@@ -51,7 +52,9 @@ fun CourseContentAdminScreen(){
                 colors = TopAppBarDefaults.smallTopAppBarColors(MaterialTheme.colorScheme.secondary),
                 title = {
                     Row {
-                        Box(modifier = Modifier.padding(10.dp)) {
+                        Box(modifier = Modifier
+                            .padding(10.dp)
+                            .clickable { navController.popBackStack() }) {
                             Icon(
                                 Icons.Default.ArrowBack, contentDescription = "back",
                                 tint = Color.Black)
@@ -108,11 +111,17 @@ fun CourseContentAdminScreen(){
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
+                                modifier = Modifier
+                                    .size(150.dp)
+                                    .clickable { navController.navigate("BookListAdminScreen") },
                                 text = "Teach"
                             )
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
+                                modifier = Modifier
+                                    .size(150.dp)
+                                    .clickable {  },
                                 text = "Test"
                             )
                         }
@@ -125,12 +134,9 @@ fun CourseContentAdminScreen(){
 }
 
 @Composable
-fun CustomCard( text:String){
-    Card (modifier = Modifier
-        .size(150.dp)
-        .clickable {  },
-        elevation = CardDefaults.cardElevation(10.dp),
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+fun CustomCard(modifier:Modifier, text:String){
+    Card (elevation = CardDefaults.cardElevation(10.dp),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
     ){
         Box(modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center

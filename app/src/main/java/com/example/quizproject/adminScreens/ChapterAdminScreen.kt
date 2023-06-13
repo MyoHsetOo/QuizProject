@@ -42,7 +42,7 @@ import androidx.navigation.NavController
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChapterScreenAdmin( ) {
+fun ChapterScreenAdmin( navController: NavController ) {
 
     var addChapterField = remember {
         mutableStateOf("")

@@ -2,6 +2,7 @@ package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Favorite
@@ -97,9 +99,10 @@ fun HomeAdminScreen ( navController: NavController ) {
                 ){
                     Box(
                         modifier = Modifier.padding(8.dp)
+                            .clickable { navController.popBackStack() }
 
                     ){
-                        Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
                     }
                     Text(text = "Old Question", style = TextStyle(
                         fontSize = 18.sp,
@@ -242,7 +245,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                                     )
                                 }
                                 Button(
-                                    onClick = {  },
+                                    onClick = { navController.navigate("CourseListAdminScreen") },
                                     modifier = Modifier
                                         .padding(
                                             horizontal = 20.dp,
@@ -261,7 +264,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                                 }
                                 //Spacer( modifier = Modifier.height(3.dp))
                                 Button(
-                                    onClick = {  },
+                                    onClick = { navController.navigate("CourseListAdminScreen") },
                                     modifier = Modifier
                                         .padding(
                                             horizontal = 20.dp,

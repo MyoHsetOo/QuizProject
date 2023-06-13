@@ -51,6 +51,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -59,7 +60,7 @@ import com.example.quizproject.R@SuppressLint("UnusedMaterial3ScaffoldPaddingPar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookListAdminScreen () {
+fun BookListAdminScreen (navController: NavController) {
 
     val itemList = remember { mutableStateListOf<String>() }
     val textFieldValue = remember { mutableStateOf("") }
@@ -107,6 +108,7 @@ fun BookListAdminScreen () {
 
                     Box(
                         modifier = Modifier.padding(8.dp)
+                            .clickable { navController.popBackStack() }
 
                     ){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
@@ -212,7 +214,8 @@ fun BookListAdminScreen () {
                                 modifier = Modifier
                                     .width(250.dp)
                                     .height(150.dp)
-                                    .padding(start = 20.dp, end = 20.dp),
+                                    .padding(start = 20.dp, end = 20.dp)
+                                    .clickable { navController.navigate("ChapterAdminScreen") },
                                 elevation = CardDefaults.cardElevation(2.dp),
                                 shape = RoundedCornerShape(30.dp),
                                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
