@@ -767,7 +767,7 @@ fun QuestionEntryForm () {
 
                     ) {
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = {  },
                         modifier = Modifier.padding(horizontal = 10.dp)
                     ) {
 
@@ -782,7 +782,7 @@ fun QuestionEntryForm () {
                     }
 
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = {  },
                         modifier = Modifier.padding(horizontal = 10.dp)
                     ) {
                         Text(

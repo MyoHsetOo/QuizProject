@@ -2,6 +2,7 @@ package com.example.quizproject.userScreens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -79,13 +81,17 @@ fun HomeScreen (navController: NavController) {
                 ){
                     Box(
                         modifier = Modifier.padding(8.dp)
+                            .clickable { navController.popBackStack() }
 
                     ){
-                        Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+                        Icon(imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "back",
+                            tint = Color.Black)
                     }
-                    Text(text = "Old Question", style = TextStyle(
+                    Text(text = "Quiz", style = TextStyle(
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
                     ))
                 }
             }
@@ -132,7 +138,8 @@ fun HomeScreen (navController: NavController) {
                                 ){
                                     Text(text = "Choose your Category", style = TextStyle(
                                         fontSize = 20.sp,
-                                        fontWeight = FontWeight.ExtraBold
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color.Black
                                     ))
                                 }
                                 Box(
@@ -174,7 +181,8 @@ fun HomeScreen (navController: NavController) {
                                     ) {
                                     Text(text = "ITPEC", style = TextStyle(
                                         fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.Black
                                     ))
 
                                 }
@@ -193,7 +201,9 @@ fun HomeScreen (navController: NavController) {
                                 ) {
                                     Text(text = "Japanese", style = TextStyle(
                                         fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.Black
+
                                     ))
                                 }
                             }

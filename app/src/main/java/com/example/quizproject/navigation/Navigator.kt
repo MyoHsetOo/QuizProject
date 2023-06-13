@@ -4,8 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.quizproject.adminScreens.BookListAdminScreen
+import com.example.quizproject.adminScreens.ChapterScreenAdmin
+import com.example.quizproject.adminScreens.CourseListAdminScreen
+import com.example.quizproject.adminScreens.HomeAdminScreen
+import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
+import com.example.quizproject.userScreens.CourseContent
 import com.example.quizproject.userScreens.CourseListScreen
 import com.example.quizproject.userScreens.HomeScreen
 import com.example.quizproject.userScreens.QuestionList
@@ -17,40 +23,62 @@ fun Nav() {
 
     val navController = rememberNavController()
 
-    NavHost(navController,
-        startDestination = "HomeScreen") {
 
+    NavHost(navController,
+        startDestination = "SplashScreen") {
+
+        //UserScreen
+
+        //HomeScreen
         composable(route = "HomeScreen" ) {
 
             HomeScreen(navController)
 
         }
 
+        //AdminUserConnectedScreen
+        composable(route = "AdminUserConnectedScreen" ) {
+
+            AdminUserConnectedScreen(navController)
+
+        }
+
+        //CourseListScreen
         composable(route = "CourseListScreen" ) {
 
             CourseListScreen(navController)
 
         }
 
+        //SplashScreen
+        composable(route = "SplashScreen" ) {
 
+            CourseListScreen(navController)
+
+        }
+
+        //BookListScreen
         composable(route = "BookListScreen" ) {
 
             BookListScreen(navController)
 
         }
 
+        //ChapterScreen
         composable(route = "ChapterScreen" ) {
 
             ChapterScreen(navController)
 
         }
 
+        //SplashScreen
         composable(route = "SplashScreen" ) {
 
             SplashScreen(navController)
 
         }
 
+        //QuestionList
         composable(route = "QuestionList" ) {
 
             QuestionList(navController)
@@ -62,6 +90,46 @@ fun Nav() {
             QuestionScreen(navController)
 
         }
+
+        //CourseContent
+        composable(route = "CourseContent" ) {
+
+            CourseContent(navController)
+
+        }
+
+
+
+        //Admin Screen
+
+        //HomeAdminScreen
+        composable(route = "HomeAdminScreen") {
+            HomeAdminScreen(navController)
+        }
+
+
+        //CourseListAdminScreen
+        composable(route = "CourseListAdminScreen") {
+            CourseListAdminScreen(navController)
+        }
+
+
+        //CourseContentAdminScreen
+        composable(route = "CourseContentAdminScreen") {
+            CourseListAdminScreen(navController)
+        }
+
+        //BookListAdminScreen
+        composable(route = "BookListAdminScreen") {
+            BookListAdminScreen(navController)
+        }
+
+        //ChpterAdminScreen
+        composable(route = "Chapter") {
+            ChapterScreenAdmin(navController)
+        }
+
+
 
 
 

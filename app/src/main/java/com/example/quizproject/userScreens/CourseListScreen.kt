@@ -156,7 +156,7 @@ fun CourseListScreen (navController: NavController) {
 
                         modifier = Modifier
                             .fillMaxWidth(0.8f)
-                            .clickable { navController.navigate("BookListScreen") },
+                            .clickable { navController.navigate("CourseContent") },
 
                         elevation = CardDefaults.cardElevation(2.dp),
                         border = BorderStroke(1.dp, Color(0xFF3A416D)),
@@ -191,7 +191,7 @@ fun CourseListScreen (navController: NavController) {
 
                         modifier = Modifier
                             .fillMaxWidth(0.8f)
-                            .clickable { navController.navigate("BookListScreen") },
+                            .clickable { navController.navigate("CourseContent") },
 
                         elevation = CardDefaults.cardElevation(2.dp),
                         border = BorderStroke(1.dp, Color(0xFF3A416D)),

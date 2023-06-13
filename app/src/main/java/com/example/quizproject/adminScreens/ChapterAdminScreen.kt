@@ -48,7 +48,7 @@ import com.example.quizproject.dataModel.Chapter
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChapterScreenAdmin( ) {
+fun ChapterScreenAdmin( navController: NavController ) {
 
     var addChapterField = remember {
         mutableStateOf("")

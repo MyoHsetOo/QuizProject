@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -48,6 +50,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -57,7 +60,7 @@ import com.example.quizproject.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CourseListAdminScreen() {
+fun CourseListAdminScreen(navController: NavController) {
 
     val itemList = remember { mutableStateListOf<String>() }
     val addCourseTextField = remember { mutableStateOf("") }
@@ -106,7 +109,9 @@ fun CourseListAdminScreen() {
                     ){
 
                     Box(
-                        modifier = Modifier.padding(start = 8.dp , end = 8.dp)
+                        modifier = Modifier
+                            .padding(start = 8.dp, end = 8.dp)
+                            .clickable { navController.popBackStack() }
 
                     ){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
@@ -148,7 +153,9 @@ fun CourseListAdminScreen() {
                 }
 
                 Box (
-                    modifier = Modifier.padding(start = 15.dp )
+                    modifier = Modifier
+                        .padding(start = 15.dp)
+                        .clickable { navController.popBackStack() }
                 ) {
                     Text(text = "Course Lists" , fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black )
                 }
@@ -234,55 +241,84 @@ fun CourseListAdminScreen() {
                                 contentAlignment = Alignment.Center
                             ) {
 
-                                Row ( modifier = Modifier
-                                    .fillMaxWidth(0.8f)
-                                    .padding(top = 20.dp, bottom = 20.dp),
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth(0.8f)
+                                        .padding(top = 20.dp, bottom = 20.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.Center
                                 ) {
-                                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-                                    Text(text = " Add Course  " , fontSize = 14.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
+                                    Icon(
+                                        imageVector = Icons.Default.Add,
+                                        contentDescription = "Add",
+                                        tint = Color.Black,
+                                        modifier = Modifier.padding(end = 20.dp)
+                                    )
+                                    Text(
+                                        text = " Add Course  ",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = Color.Black
+                                    )
                                 }
                             }
                         }
 
                         Spacer(modifier = Modifier.height(50.dp))
 
-                        for(item in itemList) {
+                        LazyColumn() {
 
-                            Card(
+                            items(itemList) { item ->
 
-                                modifier = Modifier
-                                    .fillMaxWidth(0.8f)
-                                    .height(100.dp),
 
-                                elevation = CardDefaults.cardElevation(2.dp),
-                                shape = RoundedCornerShape(30.dp),
-                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+                                Card(
 
-                            ) {
-
-                                Box(
                                     modifier = Modifier
-                                        .fillMaxSize(),
-                                    contentAlignment = Alignment.Center
+                                        .fillMaxWidth(0.8f)
+                                        .height(100.dp)
+                                        .clickable { navController.navigate("CourseContentAdminScreen") },
+
+                                    elevation = CardDefaults.cardElevation(2.dp),
+                                    shape = RoundedCornerShape(30.dp),
+                                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+
                                 ) {
 
-                                    Row ( modifier = Modifier
-                                        .fillMaxWidth(0.8f)
-                                        .padding(top = 20.dp, bottom = 20.dp),
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.Center) {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize(),
+                                        contentAlignment = Alignment.Center
+                                    ) {
 
-                                        Icon(imageVector = Icons.Default.Description, contentDescription = "Description", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
+                                        Row(
+                                            modifier = Modifier
+                                                .fillMaxWidth(0.8f)
+                                                .padding(top = 20.dp, bottom = 20.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.Center
+                                        ) {
 
-                                        Text(text = "$item" , fontSize = 14.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
+                                            Icon(
+                                                imageVector = Icons.Default.Description,
+                                                contentDescription = "Description",
+                                                tint = Color.Black,
+                                                modifier = Modifier.padding(end = 20.dp)
+                                            )
+
+                                            Text(
+                                                text = "$item",
+                                                fontSize = 14.sp,
+                                                fontWeight = FontWeight.SemiBold,
+                                                color = Color.Black
+                                            )
+                                        }
                                     }
                                 }
+
+                                Spacer(modifier = Modifier.height(55.dp))
                             }
 
-                            Spacer(modifier = Modifier.height(55.dp))
-                        }
+                    }
                     }
                 }
             }

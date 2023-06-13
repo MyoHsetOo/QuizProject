@@ -29,6 +29,7 @@ import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.navigation.Nav
 import com.example.quizproject.ui.theme.QuizProjectThem
+import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.CourseListScreen
 import com.example.quizproject.userScreens.FavoriteScreen
 import com.example.quizproject.userScreens.HomeScreen
