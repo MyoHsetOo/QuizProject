@@ -76,13 +76,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.quizproject.dataModel.Answer
 import java.util.function.IntConsumer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuestionEntryForm () {
+fun QuestionEntryForm ( navController: NavController ) {
 
     var imageUriQuestion by remember {
         mutableStateOf<Uri?>(null)
@@ -767,12 +768,14 @@ fun QuestionEntryForm () {
 
                     ) {
                     Button(
-                        onClick = {  },
+                        onClick = {
+                                  navController.popBackStack()
+                        },
                         modifier = Modifier.padding(horizontal = 10.dp)
                     ) {
 
                         Text(
-                            text = "Cancel", style = TextStyle(
+                            text = "Back", style = TextStyle(
                                 color = Color.Black,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold

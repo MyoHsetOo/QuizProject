@@ -51,20 +51,21 @@ fun QuestionList(navController: NavController) {
         Question("Question", 3)
     )
 
-    Surface(modifier = Modifier.background( MaterialTheme.colorScheme.secondary)) {
-        Column(modifier = Modifier.background( MaterialTheme.colorScheme.secondary))  {
+    Surface(
+        color = MaterialTheme.colorScheme.secondary
+    ) {
+        Column (
+
+        ){
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
-                    .background(MaterialTheme.colorScheme.secondary)
 
             ) {
                 Row {
                     Box(modifier = Modifier.padding(10.dp)
-                        .clickable { navController.popBackStack() }
-                    )
-                    {
+                        .clickable { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "back",
                             tint = Color.Black)
                     }
@@ -78,17 +79,14 @@ fun QuestionList(navController: NavController) {
             }
            // Spacer(modifier = Modifier.height(20.dp))
             Column(modifier=Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.secondary),
+                .fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
-
             ) {
                 LazyColumn {
                     items(list) { item ->
                         Button(
-                            onClick = { navController.navigate("QuestionScreen")
-                                      },
+                            onClick = { navController.navigate("QuestionScreen")},
                             modifier = Modifier
                                 .fillMaxWidth(0.8f)
                                 .fillMaxHeight(),

@@ -266,9 +266,9 @@ fun CourseListAdminScreen(navController: NavController) {
 
                         Spacer(modifier = Modifier.height(50.dp))
 
-                        LazyColumn() {
 
-                            items(itemList) { item ->
+
+                            for (item in itemList) { 
 
 
                                 Card(
@@ -318,7 +318,7 @@ fun CourseListAdminScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(55.dp))
                             }
 
-                    }
+
                     }
                 }
             }

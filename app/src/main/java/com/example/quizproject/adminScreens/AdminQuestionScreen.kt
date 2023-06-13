@@ -1,6 +1,7 @@
 package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,11 +32,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminQuestionScreen(){
+fun AdminQuestionScreen(navController: NavController){
     Scaffold(
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
@@ -44,10 +46,15 @@ fun AdminQuestionScreen(){
                     modifier = Modifier.fillMaxWidth()) {
 
 
-                    Row(modifier = Modifier.padding(10.dp)) {
+                    Row(modifier = Modifier.padding(10.dp)
+                        ) {
                         Icon(
                             Icons.Default.ArrowBack, contentDescription = "back",
-                            tint = Color.Black)
+                            tint = Color.Black,
+                            modifier = Modifier
+                                .clickable {
+                                    navController.popBackStack()
+                                })
 
                         Text(text = "FE Class",
                             style = TextStyle(
@@ -77,7 +84,8 @@ fun AdminQuestionScreen(){
             Column(modifier = Modifier.padding(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Spacer(modifier = Modifier.height(50.dp))
-                Text(text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating.")
+                Text(text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating.",
+                    color = Color.Black)
 
 
 
@@ -113,7 +121,8 @@ fun AdminQuestionScreen(){
 
                 Button(modifier = Modifier.padding(top=30.dp),onClick = { /*TODO*/ },
                 ) {
-                    Text(text = "Submit")
+                    Text(text = "Submit",
+                        color = Color.Black)
                 }
 
 

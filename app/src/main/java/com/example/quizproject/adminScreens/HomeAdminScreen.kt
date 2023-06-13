@@ -98,15 +98,20 @@ fun HomeAdminScreen ( navController: NavController ) {
                     verticalAlignment = Alignment.CenterVertically
                 ){
                     Box(
-                        modifier = Modifier.padding(8.dp)
+                        modifier = Modifier
+                            .padding(8.dp)
                             .clickable { navController.popBackStack() }
 
                     ){
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                        Icon(imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "back",
+                            tint = Color.Black
+                        )
                     }
-                    Text(text = "Old Question", style = TextStyle(
+                    Text(text = "Quizz", style = TextStyle(
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
                     ))
                 }
             }
@@ -153,7 +158,8 @@ fun HomeAdminScreen ( navController: NavController ) {
                                 ){
                                     Text(text = "Choose your Category", style = TextStyle(
                                         fontSize = 20.sp,
-                                        fontWeight = FontWeight.ExtraBold
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color.Black
                                     ))
                                 }
                                 Box(
@@ -195,8 +201,11 @@ fun HomeAdminScreen ( navController: NavController ) {
                                         .height(60.dp),
                                     border = BorderStroke(1.dp, Color.Black),
                                     elevation = ButtonDefaults.buttonElevation(5.dp),
+
                                 ) {
-                                    Icon(imageVector = Icons.Default.Add, contentDescription = "add")
+                                    Icon(imageVector = Icons.Default.Add,
+                                        contentDescription = "add",
+                                        tint = Color.Black)
 
                                 }
 
@@ -210,7 +219,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                                         ) },
                                         containerColor = MaterialTheme.colorScheme.secondary,
                                         icon = {
-                                               Icon(imageVector = Icons.Default.BorderColor, contentDescription = "Heart", tint = MaterialTheme.colorScheme.primary )
+                                               Icon(imageVector = Icons.Default.BorderColor, contentDescription = "Heart", tint = Color.Black )
                                         },
                                         text = {
 
@@ -220,8 +229,8 @@ fun HomeAdminScreen ( navController: NavController ) {
                                                 colors = OutlinedTextFieldDefaults.colors(
                                                     unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                                                     focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                                    focusedBorderColor = MaterialTheme.colorScheme.primary,
-                                                    unfocusedBorderColor = MaterialTheme.colorScheme.primary,
+                                                    focusedBorderColor = Color.Black,
+                                                    unfocusedBorderColor = Color.Black,
                                                     unfocusedTextColor = Color.Black,
                                                     focusedTextColor = Color.Black
 
@@ -232,13 +241,11 @@ fun HomeAdminScreen ( navController: NavController ) {
                                         confirmButton = {
                                             Button(onClick = { isAddingBatch = false
 
-                                                /*if(textFieldValue.value.isNotEmpty()) {
-                                                    itemList.add(textFieldValue.value)
-                                                }*/
-
                                                 addBatchTextField.value = ""
 
-                                            }) {
+                                            },
+                                               colors = ButtonDefaults.buttonColors(Color.Black)
+                                                ) {
                                                 Text(text = "Submit")
                                             }
                                         }
@@ -258,7 +265,8 @@ fun HomeAdminScreen ( navController: NavController ) {
                                     ) {
                                     Text(text = "ITPEC", style = TextStyle(
                                         fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.Black
                                     ))
 
                                 }
@@ -277,7 +285,9 @@ fun HomeAdminScreen ( navController: NavController ) {
                                 ) {
                                     Text(text = "Japanese", style = TextStyle(
                                         fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.Black
+
                                     ))
                                 }
                             }
