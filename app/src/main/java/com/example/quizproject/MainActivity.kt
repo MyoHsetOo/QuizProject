@@ -58,7 +58,8 @@ class MainActivity : ComponentActivity() {
             QuizProjectThem {
                 // A surface container using the 'background' color from the theme
               //  HomeScreen()
-Nav()            }
+                AdminQuestionScreen()
+           }
         }
     }
 }

@@ -65,6 +65,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 import kotlinx.coroutines.launch
 
@@ -72,7 +73,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 //////
-fun QuestionScreen() {
+fun QuestionScreen(navController: NavController) {
 
     val scaffoldState = rememberBottomSheetScaffoldState()
 
@@ -190,19 +191,18 @@ fun QuestionScreen() {
             }
 
             Card(
-
                 modifier = Modifier.padding(15.dp),
                 onClick = {},
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.secondary
                 )
-
             ) {
                 Box (
                     modifier = Modifier.padding(15.dp)
                 ){
 
-                    Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                    Text(
+                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(color = Color.Black)
                     )
 
@@ -222,7 +222,8 @@ fun QuestionScreen() {
                     modifier = Modifier.padding(15.dp)
                 ){
 
-                    Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                    Text(
+                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(color = Color.Black)
                     )
 

@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -46,7 +47,7 @@ import androidx.navigation.NavController
 import com.example.quizproject.userScreens.Question
 
 @Composable
-fun AdminQuestionList(navController: NavController){
+fun AdminQuestionList(){
 
     val itemList = remember { mutableStateListOf<String>() }
     val textFieldValue = remember { mutableStateOf("") }
@@ -71,9 +72,10 @@ fun AdminQuestionList(navController: NavController){
                     .background(MaterialTheme.colorScheme.secondary)
             ) {
                 Row {
-                    Box(modifier = Modifier.padding(10.dp)
+                    Box(modifier = Modifier
+                        .padding(10.dp)
                         .clickable {
-                            navController.popBackStack()
+                            // navController.popBackStack()
                         }) {
                         Icon(
                             Icons.Default.ArrowBack, contentDescription = "back",
@@ -127,9 +129,9 @@ fun AdminQuestionList(navController: NavController){
                     )
                 }
 
-                Button(
+                  Button(
                     onClick = {
-                              navController.navigate("QuestionEntryForm")
+                              //navController.navigate("QuestionEntryForm")
                     },
                     modifier = Modifier,
                     shape = RoundedCornerShape(20.dp),
@@ -155,41 +157,40 @@ fun AdminQuestionList(navController: NavController){
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Column(modifier=Modifier.fillMaxSize(),
+            Column(
+                modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.CenterHorizontally) {
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
-            LazyColumn {
-                items(list) { item ->
-                    Button(
-                        onClick = {
-                                  navController.navigate("AdminQuestionScreen")
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth(0.8f)
-                            .fillMaxHeight(),
-                        shape = RoundedCornerShape(20.dp),
-                        elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
-                        colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
+                LazyColumn {
+                    items(list) { item ->
+                        Button(
+                            onClick = {
+                                // navController.navigate("AdminQuestionScreen")
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth(0.8f)
+                                .fillMaxHeight(),
+                            shape = RoundedCornerShape(20.dp),
+                            elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
+                            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
 
-                        ) {
-                        Text(
-                            text = item.question + " - " + item.number, style = TextStyle(
-                                color = Color.Black
+                            ) {
+                            Text(
+                                text = item.question + " - " + item.number, style = TextStyle(
+                                    color = Color.Black
+                                )
                             )
-                        )
+                        }
+                        Spacer(modifier = Modifier.height(20.dp))
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
                 }
             }
+            }
         }
-
-           
-        }
-
-
     }
-}
+
 data class Question(
 
     val question : String,
