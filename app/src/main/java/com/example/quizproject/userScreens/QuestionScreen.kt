@@ -242,47 +242,17 @@ fun QuestionScreen() {
                 }
 
             }
-
-
-
-
         }
-
     }
-
-
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun BottomSheetScaffoldNestedScrollSample() {
-
-
 }
 
 
-/*@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CustomBottomSheet() {
-
-    ModalBottomSheet(modifier = Modifier, sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = false), onDismissRequest = {
-    }, shape = RoundedCornerShape(
-        topStart = 10.dp,
-        topEnd = 10.dp
-    ),
-    ) {
-        CustomBottomSheetContainer()
-    }
-}*/
 
 
 
-/*@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CustomBottomSheetContainer() {
 
-}*/
+
+
 
 
 
