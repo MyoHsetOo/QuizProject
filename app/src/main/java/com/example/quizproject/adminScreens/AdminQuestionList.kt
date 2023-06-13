@@ -20,19 +20,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,14 +46,19 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.quizproject.userScreens.Question
 
 @Composable
-fun AdminQuestionList(){
+fun AdminQuestionList(navController: NavController){
 
-    val itemList = remember { mutableStateListOf<String>() }
-    val textFieldValue = remember { mutableStateOf("") }
-    val showAlert = remember { mutableStateOf(false) }
+    var isAddingBatch by remember {
+        mutableStateOf(false)
+    }
+
+    var addBatchTextField = remember {
+        mutableStateOf("")
+    }
 
     val context = LocalContext.current
     val list = listOf(
@@ -93,37 +103,9 @@ fun AdminQuestionList(){
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                if (showAlert.value) {
-                    AlertDialog(
-                        onDismissRequest = { showAlert.value = false },
-                        title = { Text(text = "Enter Book name") },
-                        text = {
-
-                            TextField(
-                                value = textFieldValue.value,
-                                onValueChange = { textFieldValue.value = it }
-                            )
-                        },
-                        confirmButton = {
-
-                            Button(onClick = {
-                                showAlert.value = false
-
-                                if (textFieldValue.value.isNotEmpty()) {
-                                    itemList.add(textFieldValue.value)
-                                }
-
-                                textFieldValue.value = ""
-
-                            }) {
-                                Text(text = "OK")
-                            }
-                        }
-                    )
-                }
 
                 Button(
-                    onClick = { showAlert.value = true },
+                    onClick = { navController.navigate("QuestionEntry") },
                     modifier = Modifier,
                     shape = RoundedCornerShape(20.dp),
                     elevation = ButtonDefaults.elevatedButtonElevation(10.dp),

@@ -134,7 +134,6 @@ fun CourseContent(navController: NavController){
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
                     Spacer(modifier = Modifier.width(20.dp))
                     Column {
                         Row(verticalAlignment = Alignment.CenterVertically,
@@ -156,7 +155,6 @@ fun CourseContent(navController: NavController){
 
                     Column(verticalArrangement = Arrangement.Center) {
                         Row(verticalAlignment = Alignment.CenterVertically,
-
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
                                 navController,

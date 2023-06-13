@@ -94,6 +94,12 @@ fun Nav() {
 
         }
 
+        composable(route = "QuestionEntry" ) {
+
+            CourseContent(navController)
+
+        }
+
 
 
         //Admin Screen
