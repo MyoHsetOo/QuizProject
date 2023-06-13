@@ -215,7 +215,8 @@ fun BookListAdminScreen (navController: NavController) {
                                     .width(250.dp)
                                     .height(150.dp)
                                     .padding(start = 20.dp, end = 20.dp)
-                                    .clickable { navController.navigate("ChapterAdminScreen") },
+                                    ,
+                                onClick = { navController.navigate("ChapterAdminScreen")} ,
                                 elevation = CardDefaults.cardElevation(2.dp),
                                 shape = RoundedCornerShape(30.dp),
                                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),

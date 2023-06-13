@@ -5,7 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.quizproject.adminScreens.BookListAdminScreen
-import com.example.quizproject.adminScreens.ChapterScreenAdmin
+import com.example.quizproject.adminScreens.ChapterAdminScreen
+import com.example.quizproject.adminScreens.CourseContentAdminScreen
 import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.adminScreens.HomeAdminScreen
 import com.example.quizproject.userScreens.AdminUserConnectedScreen
@@ -116,7 +117,7 @@ fun Nav() {
 
         //CourseContentAdminScreen
         composable(route = "CourseContentAdminScreen") {
-            CourseListAdminScreen(navController)
+            CourseContentAdminScreen(navController)
         }
 
         //BookListAdminScreen
@@ -125,8 +126,8 @@ fun Nav() {
         }
 
         //ChpterAdminScreen
-        composable(route = "Chapter") {
-            ChapterScreenAdmin(navController)
+        composable(route = "ChapterAdminScreen") {
+            ChapterAdminScreen(navController)
         }
 
 
