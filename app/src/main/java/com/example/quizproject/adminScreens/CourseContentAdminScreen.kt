@@ -1,8 +1,6 @@
 package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
-import android.service.autofill.OnClickAction
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -56,7 +54,8 @@ fun CourseContentAdminScreen(navController: NavController){
                     Row {
                         Box(modifier = Modifier
                             .padding(10.dp)
-                            .clickable { navController.popBackStack() }) {
+                            .clickable { navController.popBackStack() }
+                        ) {
                             Icon(
                                 Icons.Default.ArrowBack, contentDescription = "back",
                                 tint = Color.Black)
@@ -113,25 +112,17 @@ fun CourseContentAdminScreen(navController: NavController){
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
-                                modifier = Modifier.size(150.dp).clickable {
-
-                                    navController.navigate("BookListAdminScreen")
-                                                                           Log.d("Click>>>>>>","click")
-                                                                           },
-
-
+                                modifier = Modifier
+                                    .clickable { navController.navigate("BookListAdminScreen") }
+                                ,
                                 text = "Teach"
-
                             )
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
-                                modifier = Modifier.size(150.dp).clickable {    }
-                                ,
+                                modifier = Modifier
+                                    .clickable {  },
                                 text = "Test"
-
-
-
                             )
                         }
                     }
@@ -143,14 +134,13 @@ fun CourseContentAdminScreen(navController: NavController){
 }
 
 @Composable
-fun CustomCard(modifier:Modifier, text:String ){
-    Card (modifier = modifier ,
+fun CustomCard(modifier:Modifier, text:String){
+    Card (
+        modifier=Modifier.size(150.dp),
         elevation = CardDefaults.cardElevation(10.dp),
-
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
     ){
         Box(modifier = Modifier.fillMaxSize(),
-
             contentAlignment = Alignment.Center
         ){ Text(text = text,
             style = TextStyle(
