@@ -30,6 +30,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
+
+/////
 @Composable
 fun ImageAddTest( ) {
 
@@ -61,8 +63,6 @@ fun ImageAddTest( ) {
                 }
 
                 bitmap.value?.let { btn ->
-
-
                     /*Image(
                         bitmap = btn.asImageBitmap(),
                         contentDescription = null,
@@ -73,8 +73,6 @@ fun ImageAddTest( ) {
 
                 }
 
-
-
             }
             
             Spacer(modifier = Modifier.height(12.dp))
@@ -83,11 +81,7 @@ fun ImageAddTest( ) {
                 
                 Text(text = "Pick Image")
 
-
             }
 
         }
-
-
-
 }
