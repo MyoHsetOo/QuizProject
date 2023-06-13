@@ -239,7 +239,9 @@ fun QuestionScreen(navController: NavController) {
 
                 Button(modifier = Modifier.padding(top=30.dp),onClick = { /*TODO*/ },
                 ) {
-                    Text(text = "Submit")
+                    Text(text = "Submit",
+                        color = Color.Black
+                    )
                 }
 
             }

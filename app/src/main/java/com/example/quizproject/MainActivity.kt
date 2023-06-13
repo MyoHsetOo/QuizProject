@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.quizproject.adminScreens.AdminQuestionList
+import com.example.quizproject.adminScreens.AdminQuestionScreen
 import com.example.quizproject.adminScreens.BookListAdminScreen
 import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm

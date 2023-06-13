@@ -51,8 +51,12 @@ fun QuestionList(navController: NavController) {
         Question("Question", 3)
     )
 
-    Surface(modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary)) {
-        Column {
+    Surface(
+        color = MaterialTheme.colorScheme.secondary
+    ) {
+        Column (
+
+        ){
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

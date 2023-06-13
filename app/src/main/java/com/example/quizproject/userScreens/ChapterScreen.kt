@@ -70,11 +70,16 @@ fun ChapterScreen( navController: NavController) {
                             .clickable { navController.popBackStack() }
 
                     ){
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                        Icon(imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "back",
+                            tint = Color.Black
+                        )
                     }
-                    Text(text = "Old Question", style = TextStyle(
+                    Text(text = " Information Technology - Vol.1", style = TextStyle(
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+
                     )
                     )
                 }
