@@ -10,6 +10,12 @@ var answerImage : String,
 
 )
 
+class Chapter (
+
+    var chapterNo : Int,
+    var chapterName : String,
+)
+
 //////
 
 
