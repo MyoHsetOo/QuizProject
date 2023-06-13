@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.example.quizproject.adminScreens.AdminQuestionList
 import com.example.quizproject.adminScreens.AdminQuestionScreen
 import com.example.quizproject.adminScreens.BookListAdminScreen
+import com.example.quizproject.adminScreens.CourseContentAdminScreen
 import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.navigation.Nav
@@ -37,6 +38,18 @@ import com.example.quizproject.userScreens.FavoriteScreen
 import com.example.quizproject.userScreens.HomeScreen
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +58,7 @@ class MainActivity : ComponentActivity() {
             QuizProjectThem {
                 // A surface container using the 'background' color from the theme
               //  HomeScreen()
-                Nav()
-            }
+Nav()            }
         }
     }
 }
