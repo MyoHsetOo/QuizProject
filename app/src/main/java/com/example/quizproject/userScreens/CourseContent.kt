@@ -186,7 +186,7 @@ fun CourseContent(navController: NavController){
 
 @Composable
 fun CustomCard( modifier: Modifier,text:String, icon:Int){
-    Card (modifier = Modifier
+    Card (modifier = modifier
         .size(150.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
