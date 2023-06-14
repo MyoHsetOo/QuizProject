@@ -64,97 +64,52 @@ fun AdminQuestionScreen(){
     var isOnClick by remember {
         mutableStateOf(false)
     }
-    Scaffold(
+
+
+    BottomSheetScaffold(
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .background(MaterialTheme.colorScheme.secondary),
         containerColor = MaterialTheme.colorScheme.secondary,
+        sheetContainerColor = MaterialTheme.colorScheme.primary,
+        sheetContentColor = Color.Black,
+        sheetShadowElevation = 10.dp,
+        sheetShape = RoundedCornerShape(40.dp),
+        sheetContent = {
+            Column (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .background(MaterialTheme.colorScheme.primary),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Text(text = "Solution", style = TextStyle(
+                    fontSize = 12.sp
+                ))
+            }
+        },
+        scaffoldState = scaffoldState,
+        sheetPeekHeight = 80.dp,
         topBar = {
             Column {
-                Row(horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()) {
-
-
-                    Row(modifier = Modifier.padding(10.dp)
-                        ) {
-                        Icon(
-                            Icons.Default.ArrowBack, contentDescription = "back",
-                            tint = Color.Black,
-                            modifier = Modifier
-                                .clickable {
-                                    //navController.popBackStack()
-                                })
-                        
-                        Spacer(modifier = Modifier.width(10.dp))
-
-                        Text(text = "2023 April ",
-                            style = TextStyle(
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp
-                            )
-                        )
-                    }
-                    Row(modifier = Modifier.padding(10.dp),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        Icon(
-                            Icons.Default.Edit, contentDescription = "back",
-                            tint = Color.Black)
-                        
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Icon(
-                            Icons.Default.Delete, contentDescription = "back",
-                            tint = Color.Black)
-                    }
-                }
-            }
-            Spacer(modifier = Modifier.height(80.dp))
-        },
-        content = {
-            BottomSheetScaffold(
-                modifier = Modifier
-                    .nestedScroll(scrollBehavior.nestedScrollConnection)
-                    .background(MaterialTheme.colorScheme.secondary),
-                containerColor = MaterialTheme.colorScheme.secondary,
-                sheetContainerColor = MaterialTheme.colorScheme.primary,
-                sheetContentColor = Color.Black,
-                sheetShadowElevation = 10.dp,
-                sheetShape = RoundedCornerShape(40.dp),
-                sheetContent = {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight()
-                            .background(MaterialTheme.colorScheme.primary),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Solution", style = TextStyle(
-                                fontSize = 12.sp
-                            )
-                        )
-                    }
-
-                },
-
-               /* scaffoldState = scaffoldState,
-                sheetPeekHeight = 80.dp,
-                topBar = {
-
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceBetween,
+                    Row(horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier.fillMaxWidth()
-                    ) {
+                            .height(56.dp)) {
 
 
-                        Row(modifier = Modifier.padding(10.dp)) {
+                        Row(modifier = Modifier.padding(10.dp)
+                        ) {
                             Icon(
                                 Icons.Default.ArrowBack, contentDescription = "back",
-                                tint = Color.Black
-                            )
+                                tint = Color.Black,
+                                modifier = Modifier
+                                    .clickable {
+                                        //navController.popBackStack()
+                                    })
 
                             Spacer(modifier = Modifier.width(10.dp))
 
-                            Text(
-                                text = "2023 April-Q2 ",
+                            Text(text = "2023 April ",
                                 style = TextStyle(
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
@@ -162,144 +117,144 @@ fun AdminQuestionScreen(){
                                 )
                             )
                         }
-                        Row(
-                            modifier = Modifier
-                                .padding(10.dp)
-                                .clickable { },
-                            horizontalArrangement = Arrangement.End,
-
-                            ) {
-                            Icon(
-                                Icons.Default.Favorite, contentDescription = "back",
-                                tint = Color.Black
-                            )
-                        }
-                    }
-                },*/
-            ) {
-                innerPadding ->
-
-                Column (
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .fillMaxSize(),
-                ) {
-
-                    Text(text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating."
-                        , style = TextStyle(
-                            color = Color.Black
-                        ),
-                        modifier = Modifier.padding(5.dp)
-                    )
-                    Card(
-                        modifier = Modifier
-                            .padding(10.dp)
-                            .fillMaxWidth(),
-                        onClick = { isOnClick = !isOnClick
-                            Log.d("CardColor>>>>","$isOnClick")
-                        },
-                        colors = CardDefaults.cardColors(
-                            containerColor = if ( isOnClick ) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
-                        )
-
-                    ) {
-                        Row {
-
-                            IconButton(onClick = {}) {
-                                Icon(Icons.Default.Check, contentDescription = "Localized description", tint = Color.Black, modifier = Modifier.size(20.dp))
-                            }
-
-                            Box (
-                                modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
-                            ){
-                                Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                                    style = TextStyle(color = Color.Black)
-                                )
-
-                            }
-
-                        }
-
-
-                    }
-
-                    Card(
-                        modifier = Modifier.padding(15.dp),
-                        onClick = {},
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.secondary
-                        )
-                    ) {
-                        Box (
-                            modifier = Modifier.padding(15.dp)
-                        ){
-
-                            Text(
-                                text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                                style = TextStyle(color = Color.Black)
-                            )
-
-                        }
-                    }
-
-                    Card(
-
-                        modifier = Modifier.padding(10.dp),
-
-                        onClick = {},
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.secondary
-                        )
-                    ) {
-                        Box (
-                            modifier = Modifier.padding(15.dp)
-                        ){
-
-                            Text(
-                                text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                                style = TextStyle(color = Color.Black)
-                            )
-
-                        }
-                    }
-
-                    Card(
-
-                        modifier = Modifier.padding(15.dp),
-                        onClick = {},
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.secondary
-                        )
-
-                    ) {
-                        Box (
-                            modifier = Modifier.padding(15.dp)
-                        ){
-
-                            Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                                style = TextStyle(color = Color.Black)
-                            )
-
-                        }
-                    }
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ){
-
-                        Button(modifier = Modifier.padding(top=30.dp),onClick = { /*TODO*/ },
+                        Row(modifier = Modifier.padding(10.dp),
+                            horizontalArrangement = Arrangement.End
                         ) {
-                            Text(text = "Submit",
-                                color = Color.Black
-                            )
-                        }
+                            Icon(
+                                Icons.Default.Edit, contentDescription = "back",
+                                tint = Color.Black)
 
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Icon(
+                                Icons.Default.Delete, contentDescription = "back",
+                                tint = Color.Black)
+                        }
                     }
                 }
-        }
+            },
+    ) { innerPadding ->
 
-}
-    )
+        Column (
+
+            modifier = Modifier
+                .padding(10.dp)
+                .fillMaxSize(),
+        ) {
+
+            Text(text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating."
+                , style = TextStyle(
+                    color = Color.Black
+                ),
+                modifier = Modifier.padding(5.dp)
+            )
+            Card(
+
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(),
+                onClick = { isOnClick = !isOnClick
+                    Log.d("CardColor>>>>","$isOnClick")
+                },
+                colors = CardDefaults.cardColors(
+                    containerColor = if ( isOnClick ) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+                )
+
+            ) {
+                Row {
+
+                    IconButton(onClick = {}) {
+                        Icon(Icons.Default.Check, contentDescription = "Localized description", tint = Color.Black, modifier = Modifier.size(20.dp))
+                    }
+
+
+                    Box (
+                        modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
+                    ){
+                        Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                            style = TextStyle(color = Color.Black)
+                        )
+
+                    }
+
+                }
+
+
+            }
+
+            Card(
+                modifier = Modifier.padding(15.dp),
+                onClick = {},
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondary
+                )
+            ) {
+                Box (
+                    modifier = Modifier.padding(15.dp)
+                ){
+
+                    Text(
+                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                        style = TextStyle(color = Color.Black)
+                    )
+
+                }
+            }
+
+            Card(
+
+                modifier = Modifier.padding(10.dp),
+
+                onClick = {},
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondary
+                )
+            ) {
+                Box (
+                    modifier = Modifier.padding(15.dp)
+                ){
+
+                    Text(
+                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                        style = TextStyle(color = Color.Black)
+                    )
+
+                }
+            }
+
+            Card(
+
+                modifier = Modifier.padding(15.dp),
+                onClick = {},
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondary
+                )
+
+            ) {
+                Box (
+                    modifier = Modifier.padding(15.dp)
+                ){
+
+                    Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                        style = TextStyle(color = Color.Black)
+                    )
+
+                }
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ){
+
+                Button(modifier = Modifier.padding(top=30.dp),onClick = { /*TODO*/ },
+                ) {
+                    Text(text = "Submit",
+                        color = Color.Black
+                    )
+                }
+
+            }
+        }
+    }
 }
 
