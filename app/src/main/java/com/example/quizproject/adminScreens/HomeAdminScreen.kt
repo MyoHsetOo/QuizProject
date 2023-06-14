@@ -27,6 +27,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -105,10 +106,17 @@ fun HomeAdminScreen ( navController: NavController ) {
                             }
 
                     ){
-                        Icon(imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "back",
-                            tint = Color.Black
-                        )
+
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "back",
+                                tint = Color.Black
+                            )
+
+                        }
+
                     }
                     Text(text = "Quizz", style = TextStyle(
                         fontSize = 18.sp,
