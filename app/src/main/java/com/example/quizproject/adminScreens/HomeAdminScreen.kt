@@ -144,9 +144,6 @@ fun HomeAdminScreen ( navController: NavController ) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    //.background(Color.LightGray)
-                                    //.padding(vertical = 20.dp)
-                                    .fillMaxWidth()
                                     .fillMaxHeight(0.4f),
                             ){
                                 Box(
@@ -192,8 +189,6 @@ fun HomeAdminScreen ( navController: NavController ) {
 
                                 Button(
                                     onClick = {
-                                              isAddingBatch = !isAddingBatch
-
                                         navController.navigate("CourseListAdminScreen")
                                     },
                                     modifier = Modifier
@@ -218,6 +213,7 @@ fun HomeAdminScreen ( navController: NavController ) {
 
                                         Text(text = "ITPEC" , style = TextStyle(
                                             fontSize = 14.sp,
+                                            color = Color.Black
                                         ), modifier = Modifier.padding(end = 5.dp)
                                         )
                                     }
@@ -291,6 +287,7 @@ fun HomeAdminScreen ( navController: NavController ) {
 
                                         Text(text = "Japanese" , style = TextStyle(
                                             fontSize = 14.sp,
+                                            color = Color.Black,
                                         ), modifier = Modifier.padding(end = 5.dp)
                                         )
                                     }

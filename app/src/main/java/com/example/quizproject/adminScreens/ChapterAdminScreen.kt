@@ -87,7 +87,9 @@ fun ChapterAdminScreen( navController: NavController ) {
                 verticalAlignment = Alignment.CenterVertically,
 
                 ){
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = {
+                    navController.popBackStack()
+                }) {
                     Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
                 }
 
@@ -126,7 +128,6 @@ fun ChapterAdminScreen( navController: NavController ) {
                                 )
                                 chapterList.add(chapter)
                                 Log.d("Size>>>", "${chapterList.size}")
-
                             },
                         shape = RoundedCornerShape(20.dp),
                         elevation = CardDefaults.cardElevation(5.dp),
@@ -160,9 +161,7 @@ fun ChapterAdminScreen( navController: NavController ) {
                             value = addChapterField.value,
                             enabled = true,
                             onValueChange = { addChapterField.value = it },
-                            modifier = Modifier
-
-                                ,
+                            modifier = Modifier,
                             maxLines = 1,
                             colors = TextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,

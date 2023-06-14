@@ -31,6 +31,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -62,7 +63,7 @@ import com.example.quizproject.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CourseListAdminScreen() {
+fun CourseListAdminScreen( navController: NavController ) {
 ////
     val itemList = remember { mutableStateListOf<String>() }
     val addCourseTextField = remember { mutableStateOf("") }
@@ -118,7 +119,12 @@ fun CourseListAdminScreen() {
                             }
 
                     ){
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
+                        }
+
                     }
 
 
@@ -157,21 +163,11 @@ fun CourseListAdminScreen() {
                     }
                 }
 
-               /* Box (
-                    modifier = Modifier
-                        .padding(start = 15.dp)
-                        .clickable {
-                           // navController.popBackStack()
-                        }
-                ) {*/
                     Text(text = "Course Lists" , style = TextStyle(
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
 
                     ), modifier = Modifier.padding( start = 15.dp, bottom = 20.dp) )
-                //}
-
-
 
                 if ( isAddingCourse ) {
 
@@ -199,7 +195,6 @@ fun CourseListAdminScreen() {
                                     focusedTextColor = Color.Black
 
                                 )
-
                             )
                         },
                         confirmButton = {
@@ -229,7 +224,7 @@ fun CourseListAdminScreen() {
                         modifier = Modifier
                             .fillMaxWidth()
 
-                            .padding( 30.dp)
+                            .padding(30.dp)
                             .verticalScroll(rememberScrollState()),
                         horizontalAlignment = Alignment.CenterHorizontally,
 
@@ -240,22 +235,20 @@ fun CourseListAdminScreen() {
 
                             Card(
                                 modifier = Modifier
-                                    .padding(  20.dp )
+                                    .padding(20.dp)
                                     .fillMaxWidth()
                                     .height(80.dp)
-                                    .clickable { isAddingCourse = !isAddingCourse },
-
+                                    .clickable {
+                                               navController.navigate("CourseContentAdminScreen")
+                                    },
                                 elevation = CardDefaults.cardElevation(2.dp),
                                 //shape = RoundedCornerShape( topStart = 20.dp, bottomEnd = 20.dp),
                                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
                             ) {
-
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize(),
-
                                     ) {
-
                                     Row(
                                         modifier = Modifier
                                             .fillMaxWidth()
@@ -284,7 +277,7 @@ fun CourseListAdminScreen() {
 
                         Card(
                             modifier = Modifier
-                                .padding(  20.dp )
+                                .padding(20.dp)
                                 .fillMaxWidth()
                                 .height(80.dp)
                                 .clickable { isAddingCourse = !isAddingCourse },
@@ -323,9 +316,6 @@ fun CourseListAdminScreen() {
                                 }
                             }
                         }
-
-
-
                     }
                 }
             }
