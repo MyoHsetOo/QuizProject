@@ -80,7 +80,9 @@ fun HomeScreen (navController: NavController) {
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ){
-                    IconButton(onClick = { navController.popBackStack() }){
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }){
                         Icon(imageVector = Icons.Default.ArrowBack,
                             contentDescription = "back",
                             tint = Color.Black)
@@ -137,7 +139,7 @@ fun HomeScreen (navController: NavController) {
                                         fontSize = 20.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = Color.Black
-                                    ))
+                                    ), modifier = Modifier.padding( start = 15.dp))
                                 }
                                 Box(
                                     modifier = Modifier.height(700.dp),
@@ -165,7 +167,9 @@ fun HomeScreen (navController: NavController) {
 
                             ){
                                 Button(
-                                    onClick = { navController.navigate("CourseListScreen") },
+                                    onClick = {
+                                        navController.navigate("CourseListScreen")
+                                    },
                                     modifier = Modifier
                                         .padding(
                                             horizontal = 20.dp,
@@ -173,19 +177,31 @@ fun HomeScreen (navController: NavController) {
                                         )
                                         .fillMaxWidth()
                                         .height(60.dp),
-                                    border = BorderStroke(1.dp, Color.Black),
-                                    elevation = ButtonDefaults.buttonElevation(5.dp),
-                                    ) {
-                                    Text(text = "ITPEC", style = TextStyle(
-                                        fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = Color.Black
-                                    ))
+                                    shape = RoundedCornerShape(20.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.secondary
+                                    ),
+                                    elevation = ButtonDefaults.buttonElevation(10.dp),
 
+                                    ) {
+
+                                    Row (
+                                        modifier = Modifier.padding(5.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ){
+
+                                        Text(text = "ITPEC" , style = TextStyle(
+                                            fontSize = 14.sp,
+                                            color = Color.Black
+                                        ), modifier = Modifier.padding(end = 5.dp)
+                                        )
+                                    }
                                 }
                                 //Spacer( modifier = Modifier.height(3.dp))
                                 Button(
-                                    onClick = { navController.navigate("CourseListScreen") },
+                                    onClick = {
+                                        navController.navigate("CourseListScreen")
+                                    },
                                     modifier = Modifier
                                         .padding(
                                             horizontal = 20.dp,
@@ -193,15 +209,25 @@ fun HomeScreen (navController: NavController) {
                                         )
                                         .fillMaxWidth()
                                         .height(60.dp),
-                                    border = BorderStroke(1.dp, Color.Black),
-                                    elevation = ButtonDefaults.buttonElevation(5.dp),
-                                ) {
-                                    Text(text = "Japanese", style = TextStyle(
-                                        fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = Color.Black
+                                    shape = RoundedCornerShape(20.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.secondary
+                                    ),
+                                    elevation = ButtonDefaults.buttonElevation(10.dp),
 
-                                    ))
+                                    ) {
+
+                                    Row (
+                                        modifier = Modifier.padding(5.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ){
+
+                                        Text(text = "Japanese" , style = TextStyle(
+                                            fontSize = 14.sp,
+                                            color = Color.Black
+                                        ), modifier = Modifier.padding(end = 5.dp)
+                                        )
+                                    }
                                 }
                             }
                         }

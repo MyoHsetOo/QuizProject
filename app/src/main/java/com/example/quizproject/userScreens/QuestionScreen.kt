@@ -110,34 +110,41 @@ fun QuestionScreen(navController: NavController) {
         sheetPeekHeight = 80.dp,
         topBar = {
 
-            Row(horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
 
-
-                Row(modifier = Modifier.padding(10.dp)) {
-                    Icon(
-                        Icons.Default.ArrowBack, contentDescription = "back",
-                        tint = Color.Black)
-                    
-                    Spacer(modifier = Modifier.width(10.dp))
-
+                Row(
+                    modifier = Modifier.padding(10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            Icons.Default.ArrowBack, contentDescription = "back",
+                            tint = Color.Black)
+                    }
                     Text(text = "2023 April-Q2 ",
                         style = TextStyle(
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp
+                            fontSize = 16.sp,
                         )
                     )
                 }
-                Row(modifier = Modifier
+                Row(
+                    modifier = Modifier
                     .padding(10.dp)
-                    .clickable {  },
+                    .clickable { },
                     horizontalArrangement = Arrangement.End,
-
                 ) {
-                    Icon(
-                        Icons.Default.Favorite, contentDescription = "back",
-                        tint = Color.Black)
+
+                    IconButton(onClick = { navController.popBackStack() }) {
+
+                        Icon(imageVector = Icons.Default.Favorite, contentDescription = "back", tint = MaterialTheme.colorScheme.onPrimary)
+                    }
+
                 }
             }
                  },
@@ -152,7 +159,8 @@ fun QuestionScreen(navController: NavController) {
 
             Text(text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating."
                 , style = TextStyle(
-                    color = Color.Black
+                    color = Color.Black,
+                    lineHeight = 25.sp,
                 ),
                 modifier = Modifier.padding(5.dp)
             )
@@ -180,7 +188,10 @@ fun QuestionScreen(navController: NavController) {
                         modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
                     ){
                         Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                            style = TextStyle(color = Color.Black)
+                            style = TextStyle(
+                                color = Color.Black,
+                                lineHeight = 25.sp,
+                            )
                         )
 
                     }
@@ -203,7 +214,10 @@ fun QuestionScreen(navController: NavController) {
 
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(color = Color.Black)
+                        style = TextStyle(
+                            color = Color.Black,
+                            lineHeight = 25.sp,
+                        )
                     )
 
                 }
@@ -224,7 +238,10 @@ fun QuestionScreen(navController: NavController) {
 
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(color = Color.Black)
+                        style = TextStyle(
+                            color = Color.Black,
+                            lineHeight = 25.sp,
+                        )
                     )
 
                 }
@@ -244,7 +261,10 @@ fun QuestionScreen(navController: NavController) {
                 ){
 
                     Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(color = Color.Black)
+                        style = TextStyle(
+                            color = Color.Black,
+                            lineHeight = 25.sp,
+                        )
                     )
 
                 }
