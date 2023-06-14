@@ -102,6 +102,12 @@ fun Nav() {
 
         }
 
+        composable(route = "QuestionEntry" ) {
+
+            CourseContent(navController)
+
+        }
+
 
 
         //Admin Screen
@@ -133,7 +139,7 @@ fun Nav() {
         }
 
         composable(route = "AdminQuestionList") {
-            AdminQuestionList(navController)
+           // AdminQuestionList(navController)
         }
 
 
@@ -143,7 +149,7 @@ fun Nav() {
 
 
         composable(route = "AdminQuestionScreen") {
-            AdminQuestionScreen(navController)
+           // AdminQuestionScreen(navController)
         }
 
 

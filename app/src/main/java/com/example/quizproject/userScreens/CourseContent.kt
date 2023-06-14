@@ -5,6 +5,7 @@ import android.graphics.drawable.Icon
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -55,6 +56,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -85,7 +88,8 @@ fun CourseContent(navController: NavController){
                 colors =TopAppBarDefaults.smallTopAppBarColors(MaterialTheme.colorScheme.secondary),
                 title = {
                     Row {
-                        Box(modifier = Modifier.padding(10.dp)
+                        Box(modifier = Modifier
+                            .padding(10.dp)
                             .clickable { navController.popBackStack() }) {
                             Icon(Icons.Default.ArrowBack, contentDescription = "back",
                                 tint = Color.Black)
@@ -135,19 +139,20 @@ fun CourseContent(navController: NavController){
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
                     Spacer(modifier = Modifier.width(20.dp))
                     Column {
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
-                                navController,
+                                modifier = Modifier.clickable { navController.navigate("BookListScreen")},
+                                icon= R.drawable.document,
                                 text = "FE"
                             )
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
-                                navController,
+                                modifier = Modifier.clickable { navController.navigate("BookListScreen")},
+                                icon= R.drawable.fav,
                                 text = "Favorite"
                             )
                         }
@@ -157,17 +162,18 @@ fun CourseContent(navController: NavController){
 
                     Column(verticalArrangement = Arrangement.Center) {
                         Row(verticalAlignment = Alignment.CenterVertically,
-
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
-                                navController,
+                                modifier = Modifier.clickable { navController.navigate("BookListScreen")},
+                                icon= R.drawable.wishlist,
                                 text = "Quiz"
                             )
 
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
-                                navController,
+                                modifier = Modifier.clickable { navController.navigate("BookListScreen")},
+                               icon= R.drawable.exam,
                                 text = "Test"
                             )
                         }
@@ -175,25 +181,38 @@ fun CourseContent(navController: NavController){
                 }
             }
         }
-
     )
 }
 
 @Composable
-fun CustomCard( navController: NavController,text:String){
+fun CustomCard( modifier: Modifier,text:String, icon:Int){
     Card (modifier = Modifier
-        .size(150.dp)
-        .clickable { navController.navigate("BookListScreen")},
-        elevation = CardDefaults.cardElevation(10.dp),
+        .size(150.dp),
+        elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
     ){
-        Box(modifier = Modifier.fillMaxSize(),
+        Box(modifier = Modifier.fillMaxSize()
+            .padding(top = 30.dp),
             contentAlignment = Alignment.Center
-        ){ Text(text = text,
-            style = androidx.compose.ui.text.TextStyle(
-                color = Color.Black ,
-                fontSize = 16.sp)
-        )
+        ){
+            Column(horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+
+              Box(modifier=Modifier.size(50.dp)) {
+                  Image(bitmap = ImageBitmap.imageResource(id = icon), contentDescription = "")
+              }
+               
+                Spacer(modifier = Modifier.height(6.dp))
+
+                Box(modifier=Modifier.size(80.dp),
+                    contentAlignment = Alignment.Center) {
+                    Text(text = text,
+                        style = androidx.compose.ui.text.TextStyle(
+                            color = Color.Black ,
+                            fontSize = 16.sp))
+                }
+                }
         }
     }
 }

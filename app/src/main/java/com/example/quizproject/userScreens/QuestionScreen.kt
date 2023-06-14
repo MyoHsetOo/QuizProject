@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -109,20 +110,37 @@ fun QuestionScreen(navController: NavController) {
         sheetPeekHeight = 80.dp,
         topBar = {
 
-            Row (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-                    .background(MaterialTheme.colorScheme.secondary),
+            Row(horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()) {
 
-                ){
-                IconButton(onClick = {navController.popBackStack()}) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Localized description", tint = Color.Black )
+
+                Row(modifier = Modifier.padding(10.dp)) {
+                    Icon(
+                        Icons.Default.ArrowBack, contentDescription = "back",
+                        tint = Color.Black)
+                    
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                    Text(text = "2023 April-Q2 ",
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
+                        )
+                    )
                 }
+                Row(modifier = Modifier
+                    .padding(10.dp)
+                    .clickable {  },
+                    horizontalArrangement = Arrangement.End,
 
+                ) {
+                    Icon(
+                        Icons.Default.Favorite, contentDescription = "back",
+                        tint = Color.Black)
+                }
             }
-
-        },
+                 },
     ) { innerPadding ->
 
         Column (
@@ -173,19 +191,18 @@ fun QuestionScreen(navController: NavController) {
             }
 
             Card(
-
                 modifier = Modifier.padding(15.dp),
                 onClick = {},
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.secondary
                 )
-
             ) {
                 Box (
                     modifier = Modifier.padding(15.dp)
                 ){
 
-                    Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                    Text(
+                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(color = Color.Black)
                     )
 
@@ -205,7 +222,8 @@ fun QuestionScreen(navController: NavController) {
                     modifier = Modifier.padding(15.dp)
                 ){
 
-                    Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                    Text(
+                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(color = Color.Black)
                     )
 
