@@ -64,7 +64,7 @@ fun CourseListScreen (navController: NavController) {
         composition = composition,
         isPlaying = isPlaying
     )
-
+//
     LaunchedEffect(key1 = progress){
         if( progress == 0f){
             isPlaying = true

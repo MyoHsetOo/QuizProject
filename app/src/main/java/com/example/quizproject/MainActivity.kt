@@ -36,7 +36,7 @@ import com.example.quizproject.userScreens.CourseListScreen
 import com.example.quizproject.userScreens.FavoriteScreen
 import com.example.quizproject.userScreens.HomeScreen
 
-
+//
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

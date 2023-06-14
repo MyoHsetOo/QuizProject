@@ -1,7 +1,7 @@
 package com.example.quizproject.dataModel
 
 import android.net.Uri
-
+//
 class Answer (
 
 var answerType : Char,

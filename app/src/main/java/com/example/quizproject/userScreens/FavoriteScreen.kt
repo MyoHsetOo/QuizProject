@@ -81,7 +81,7 @@ fun FavoriteScreen(){
             }
         },
         content = {
-
+//
             Column(modifier = Modifier.padding(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally){
                 Spacer(modifier = Modifier.height(50.dp))

@@ -197,7 +197,7 @@ fun HomeScreen (navController: NavController) {
                                         )
                                     }
                                 }
-                                //Spacer( modifier = Modifier.height(3.dp))
+                               // //Spacer( modifier = Modifier.height(3.dp))
                                 Button(
                                     onClick = {
                                         navController.navigate("CourseListScreen")
