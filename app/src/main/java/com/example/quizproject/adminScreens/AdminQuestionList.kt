@@ -27,6 +27,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -47,7 +48,7 @@ import androidx.navigation.NavController
 import com.example.quizproject.userScreens.Question
 
 @Composable
-fun AdminQuestionList(){
+fun AdminQuestionList(navController: NavController){
 
     val itemList = remember { mutableStateListOf<String>() }
     val textFieldValue = remember { mutableStateOf("") }
@@ -72,11 +73,7 @@ fun AdminQuestionList(){
                     .background(MaterialTheme.colorScheme.secondary)
             ) {
                 Row {
-                    Box(modifier = Modifier
-                        .padding(10.dp)
-                        .clickable {
-                            // navController.popBackStack()
-                        }) {
+                    IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             Icons.Default.ArrowBack, contentDescription = "back",
                             tint = Color.Black
@@ -131,7 +128,7 @@ fun AdminQuestionList(){
 
                   Button(
                     onClick = {
-                              //navController.navigate("QuestionEntryForm")
+                              navController.navigate("QuestionEntryForm")
                     },
                     modifier = Modifier,
                     shape = RoundedCornerShape(20.dp),
@@ -167,7 +164,7 @@ fun AdminQuestionList(){
                     items(list) { item ->
                         Button(
                             onClick = {
-                                // navController.navigate("AdminQuestionScreen")
+                                 navController.navigate("AdminQuestionScreen")
                             },
                             modifier = Modifier
                                 .fillMaxWidth(0.8f)

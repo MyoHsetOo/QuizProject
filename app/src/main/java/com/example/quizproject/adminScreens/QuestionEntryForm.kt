@@ -237,7 +237,7 @@ fun QuestionEntryForm ( navController: NavController ) {
 
                 ){
                     IconButton(onClick = {
-                        //navController.popBackStack()
+                        navController.popBackStack()
                     }) {
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" )
 

@@ -3,6 +3,9 @@ package com.example.quizproject.adminScreens
 import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +28,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.BorderColor
+import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,6 +36,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -48,8 +53,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -71,7 +78,10 @@ fun BookListAdminScreen (navController: NavController) {
 
     val context = LocalContext.current
 
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.book))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.b))
+
+
+
     var isPlaying by remember { mutableStateOf(true) }
 
     val progress by animateLottieCompositionAsState(
@@ -109,11 +119,7 @@ fun BookListAdminScreen (navController: NavController) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
 
-                    Box(
-                        modifier = Modifier.padding(8.dp)
-                            .clickable { navController.popBackStack() }
-
-                    ){
+                    IconButton(onClick = { navController.popBackStack() }){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
                     }
                 }
@@ -150,28 +156,45 @@ fun BookListAdminScreen (navController: NavController) {
 
                     AlertDialog(
                         onDismissRequest = { showAlert.value = false },
-                        title = { Text(text = "Enter Book name", style = TextStyle(
-                            color = Color.Black
-                        )
+                        title = { Text(text = "Enter Book name",
+                            style = TextStyle(
+                                 color = MaterialTheme.colorScheme.onPrimary,
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 16.sp
+                                )
                         ) },
                         containerColor = MaterialTheme.colorScheme.secondary,
                         icon = {
-                            Icon(imageVector = Icons.Default.BorderColor, contentDescription = "Heart", tint = Color.Black )
+                            Icon(imageVector = Icons.Default.MenuBook,
+                                contentDescription = "Edit",
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                modifier = Modifier.size(30.dp)
+                            )
                         },
+
+
+
+
+
                         text = {
 
                             OutlinedTextField(
                                 value = textFieldValue.value,
                                 onValueChange = { textFieldValue.value = it },
+                                modifier = Modifier
+                                    .border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp)),
+
                                 colors = OutlinedTextFieldDefaults.colors(
+                                    cursorColor = Color.Black,
                                     unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                                     focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                    focusedBorderColor = Color.Black,
-                                    unfocusedBorderColor = Color.Black,
-                                    unfocusedTextColor = Color.Black,
-                                    focusedTextColor = Color.Black
+                                   // focusedBorderColor = Color(0xFF4B6DA3),
+                                    //unfocusedBorderColor = Color(0xFF4B6DA3),
+                                    unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    focusedTextColor = MaterialTheme.colorScheme.onPrimary
 
-                                )
+                                ),
+                                shape = RoundedCornerShape(10.dp)
 
                             )
                         },
@@ -182,9 +205,9 @@ fun BookListAdminScreen (navController: NavController) {
                                 textFieldValue.value = ""
 
                             },
-                                colors = ButtonDefaults.buttonColors(Color.Black)
+                                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
                             ) {
-                                Text(text = "Submit")
+                                Text(text = "Submit", color = MaterialTheme.colorScheme.secondary)
                             }
                         }
                     )
@@ -201,7 +224,7 @@ fun BookListAdminScreen (navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
 
-                        Text(text = "book List", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black , modifier =  Modifier.padding(end = 70.dp))
+                        Text(text = "Book List", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black , modifier =  Modifier.padding(end = 70.dp))
 
                         Button(
                             onClick = { showAlert.value = true },
@@ -214,7 +237,7 @@ fun BookListAdminScreen (navController: NavController) {
                         ) {
 
                             Icon(imageVector = Icons.Default.Add, contentDescription = "add", tint = Color.Black ,
-                                modifier = Modifier.size(40.dp))
+                                modifier = Modifier.size(30.dp))
                             Spacer(modifier = Modifier.width(5.dp))
 
                             Text(text = "Add Book", style = TextStyle(
@@ -225,19 +248,21 @@ fun BookListAdminScreen (navController: NavController) {
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(60.dp))
+                    Spacer(modifier = Modifier.height(40.dp))
 
                     LazyRow( ) {
 
                         items(itemList) {item ->
 
-                            Card(
+                            BookCard(navController,item )
+
+                           /* Card(
                                 modifier = Modifier
                                     .width(250.dp)
                                     .height(150.dp)
                                     .padding(start = 20.dp, end = 20.dp)
                                     ,
-                                onClick = { navController.navigate("ChapterAdminScreen")} ,
+                               // onClick = { navController.navigate("ChapterAdminScreen")} ,
                                 elevation = CardDefaults.cardElevation(2.dp),
                                 shape = RoundedCornerShape(30.dp),
                                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
@@ -261,11 +286,75 @@ fun BookListAdminScreen (navController: NavController) {
                                         Text(text = "$item" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
                                     }
                                 }
-                            }
+                            }*/
                         }
                     }
                 }
             }
         }
     )
+}@Composable
+private fun BookCard(
+    navController: NavController,
+    bookName : String
+) {
+
+    val composition2 by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.openbook))
+
+
+    Card(
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+        elevation = CardDefaults.elevatedCardElevation(2.dp),
+        modifier = Modifier
+            .padding(15.dp)
+            .width(150.dp)
+            .height(200.dp)
+            .clickable { navController.navigate("ChapterAdminScreen") }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+
+            Image(
+                modifier = Modifier.size(80.dp),
+                bitmap = ImageBitmap.imageResource(id = R.drawable.openbook),
+                contentDescription = "book_card"
+            )
+
+
+           /* Box(
+            ) {
+                LottieAnimation(
+                    modifier = Modifier
+                        .size(200.dp),
+                    iterations = 100,
+                    composition = composition2
+                )
+
+            }*/
+
+
+            Box(modifier = Modifier.padding( 20.dp)) {
+                Column( modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Bottom,
+                    horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = bookName,
+                        style = TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold
+
+                        )
+                    )
+
+                }
+            }
+        }
+    }
 }

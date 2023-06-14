@@ -81,6 +81,7 @@ fun CourseListAdminScreen( navController: NavController ) {
 
     val progress by animateLottieCompositionAsState(
         composition = composition,
+
         isPlaying = isPlaying
     )
 
@@ -114,9 +115,7 @@ fun CourseListAdminScreen( navController: NavController ) {
                     Box(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp)
-                            .clickable {
-                                //navController.popBackStack()
-                            }
+
 
                     ){
                         IconButton(onClick = {

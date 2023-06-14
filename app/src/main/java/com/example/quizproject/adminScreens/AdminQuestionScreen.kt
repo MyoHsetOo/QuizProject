@@ -55,7 +55,7 @@ import androidx.navigation.NavController
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminQuestionScreen(){
+fun AdminQuestionScreen(navController: NavController) {
 
     val scaffoldState = rememberBottomSheetScaffoldState()
 
@@ -76,73 +76,84 @@ fun AdminQuestionScreen(){
         sheetShadowElevation = 10.dp,
         sheetShape = RoundedCornerShape(40.dp),
         sheetContent = {
-            Column (
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
                     .background(MaterialTheme.colorScheme.primary),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                Text(text = "Solution", style = TextStyle(
-                    fontSize = 12.sp
-                ))
+            ) {
+                Text(
+                    text = "Solution", style = TextStyle(
+                        fontSize = 12.sp
+                    )
+                )
             }
         },
         scaffoldState = scaffoldState,
         sheetPeekHeight = 80.dp,
         topBar = {
             Column {
-                    Row(horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier.fillMaxWidth()
-                            .height(56.dp)) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                ) {
 
 
-                        Row(modifier = Modifier.padding(10.dp)
-                        ) {
+                    Row(
+                        modifier = Modifier.padding(10.dp)
+                    ) {
+
+                        IconButton(onClick = { navController.popBackStack() }) {
                             Icon(
                                 Icons.Default.ArrowBack, contentDescription = "back",
                                 tint = Color.Black,
-                                modifier = Modifier
-                                    .clickable {
-                                        //navController.popBackStack()
-                                    })
-
-                            Spacer(modifier = Modifier.width(10.dp))
-
-                            Text(text = "2023 April ",
-                                style = TextStyle(
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp
-                                )
                             )
                         }
-                        Row(modifier = Modifier.padding(10.dp),
-                            horizontalArrangement = Arrangement.End
-                        ) {
-                            Icon(
-                                Icons.Default.Edit, contentDescription = "back",
-                                tint = Color.Black)
 
-                            Spacer(modifier = Modifier.width(10.dp))
-                            Icon(
-                                Icons.Default.Delete, contentDescription = "back",
-                                tint = Color.Black)
-                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+
+                        Text(
+                            text = "2023 April ",
+                            style = TextStyle(
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 18.sp
+                            )
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.padding(10.dp),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Icon(
+                            Icons.Default.Edit, contentDescription = "back",
+                            tint = Color.Black
+                        )
+
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Icon(
+                            Icons.Default.Delete, contentDescription = "back",
+                            tint = Color.Black
+                        )
                     }
                 }
-            },
+            }
+        },
     ) { innerPadding ->
 
-        Column (
+        Column(
 
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxSize(),
         ) {
 
-            Text(text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating."
-                , style = TextStyle(
+            Text(
+                text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating.",
+                style = TextStyle(
                     color = Color.Black
                 ),
                 modifier = Modifier.padding(5.dp)
@@ -152,25 +163,32 @@ fun AdminQuestionScreen(){
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxWidth(),
-                onClick = { isOnClick = !isOnClick
-                    Log.d("CardColor>>>>","$isOnClick")
+                onClick = {
+                    isOnClick = !isOnClick
+                    Log.d("CardColor>>>>", "$isOnClick")
                 },
                 colors = CardDefaults.cardColors(
-                    containerColor = if ( isOnClick ) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+                    containerColor = if (isOnClick) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
                 )
 
             ) {
                 Row {
 
                     IconButton(onClick = {}) {
-                        Icon(Icons.Default.Check, contentDescription = "Localized description", tint = Color.Black, modifier = Modifier.size(20.dp))
+                        Icon(
+                            Icons.Default.Check,
+                            contentDescription = "Localized description",
+                            tint = Color.Black,
+                            modifier = Modifier.size(20.dp)
+                        )
                     }
 
 
-                    Box (
+                    Box(
                         modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
-                    ){
-                        Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                    ) {
+                        Text(
+                            text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                             style = TextStyle(color = Color.Black)
                         )
 
@@ -188,9 +206,9 @@ fun AdminQuestionScreen(){
                     containerColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
-                Box (
+                Box(
                     modifier = Modifier.padding(15.dp)
-                ){
+                ) {
 
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
@@ -209,9 +227,9 @@ fun AdminQuestionScreen(){
                     containerColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
-                Box (
+                Box(
                     modifier = Modifier.padding(15.dp)
-                ){
+                ) {
 
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
@@ -230,11 +248,12 @@ fun AdminQuestionScreen(){
                 )
 
             ) {
-                Box (
+                Box(
                     modifier = Modifier.padding(15.dp)
-                ){
+                ) {
 
-                    Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                    Text(
+                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(color = Color.Black)
                     )
 
@@ -244,11 +263,13 @@ fun AdminQuestionScreen(){
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
-            ){
+            ) {
 
-                Button(modifier = Modifier.padding(top=30.dp),onClick = { /*TODO*/ },
+                Button(
+                    modifier = Modifier.padding(top = 30.dp), onClick = { /*TODO*/ },
                 ) {
-                    Text(text = "Submit",
+                    Text(
+                        text = "Submit",
                         color = Color.Black
                     )
                 }

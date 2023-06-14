@@ -98,25 +98,11 @@ fun HomeAdminScreen ( navController: NavController ) {
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ){
-                    Box(
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .clickable {
-                                //navController.popBackStack()
-                            }
-
-                    ){
-
-                        IconButton(onClick = {
-                            navController.popBackStack()
-                        }) {
-                            Icon(imageVector = Icons.Default.ArrowBack,
-                                contentDescription = "back",
-                                tint = Color.Black
-                            )
-
-                        }
-
+                    IconButton(onClick = { navController.popBackStack() }){
+                        Icon(imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "back",
+                            tint = Color.Black
+                        )
                     }
                     Text(text = "Quizz", style = TextStyle(
                         fontSize = 18.sp,
@@ -271,7 +257,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                                 }
                                 Button(
                                     onClick = {
-                                        isAddingBatch = !isAddingBatch
+                                       navController.navigate("CourseListAdminScreen")
                                     },
                                     modifier = Modifier
                                         .padding(
