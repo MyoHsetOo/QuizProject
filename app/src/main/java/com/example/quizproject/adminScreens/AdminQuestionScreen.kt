@@ -241,7 +241,8 @@ fun AdminQuestionScreen(navController: NavController) {
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(
-                            color = Color.Black,lineHeight = 25.sp
+                            color = Color.Black,
+                            lineHeight = 25.sp
                     )
                     )
 
