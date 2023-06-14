@@ -27,6 +27,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -97,14 +98,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ){
-                    Box(
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .clickable {
-                                //navController.popBackStack()
-                            }
-
-                    ){
+                    IconButton(onClick = { navController.popBackStack() }){
                         Icon(imageVector = Icons.Default.ArrowBack,
                             contentDescription = "back",
                             tint = Color.Black
@@ -263,7 +257,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                                 }
                                 Button(
                                     onClick = {
-                                        isAddingBatch = !isAddingBatch
+                                       navController.navigate("CourseListAdminScreen")
                                     },
                                     modifier = Modifier
                                         .padding(

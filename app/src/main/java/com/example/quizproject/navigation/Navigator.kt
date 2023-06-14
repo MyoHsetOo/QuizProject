@@ -127,14 +127,13 @@ fun Nav() {
         composable(route = "BookListAdminScreen") {
             BookListAdminScreen(navController)
         }
-
         //ChpterAdminScreen
         composable(route = "ChapterAdminScreen") {
             ChapterAdminScreen(navController)
         }
 
         composable(route = "AdminQuestionList") {
-           // AdminQuestionList(navController)
+            AdminQuestionList(navController)
         }
 
 
@@ -144,7 +143,7 @@ fun Nav() {
 
 
         composable(route = "AdminQuestionScreen") {
-           // AdminQuestionScreen(navController)
+            AdminQuestionScreen(navController)
         }
 
     }
