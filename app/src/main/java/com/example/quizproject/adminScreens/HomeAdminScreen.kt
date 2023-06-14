@@ -2,6 +2,7 @@ package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,7 @@ import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -215,45 +217,68 @@ fun HomeAdminScreen ( navController: NavController ) {
 
                                 if ( isAddingBatch ) {
 
+                                    
+
+
                                     AlertDialog(
                                         onDismissRequest = { isAddingBatch = false },
-                                        title = { Text(text = "Enter Batch name", style = TextStyle(
-                                            color = Color.Black
-                                        )
+                                        title = { Text(text = "Enter Batch name",
+                                            style = TextStyle(
+                                                color = MaterialTheme.colorScheme.onPrimary,
+                                                fontWeight = FontWeight.ExtraBold,
+                                                fontSize = 16.sp
+                                            )
                                         ) },
                                         containerColor = MaterialTheme.colorScheme.secondary,
                                         icon = {
-                                               Icon(imageVector = Icons.Default.BorderColor, contentDescription = "Heart", tint = Color.Black )
+                                            Icon(imageVector = Icons.Default.BorderColor,
+                                                contentDescription = "Edit",
+                                                tint = MaterialTheme.colorScheme.onPrimary,
+                                                modifier = Modifier.size(30.dp)
+                                            )
                                         },
+
+
+
+
+
                                         text = {
 
                                             OutlinedTextField(
                                                 value = addBatchTextField.value,
                                                 onValueChange = { addBatchTextField.value = it },
+                                                modifier = Modifier
+                                                    .border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp)),
+
                                                 colors = OutlinedTextFieldDefaults.colors(
+                                                    cursorColor = Color.Black,
                                                     unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                                                     focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                                    focusedBorderColor = Color.Black,
-                                                    unfocusedBorderColor = Color.Black,
-                                                    unfocusedTextColor = Color.Black,
-                                                    focusedTextColor = Color.Black
+                                                    // focusedBorderColor = Color(0xFF4B6DA3),
+                                                    //unfocusedBorderColor = Color(0xFF4B6DA3),
+                                                    unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                                    focusedTextColor = MaterialTheme.colorScheme.onPrimary
 
-                                                )
+                                                ),
+                                                shape = RoundedCornerShape(10.dp)
 
                                             )
                                         },
                                         confirmButton = {
                                             Button(onClick = { isAddingBatch = false
 
+
                                                 addBatchTextField.value = ""
 
                                             },
-                                               colors = ButtonDefaults.buttonColors(Color.Black)
-                                                ) {
-                                                Text(text = "Submit")
+                                                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
+                                            ) {
+                                                Text(text = "Submit", color = MaterialTheme.colorScheme.secondary)
                                             }
                                         }
                                     )
+
+
                                 }
                                 Button(
                                     onClick = {
