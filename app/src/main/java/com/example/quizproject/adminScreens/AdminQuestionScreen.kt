@@ -48,6 +48,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -96,6 +97,7 @@ fun AdminQuestionScreen(navController: NavController) {
             Column {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
@@ -104,6 +106,9 @@ fun AdminQuestionScreen(navController: NavController) {
 
                     Row(
                         modifier = Modifier.padding(10.dp)
+                            .fillMaxHeight(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
 
                         IconButton(onClick = { navController.popBackStack() }) {
@@ -154,9 +159,11 @@ fun AdminQuestionScreen(navController: NavController) {
             Text(
                 text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating.",
                 style = TextStyle(
-                    color = Color.Black
+                    color = Color.Black,
+                   lineHeight = 25.sp
                 ),
-                modifier = Modifier.padding(5.dp)
+                modifier = Modifier.padding(5.dp),
+
             )
             Card(
 
@@ -189,7 +196,7 @@ fun AdminQuestionScreen(navController: NavController) {
                     ) {
                         Text(
                             text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                            style = TextStyle(color = Color.Black)
+                            style = TextStyle(color = Color.Black,lineHeight = 25.sp)
                         )
 
                     }
@@ -212,7 +219,7 @@ fun AdminQuestionScreen(navController: NavController) {
 
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(color = Color.Black)
+                        style = TextStyle(color = Color.Black,lineHeight = 25.sp)
                     )
 
                 }
@@ -233,7 +240,9 @@ fun AdminQuestionScreen(navController: NavController) {
 
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(color = Color.Black)
+                        style = TextStyle(
+                            color = Color.Black,lineHeight = 25.sp
+                    )
                     )
 
                 }
@@ -254,7 +263,7 @@ fun AdminQuestionScreen(navController: NavController) {
 
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(color = Color.Black)
+                        style = TextStyle(color = Color.Black,lineHeight = 25.sp)
                     )
 
                 }

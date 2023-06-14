@@ -3,6 +3,7 @@ package com.example.quizproject.adminScreens
 import android.annotation.SuppressLint
 import android.service.autofill.OnClickAction
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -80,7 +83,7 @@ fun CourseContentAdminScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(40.dp))
                 Column(
                     modifier = Modifier
-                        .fillMaxHeight(0.3f),
+                        .fillMaxHeight(0.55f),
                     verticalArrangement = Arrangement.Bottom,
                     //  horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -125,9 +128,8 @@ fun CourseContentAdminScreen(navController: NavController) {
                                         navController.navigate("BookListAdminScreen")
                                         Log.d("Click>>>>>>", "click")
                                     },
-
-
-                                text = "Teach"
+                                text = "Teach",
+                                icon= R.drawable.lecture
 
                             )
                             Spacer(modifier = Modifier.width(20.dp))
@@ -136,7 +138,8 @@ fun CourseContentAdminScreen(navController: NavController) {
                                 modifier = Modifier
                                     .size(150.dp)
                                     .clickable { },
-                                text = "Test"
+                                text = "Test",
+                                icon= R.drawable.fftest
 
 
                             )
@@ -150,25 +153,38 @@ fun CourseContentAdminScreen(navController: NavController) {
 }
 
 @Composable
-fun CustomCard(modifier: Modifier, text: String) {
-    Card(
-        modifier = modifier,
-        elevation = CardDefaults.cardElevation(10.dp),
-
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-    ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-
+fun CustomCard( modifier: Modifier,text:String, icon:Int){
+    Card (modifier = modifier
+        .size(150.dp),
+        elevation = CardDefaults.cardElevation(4.dp),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+    ){
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 30.dp),
             contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = text,
-                style = TextStyle(
-                    color = Color.Black,
-                    fontSize = 16.sp
-                )
-            )
+        ){
+            Column(horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                Box(modifier=Modifier.size(30.dp),
+                    contentAlignment = Alignment.Center) {
+                    Image(bitmap = ImageBitmap.imageResource(id = icon),
+                        contentDescription = "",
+                        modifier=Modifier.size(30.dp))
+                }
+
+                // Spacer(modifier = Modifier.height(6.dp))
+
+                Box(modifier=Modifier.size(80.dp),
+                    contentAlignment = Alignment.Center) {
+                    Text(text = text,
+                        style = androidx.compose.ui.text.TextStyle(
+                            color = Color.Black ,
+                            fontSize = 16.sp))
+                }
+            }
         }
     }
 }

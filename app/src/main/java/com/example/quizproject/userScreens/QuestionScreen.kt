@@ -104,15 +104,13 @@ fun QuestionScreen(navController: NavController) {
                     fontSize = 12.sp
                 ))
             }
-
-        },
+       },
         scaffoldState = scaffoldState,
         sheetPeekHeight = 80.dp,
         topBar = {
 
             Row(horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()) {
-
 
                 Row(modifier = Modifier.padding(10.dp)) {
                     Icon(
