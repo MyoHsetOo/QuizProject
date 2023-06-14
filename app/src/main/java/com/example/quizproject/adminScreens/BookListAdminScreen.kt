@@ -293,7 +293,10 @@ fun BookListAdminScreen (navController: NavController) {
             }
         }
     )
-}@Composable
+
+}
+
+@Composable
 private fun BookCard(
     navController: NavController,
     bookName : String
