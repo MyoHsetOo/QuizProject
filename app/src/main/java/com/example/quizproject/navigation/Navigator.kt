@@ -111,11 +111,10 @@ fun Nav() {
             HomeAdminScreen(navController)
         }
 
-
         //CourseListAdminScreen
-        composable(route = "CourseListAdminScreen") {
+        /*composable(route = "CourseListAdminScreen") {
             CourseListAdminScreen(navController)
-        }
+        }*/
 
 
         //CourseContentAdminScreen

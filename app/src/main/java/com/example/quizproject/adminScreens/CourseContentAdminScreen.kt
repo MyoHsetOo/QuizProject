@@ -46,7 +46,7 @@ import com.example.quizproject.userScreens.CustomCard
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CourseContentAdminScreen(navController: NavController){
+fun CourseContentAdminScreen(navController: NavController) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
@@ -59,10 +59,12 @@ fun CourseContentAdminScreen(navController: NavController){
                             .clickable { navController.popBackStack() }) {
                             Icon(
                                 Icons.Default.ArrowBack, contentDescription = "back",
-                                tint = Color.Black)
+                                tint = Color.Black
+                            )
                         }
-                        Box(modifier = Modifier.padding(10.dp)){
-                            Text(text = "FE Class",
+                        Box(modifier = Modifier.padding(10.dp)) {
+                            Text(
+                                text = "FE Class",
                                 style = TextStyle(
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
@@ -74,12 +76,12 @@ fun CourseContentAdminScreen(navController: NavController){
                 })
         },
         content = {
-            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.datapresentation)  )
+            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.datapresentation))
             Column {
                 Spacer(modifier = Modifier.height(40.dp))
                 Column(
                     modifier = Modifier
-                        .fillMaxHeight(0.4f),
+                        .fillMaxHeight(0.3f),
                     verticalArrangement = Arrangement.Bottom,
                     //  horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -88,12 +90,15 @@ fun CourseContentAdminScreen(navController: NavController){
                         iterations = 1000, composition = composition
                     )
                 }
-                Column(modifier = Modifier
-                    .fillMaxHeight(0.1f)
-                    .fillMaxWidth(1f),
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight(0.1f)
+                        .fillMaxWidth(1f),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center) {
-                    Text(text = "Choose Your Category",
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Choose Your Category",
                         style = TextStyle(
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
@@ -110,14 +115,17 @@ fun CourseContentAdminScreen(navController: NavController){
 
                     Spacer(modifier = Modifier.width(20.dp))
                     Column {
-                        Row(verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
                             CustomCard(
-                                modifier = Modifier.size(150.dp).clickable {
-
-                                    navController.navigate("BookListAdminScreen")
-                                                                           Log.d("Click>>>>>>","click")
-                                                                           },
+                                modifier = Modifier
+                                    .size(150.dp)
+                                    .clickable {
+                                        navController.navigate("BookListAdminScreen")
+                                        Log.d("Click>>>>>>", "click")
+                                    },
 
 
                                 text = "Teach"
@@ -126,10 +134,10 @@ fun CourseContentAdminScreen(navController: NavController){
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
-                                modifier = Modifier.size(150.dp).clickable {    }
-                                ,
+                                modifier = Modifier
+                                    .size(150.dp)
+                                    .clickable { },
                                 text = "Test"
-
 
 
                             )
@@ -143,20 +151,25 @@ fun CourseContentAdminScreen(navController: NavController){
 }
 
 @Composable
-fun CustomCard(modifier:Modifier, text:String ){
-    Card (modifier = modifier ,
+fun CustomCard(modifier: Modifier, text: String) {
+    Card(
+        modifier = modifier,
         elevation = CardDefaults.cardElevation(10.dp),
 
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-    ){
-        Box(modifier = Modifier.fillMaxSize(),
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
 
             contentAlignment = Alignment.Center
-        ){ Text(text = text,
-            style = TextStyle(
-                color = Color.Black ,
-                fontSize = 16.sp)
-        )
+        ) {
+            Text(
+                text = text,
+                style = TextStyle(
+                    color = Color.Black,
+                    fontSize = 16.sp
+                )
+            )
         }
     }
 }

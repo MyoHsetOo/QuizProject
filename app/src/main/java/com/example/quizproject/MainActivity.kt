@@ -27,7 +27,9 @@ import androidx.compose.ui.unit.dp
 import com.example.quizproject.adminScreens.AdminQuestionList
 import com.example.quizproject.adminScreens.AdminQuestionScreen
 import com.example.quizproject.adminScreens.BookListAdminScreen
+import com.example.quizproject.adminScreens.ChapterAdminScreen
 import com.example.quizproject.adminScreens.CourseListAdminScreen
+import com.example.quizproject.adminScreens.HomeAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.navigation.Nav
 import com.example.quizproject.ui.theme.QuizProjectThem
@@ -45,7 +47,7 @@ class MainActivity : ComponentActivity() {
             QuizProjectThem {
                 // A surface container using the 'background' color from the theme
               //  HomeScreen()
-                Nav()
+               CourseListAdminScreen( )
             }
         }
     }

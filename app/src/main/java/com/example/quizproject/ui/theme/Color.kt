@@ -12,7 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 val lightBlue = Color(0xFFB5CFF8)*/
 
-val md_theme_light_primary = Color(0xFFB5CFF8)
+val md_theme_light_primary = Color(0xFFC5D8F7)
 /*val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFFFDDB3)
 val md_theme_light_onPrimaryContainer = Color(0xFF291800)

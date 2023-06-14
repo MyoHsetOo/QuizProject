@@ -37,6 +37,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Architecture
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.AttachFile
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -49,6 +50,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.MenuItemColors
@@ -228,6 +230,26 @@ fun QuestionEntryForm ( navController: NavController ) {
 
             Column {
 
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(bottom = 10.dp)
+
+
+                ){
+                    IconButton(onClick = {
+                        //navController.popBackStack()
+                    }) {
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" )
+
+                    }
+
+                    Text(text = "Data Entry Form", style = TextStyle(
+                        color = Color.Black,
+                        fontSize = 16.sp,
+
+                    ), modifier = Modifier.padding(start = 8.dp))
+                }
+
                 Text(
                     text = "Question No.", style = TextStyle(
                         fontSize = 12.sp,
@@ -283,6 +305,9 @@ fun QuestionEntryForm ( navController: NavController ) {
                         value = selectedQuestionText,
                         onValueChange = {},
                         shape = RoundedCornerShape(20.dp),
+                        textStyle = TextStyle(
+                            fontSize = 14.sp
+                        ),
 
 
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedQuestion) },
@@ -419,6 +444,9 @@ fun QuestionEntryForm ( navController: NavController ) {
                         value = selectedAnswerText,
                         onValueChange = {},
                         shape = RoundedCornerShape(20.dp),
+                        textStyle = TextStyle(
+                            fontSize = 14.sp
+                        ),
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedAnswer) },
                         colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                             focusedContainerColor = MaterialTheme.colorScheme.secondary,
@@ -566,7 +594,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                 ) {
                     Text(
                         text = "Add Answer", style = TextStyle(
-                            fontSize = 18.sp,
+                            fontSize = 14.sp,
                             color = Color.Black
                         )
                     )
@@ -658,6 +686,9 @@ fun QuestionEntryForm ( navController: NavController ) {
                         value = selectedSolutionText,
                         onValueChange = {},
                         shape = RoundedCornerShape(20.dp),
+                        textStyle = TextStyle(
+                            fontSize = 14.sp
+                        ),
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSolution) },
                         colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                             focusedContainerColor = MaterialTheme.colorScheme.secondary,
@@ -767,22 +798,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                     horizontalArrangement = Arrangement.Center,
 
                     ) {
-                    Button(
-                        onClick = {
-                                  navController.popBackStack()
-                        },
-                        modifier = Modifier.padding(horizontal = 10.dp)
-                    ) {
 
-                        Text(
-                            text = "Back", style = TextStyle(
-                                color = Color.Black,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            ), modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp)
-                        )
-
-                    }
 
                     Button(
                         onClick = {  },

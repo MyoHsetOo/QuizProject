@@ -100,7 +100,9 @@ fun HomeAdminScreen ( navController: NavController ) {
                     Box(
                         modifier = Modifier
                             .padding(8.dp)
-                            .clickable { navController.popBackStack() }
+                            .clickable {
+                                //navController.popBackStack()
+                            }
 
                     ){
                         Icon(imageVector = Icons.Default.ArrowBack,
@@ -160,7 +162,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                                         fontSize = 20.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = Color.Black
-                                    ))
+                                    ), modifier = Modifier.padding(start = 15.dp))
                                 }
                                 Box(
                                     modifier = Modifier.height(700.dp),
@@ -191,6 +193,8 @@ fun HomeAdminScreen ( navController: NavController ) {
                                 Button(
                                     onClick = {
                                               isAddingBatch = !isAddingBatch
+
+                                        navController.navigate("CourseListAdminScreen")
                                     },
                                     modifier = Modifier
                                         .padding(
@@ -199,14 +203,24 @@ fun HomeAdminScreen ( navController: NavController ) {
                                         )
                                         .fillMaxWidth()
                                         .height(60.dp),
-                                    border = BorderStroke(1.dp, Color.Black),
-                                    elevation = ButtonDefaults.buttonElevation(5.dp),
+                                    shape = RoundedCornerShape(20.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.secondary
+                                    ),
+                                    elevation = ButtonDefaults.buttonElevation(10.dp),
 
                                 ) {
-                                    Icon(imageVector = Icons.Default.Add,
-                                        contentDescription = "add",
-                                        tint = Color.Black)
 
+                                    Row (
+                                        modifier = Modifier.padding(5.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ){
+
+                                        Text(text = "ITPEC" , style = TextStyle(
+                                            fontSize = 14.sp,
+                                        ), modifier = Modifier.padding(end = 5.dp)
+                                        )
+                                    }
                                 }
 
                                 if ( isAddingBatch ) {
@@ -252,7 +266,9 @@ fun HomeAdminScreen ( navController: NavController ) {
                                     )
                                 }
                                 Button(
-                                    onClick = { navController.navigate("CourseListAdminScreen") },
+                                    onClick = {
+                                        isAddingBatch = !isAddingBatch
+                                    },
                                     modifier = Modifier
                                         .padding(
                                             horizontal = 20.dp,
@@ -260,19 +276,31 @@ fun HomeAdminScreen ( navController: NavController ) {
                                         )
                                         .fillMaxWidth()
                                         .height(60.dp),
-                                    border = BorderStroke(1.dp, Color.Black),
-                                    elevation = ButtonDefaults.buttonElevation(5.dp),
+                                    shape = RoundedCornerShape(20.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.secondary
+                                    ),
+                                    elevation = ButtonDefaults.buttonElevation(10.dp),
+
                                     ) {
-                                    Text(text = "ITPEC", style = TextStyle(
-                                        fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = Color.Black
-                                    ))
+
+                                    Row (
+                                        modifier = Modifier.padding(5.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ){
+
+                                        Text(text = "Japanese" , style = TextStyle(
+                                            fontSize = 14.sp,
+                                        ), modifier = Modifier.padding(end = 5.dp)
+                                        )
+                                    }
 
                                 }
                                 //Spacer( modifier = Modifier.height(3.dp))
                                 Button(
-                                    onClick = { navController.navigate("CourseListAdminScreen") },
+                                    onClick = {
+                                        isAddingBatch = !isAddingBatch
+                                    },
                                     modifier = Modifier
                                         .padding(
                                             horizontal = 20.dp,
@@ -280,15 +308,30 @@ fun HomeAdminScreen ( navController: NavController ) {
                                         )
                                         .fillMaxWidth()
                                         .height(60.dp),
-                                    border = BorderStroke(1.dp, Color.Black),
-                                    elevation = ButtonDefaults.buttonElevation(5.dp),
-                                ) {
-                                    Text(text = "Japanese", style = TextStyle(
-                                        fontSize = 18.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = Color.Black
+                                    shape = RoundedCornerShape(20.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.secondary
+                                    ),
+                                    elevation = ButtonDefaults.buttonElevation(10.dp),
 
-                                    ))
+                                    ) {
+
+                                    Row (
+                                        modifier = Modifier.padding(5.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ){
+
+                                        Text(text = "Add Category" , style = TextStyle(
+                                            fontSize = 14.sp,
+                                        ), modifier = Modifier.padding(end = 5.dp)
+                                        )
+
+                                        Icon(imageVector = Icons.Default.Add,
+                                            contentDescription = "add",
+                                            tint = Color.Black)
+
+                                    }
+
                                 }
                             }
                         }

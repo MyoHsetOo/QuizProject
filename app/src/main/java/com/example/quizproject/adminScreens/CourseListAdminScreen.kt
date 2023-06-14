@@ -1,6 +1,7 @@
 package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.NoteAlt
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -60,7 +62,7 @@ import com.example.quizproject.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CourseListAdminScreen(navController: NavController) {
+fun CourseListAdminScreen() {
 
     val itemList = remember { mutableStateListOf<String>() }
     val addCourseTextField = remember { mutableStateOf("") }
@@ -111,7 +113,9 @@ fun CourseListAdminScreen(navController: NavController) {
                     Box(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp)
-                            .clickable { navController.popBackStack() }
+                            .clickable {
+                                //navController.popBackStack()
+                            }
 
                     ){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
@@ -134,7 +138,8 @@ fun CourseListAdminScreen(navController: NavController) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.36f),
+                        .fillMaxHeight(0.30f)
+                        ,
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.End
 
@@ -152,15 +157,21 @@ fun CourseListAdminScreen(navController: NavController) {
                     }
                 }
 
-                Box (
+               /* Box (
                     modifier = Modifier
                         .padding(start = 15.dp)
-                        .clickable { navController.popBackStack() }
-                ) {
-                    Text(text = "Course Lists" , fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black )
-                }
+                        .clickable {
+                           // navController.popBackStack()
+                        }
+                ) {*/
+                    Text(text = "Course Lists" , style = TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
 
-                Spacer(modifier = Modifier.height(30.dp))
+                    ), modifier = Modifier.padding( start = 15.dp, bottom = 20.dp) )
+                //}
+
+
 
                 if ( isAddingCourse ) {
 
@@ -211,42 +222,91 @@ fun CourseListAdminScreen(navController: NavController) {
 
                 Card ( modifier = Modifier
                     .fillMaxSize(),
-                    shape = RoundedCornerShape(topStart = 30.dp),
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
                     ){
 
                     Column(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .padding(top = 50.dp)
+                            .fillMaxWidth()
+
+                            .padding( 30.dp)
                             .verticalScroll(rememberScrollState()),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+
                     ) {
+
+                        for (item in itemList) {
+
+
+                            Card(
+                                modifier = Modifier
+                                    .padding(  20.dp )
+                                    .fillMaxWidth()
+                                    .height(80.dp)
+                                    .clickable { isAddingCourse = !isAddingCourse },
+
+                                elevation = CardDefaults.cardElevation(2.dp),
+                                //shape = RoundedCornerShape( topStart = 20.dp, bottomEnd = 20.dp),
+                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+                            ) {
+
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize(),
+
+                                    ) {
+
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .fillMaxHeight()
+                                            .padding(top = 15.dp, bottom = 15.dp, start = 20.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.Start
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Description,
+                                            contentDescription = "Add",
+                                            tint = Color.Black,
+                                            modifier = Modifier.padding(end = 20.dp)
+                                        )
+                                        Text(
+                                            text = "$item",
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = Color.Black
+                                        )
+                                    }
+                                }
+                            }
+
+                        }
 
                         Card(
                             modifier = Modifier
-                                .fillMaxWidth(0.85f)
-                                .height(100.dp)
+                                .padding(  20.dp )
+                                .fillMaxWidth()
+                                .height(80.dp)
                                 .clickable { isAddingCourse = !isAddingCourse },
 
                             elevation = CardDefaults.cardElevation(2.dp),
-                            shape = RoundedCornerShape(30.dp),
+                            //shape = RoundedCornerShape( topStart = 20.dp, bottomEnd = 20.dp),
                             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
                         ) {
 
                             Box(
                                 modifier = Modifier
                                     .fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
+
+                                ) {
 
                                 Row(
                                     modifier = Modifier
-                                        .fillMaxWidth(0.8f)
-                                        .padding(top = 20.dp, bottom = 20.dp),
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                        .padding(top = 15.dp, bottom = 15.dp, start = 20.dp),
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.Center
+                                    horizontalArrangement = Arrangement.Start
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Add,
@@ -264,64 +324,12 @@ fun CourseListAdminScreen(navController: NavController) {
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(50.dp))
-
-
-
-                            for (item in itemList) { 
-
-
-                                Card(
-
-                                    modifier = Modifier
-                                        .fillMaxWidth(0.8f)
-                                        .height(100.dp)
-                                        .clickable { navController.navigate("CourseContentAdminScreen") },
-
-                                    elevation = CardDefaults.cardElevation(2.dp),
-                                    shape = RoundedCornerShape(30.dp),
-                                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-
-                                ) {
-
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxSize(),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-
-                                        Row(
-                                            modifier = Modifier
-                                                .fillMaxWidth(0.8f)
-                                                .padding(top = 20.dp, bottom = 20.dp),
-                                            verticalAlignment = Alignment.CenterVertically,
-                                            horizontalArrangement = Arrangement.Center
-                                        ) {
-
-                                            Icon(
-                                                imageVector = Icons.Default.Description,
-                                                contentDescription = "Description",
-                                                tint = Color.Black,
-                                                modifier = Modifier.padding(end = 20.dp)
-                                            )
-
-                                            Text(
-                                                text = "$item",
-                                                fontSize = 14.sp,
-                                                fontWeight = FontWeight.SemiBold,
-                                                color = Color.Black
-                                            )
-                                        }
-                                    }
-                                }
-
-                                Spacer(modifier = Modifier.height(55.dp))
-                            }
 
 
                     }
                 }
             }
-        }
+        },
+
     )
 }
