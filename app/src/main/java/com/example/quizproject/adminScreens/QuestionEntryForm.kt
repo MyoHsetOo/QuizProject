@@ -218,289 +218,150 @@ fun QuestionEntryForm ( navController: NavController ) {
     var answerlist = remember {
         mutableStateListOf<Answer>()
     }
-    LazyColumn(
-        modifier = Modifier
-            .padding(horizontal = 15.dp, vertical = 10.dp)
+
+    Column (
+        modifier = Modifier.fillMaxSize()
             .background(MaterialTheme.colorScheme.secondary)
-            .fillMaxWidth()
-            .fillMaxHeight()
+    ){
 
-    ) {
-        item {
+        LazyColumn(
+            modifier = Modifier
+                .padding(horizontal = 15.dp, vertical = 10.dp)
+                .background(MaterialTheme.colorScheme.secondary)
+                .fillMaxWidth()
+                .fillMaxHeight()
 
-            Column {
+        ) {
+            item {
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(bottom = 10.dp)
+                Column {
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(bottom = 10.dp)
 
 
-                ){
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" )
+                    ){
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" )
 
+                        }
+
+                        Text(text = "Data Entry Form", style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 16.sp,
+
+                            ), modifier = Modifier.padding(start = 8.dp))
                     }
 
-                    Text(text = "Data Entry Form", style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 16.sp,
-
-                    ), modifier = Modifier.padding(start = 8.dp))
-                }
-
-                Text(
-                    text = "Question No.", style = TextStyle(
-                        fontSize = 12.sp,
-                        color = Color.Black
-                    ), modifier = Modifier.padding(horizontal = 15.dp)
-                )
-                OutlinedTextField(
-                    value = dateTextField.value,
-                    enabled = true,
-                    onValueChange = { dateTextField.value = it },
-                    modifier = Modifier
-                        .padding(vertical = 10.dp)
-                        .fillMaxWidth(),
-                    shape = RoundedCornerShape(20.dp),
-
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                        unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                        focusedBorderColor = Color.Black,
-                        unfocusedBorderColor = Color.Black,
-                        focusedTextColor = Color.Black,
-                        unfocusedTextColor = Color.Black,
-                        cursorColor = Color.Black,
+                    Text(
+                        text = "Question No.", style = TextStyle(
+                            fontSize = 12.sp,
+                            color = Color.Black
+                        ), modifier = Modifier.padding(horizontal = 15.dp)
                     )
-
-
-                )
-                Spacer(modifier = Modifier.height(5.dp))
-
-                Text(
-                    text = "Question Type", style = TextStyle(
-                        fontSize = 12.sp,
-
-                    ), modifier = Modifier.padding(horizontal = 15.dp)
-                )
-
-
-                ExposedDropdownMenuBox(
-                    expanded = expandedQuestion,
-                    onExpandedChange = { expandedQuestion = !expandedQuestion },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-                        .background(MaterialTheme.colorScheme.secondary)
-
-                ) {
                     OutlinedTextField(
-                        // The `menuAnchor` modifier must be passed to the text field for correctness.
+                        value = dateTextField.value,
+                        enabled = true,
+                        onValueChange = { dateTextField.value = it },
                         modifier = Modifier
-                            .menuAnchor()
+                            .padding(vertical = 10.dp)
                             .fillMaxWidth(),
-                        readOnly = true,
-                        value = selectedQuestionText,
-                        onValueChange = {},
                         shape = RoundedCornerShape(20.dp),
-                        textStyle = TextStyle(
-                            fontSize = 14.sp
-                        ),
 
-
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedQuestion) },
-                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                        colors = OutlinedTextFieldDefaults.colors(
                             focusedContainerColor = MaterialTheme.colorScheme.secondary,
                             unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedBorderColor = Color.Black,
                             focusedBorderColor = Color.Black,
+                            unfocusedBorderColor = Color.Black,
                             focusedTextColor = Color.Black,
                             unfocusedTextColor = Color.Black,
-                            selectionColors = TextSelectionColors(
-                                handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
-                            )
+                            cursorColor = Color.Black,
+                        )
 
-                        ),
+
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Text(
+                        text = "Question Type", style = TextStyle(
+                            fontSize = 12.sp,
+
+                            ), modifier = Modifier.padding(horizontal = 15.dp)
                     )
 
-                    ExposedDropdownMenu(
+
+                    ExposedDropdownMenuBox(
                         expanded = expandedQuestion,
-                        onDismissRequest = { expandedQuestion = false },
-                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary)
-                    ) {
-                        optionQuestion.forEach { selectionOption ->
-                            DropdownMenuItem(
-                                text = { Text(selectionOption) },
-                                onClick = {
-                                    selectedQuestionText = selectionOption
-                                    expandedQuestion = false
-                                },
-                                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
-                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
-                                colors = MenuDefaults.itemColors(
-                                    textColor = Color.Black
-                                )
-                            )
-                        }
-                    }
-                }
-
-                if (selectedQuestionText.equals("Text Only")) {
-
-                    OutlinedTextField(
-                        value = questionField.value,
-                        enabled = true,
-                        onValueChange = { questionField.value = it },
+                        onExpandedChange = { expandedQuestion = !expandedQuestion },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 10.dp),
-                        shape = RoundedCornerShape(20.dp),
+                            .padding(vertical = 10.dp)
+                            .background(MaterialTheme.colorScheme.secondary)
 
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            focusedBorderColor = Color.Black,
-                            unfocusedBorderColor = Color.Black,
-                            focusedTextColor = Color.Black,
-                            unfocusedTextColor = Color.Black,
-                            cursorColor = Color.Black,
-                        )
-                    )
-
-                } else {
-                    OutlinedTextField(
-                        value = questionField.value,
-                        enabled = true,
-                        onValueChange = { questionField.value = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp),
-                        shape = RoundedCornerShape(20.dp),
-                        trailingIcon = {
-                            Icon(imageVector = Icons.Default.AttachFile,
-                                contentDescription = "Attached",
-                                modifier = Modifier.clickable {
-
-                                    isAttachedQuestionClickable = true
-                                    questionPhotoPick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                                    //launcherQuestion.launch("image/*")
-                                }
-                            )
-                        },
-
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            focusedBorderColor = Color.Black,
-                            unfocusedBorderColor = Color.Black,
-                            focusedTextColor = Color.Black,
-                            unfocusedTextColor = Color.Black,
-                            cursorColor = Color.Black,
-                        )
-                    )
-                }
-
-                //QuestiohnImage
-
-
-                OutlinedCard (
-                    shape = RoundedCornerShape(20.dp),
-                    border = BorderStroke(1.dp, Color.Black),
-                    modifier = Modifier.padding(vertical = 10.dp)
-
-                ){
-                    AsyncImage(
-                        model = uriQuestion,
-                        contentDescription = null,
-                        )
-                }
-
-
-
-                //Answer Type
-                Text(
-                    text = "Answer Type", style = TextStyle(
-                        fontSize = 12.sp,
-                        color = Color.Black
-                    ), modifier = Modifier.padding(horizontal = 15.dp)
-                )
-/////
-
-                ExposedDropdownMenuBox(
-                    expanded = expandedAnswer,
-                    onExpandedChange = { expandedAnswer = !expandedAnswer },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-                ) {
-                    OutlinedTextField(
-                        // The `menuAnchor` modifier must be passed to the text field for correctness.
-                        modifier = Modifier
-                            .menuAnchor()
-                            .fillMaxWidth(),
-                        readOnly = true,
-                        value = selectedAnswerText,
-                        onValueChange = {},
-                        shape = RoundedCornerShape(20.dp),
-                        textStyle = TextStyle(
-                            fontSize = 14.sp
-                        ),
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedAnswer) },
-                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedBorderColor = Color.Black,
-                            focusedBorderColor = Color.Black,
-                            focusedTextColor = Color.Black,
-                            unfocusedTextColor = Color.Black,
-                            selectionColors = TextSelectionColors(
-                                handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
-                            )
-
-                        ),
-                    )
-                    ExposedDropdownMenu(
-                        expanded = expandedAnswer,
-                        onDismissRequest = { expandedAnswer = false },
-                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
                     ) {
-                        optionsAnswer.forEach { selectionOption ->
-                            DropdownMenuItem(
-                                text = { Text(selectionOption) },
-                                onClick = {
-                                    selectedAnswerText = selectionOption
-                                    expandedAnswer = false
-                                },
-                                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
-                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
-                                colors = MenuDefaults.itemColors(
-                                    textColor = Color.Black
+                        OutlinedTextField(
+                            // The `menuAnchor` modifier must be passed to the text field for correctness.
+                            modifier = Modifier
+                                .menuAnchor()
+                                .fillMaxWidth(),
+                            readOnly = true,
+                            value = selectedQuestionText,
+                            onValueChange = {},
+                            shape = RoundedCornerShape(20.dp),
+                            textStyle = TextStyle(
+                                fontSize = 14.sp
+                            ),
+
+
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedQuestion) },
+                            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                                focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedBorderColor = Color.Black,
+                                focusedBorderColor = Color.Black,
+                                focusedTextColor = Color.Black,
+                                unfocusedTextColor = Color.Black,
+                                selectionColors = TextSelectionColors(
+                                    handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
                                 )
-                            )
+
+                            ),
+                        )
+
+                        ExposedDropdownMenu(
+                            expanded = expandedQuestion,
+                            onDismissRequest = { expandedQuestion = false },
+                            modifier = Modifier.background(MaterialTheme.colorScheme.secondary)
+                        ) {
+                            optionQuestion.forEach { selectionOption ->
+                                DropdownMenuItem(
+                                    text = { Text(selectionOption) },
+                                    onClick = {
+                                        selectedQuestionText = selectionOption
+                                        expandedQuestion = false
+                                    },
+                                    modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                                    colors = MenuDefaults.itemColors(
+                                        textColor = Color.Black
+                                    )
+                                )
+                            }
                         }
                     }
-                }
 
-                // A Answer Card  jjjjjjj
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-
-                ) {
-                    Text(text = "$alphabet")
-
-                    if (selectedAnswerText.equals("Text Only")) {
+                    if (selectedQuestionText.equals("Text Only")) {
 
                         OutlinedTextField(
-                            value = answerTextField.value,
+                            value = questionField.value,
                             enabled = true,
-                            onValueChange = { answerTextField.value = it },
+                            onValueChange = { questionField.value = it },
                             modifier = Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth(),
+                                .fillMaxWidth()
+                                .padding(vertical = 10.dp),
                             shape = RoundedCornerShape(20.dp),
 
                             colors = OutlinedTextFieldDefaults.colors(
@@ -515,25 +376,373 @@ fun QuestionEntryForm ( navController: NavController ) {
                         )
 
                     } else {
-
                         OutlinedTextField(
-                            value = answerTextField.value,
+                            value = questionField.value,
                             enabled = true,
-                            onValueChange = { answerTextField.value = it },
+                            onValueChange = { questionField.value = it },
                             modifier = Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth(),
+                                .fillMaxWidth()
+                                .padding(vertical = 10.dp),
                             shape = RoundedCornerShape(20.dp),
                             trailingIcon = {
                                 Icon(imageVector = Icons.Default.AttachFile,
                                     contentDescription = "Attached",
                                     modifier = Modifier.clickable {
-                                        answerPhotoPick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                                        //launcherAnswer.launch("image/*")
+
+                                        isAttachedQuestionClickable = true
+                                        questionPhotoPick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                                        //launcherQuestion.launch("image/*")
                                     }
                                 )
                             },
 
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                focusedBorderColor = Color.Black,
+                                unfocusedBorderColor = Color.Black,
+                                focusedTextColor = Color.Black,
+                                unfocusedTextColor = Color.Black,
+                                cursorColor = Color.Black,
+                            )
+                        )
+                    }
+
+                    //QuestiohnImage
+
+
+                    OutlinedCard (
+                        shape = RoundedCornerShape(20.dp),
+                        border = BorderStroke(1.dp, Color.Black),
+                        modifier = Modifier.padding(vertical = 10.dp)
+
+                    ){
+                        AsyncImage(
+                            model = uriQuestion,
+                            contentDescription = null,
+                        )
+                    }
+
+
+
+                    //Answer Type
+                    Text(
+                        text = "Answer Type", style = TextStyle(
+                            fontSize = 12.sp,
+                            color = Color.Black
+                        ), modifier = Modifier.padding(horizontal = 15.dp)
+                    )
+/////
+
+                    ExposedDropdownMenuBox(
+                        expanded = expandedAnswer,
+                        onExpandedChange = { expandedAnswer = !expandedAnswer },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 10.dp)
+                    ) {
+                        OutlinedTextField(
+                            // The `menuAnchor` modifier must be passed to the text field for correctness.
+                            modifier = Modifier
+                                .menuAnchor()
+                                .fillMaxWidth(),
+                            readOnly = true,
+                            value = selectedAnswerText,
+                            onValueChange = {},
+                            shape = RoundedCornerShape(20.dp),
+                            textStyle = TextStyle(
+                                fontSize = 14.sp
+                            ),
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedAnswer) },
+                            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                                focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedBorderColor = Color.Black,
+                                focusedBorderColor = Color.Black,
+                                focusedTextColor = Color.Black,
+                                unfocusedTextColor = Color.Black,
+                                selectionColors = TextSelectionColors(
+                                    handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
+                                )
+
+                            ),
+                        )
+                        ExposedDropdownMenu(
+                            expanded = expandedAnswer,
+                            onDismissRequest = { expandedAnswer = false },
+                            modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                        ) {
+                            optionsAnswer.forEach { selectionOption ->
+                                DropdownMenuItem(
+                                    text = { Text(selectionOption) },
+                                    onClick = {
+                                        selectedAnswerText = selectionOption
+                                        expandedAnswer = false
+                                    },
+                                    modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                                    colors = MenuDefaults.itemColors(
+                                        textColor = Color.Black
+                                    )
+                                )
+                            }
+                        }
+                    }
+
+                    // A Answer Card  jjjjjjj
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+
+                    ) {
+                        Text(text = "$alphabet")
+
+                        if (selectedAnswerText.equals("Text Only")) {
+
+                            OutlinedTextField(
+                                value = answerTextField.value,
+                                enabled = true,
+                                onValueChange = { answerTextField.value = it },
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    focusedBorderColor = Color.Black,
+                                    unfocusedBorderColor = Color.Black,
+                                    focusedTextColor = Color.Black,
+                                    unfocusedTextColor = Color.Black,
+                                    cursorColor = Color.Black,
+                                )
+                            )
+
+                        } else {
+
+                            OutlinedTextField(
+                                value = answerTextField.value,
+                                enabled = true,
+                                onValueChange = { answerTextField.value = it },
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .fillMaxWidth(),
+                                shape = RoundedCornerShape(20.dp),
+                                trailingIcon = {
+                                    Icon(imageVector = Icons.Default.AttachFile,
+                                        contentDescription = "Attached",
+                                        modifier = Modifier.clickable {
+                                            answerPhotoPick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                                            //launcherAnswer.launch("image/*")
+                                        }
+                                    )
+                                },
+
+
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    focusedBorderColor = Color.Black,
+                                    unfocusedBorderColor = Color.Black,
+                                    focusedTextColor = Color.Black,
+                                    unfocusedTextColor = Color.Black,
+                                    cursorColor = Color.Black,
+                                )
+                            )
+
+                        }
+                    }
+
+                    OutlinedCard (
+                        shape = RoundedCornerShape(20.dp),
+                        border = BorderStroke(1.dp, Color.Black),
+                        modifier = Modifier.padding(vertical = 10.dp)
+
+                    ){
+                        AsyncImage(
+                            model = uriAnswer,
+                            contentDescription = null,
+                        )
+                    }
+
+
+                    //Add Answer Button
+                    Button(
+                        onClick = {
+
+                            var ans = Answer(
+                                answerType = alphabet,
+                                answerText = answerTextField.value,
+                                answerImage = uriAnswer.toString(),
+                            )
+                            answerlist.add(ans)
+
+                            isAddingAnswer != isAddingAnswer
+                            addingCount++
+                            alphabet++
+
+                            Log.d("Count>>>", "${addingCount}")
+                            Log.d("Alphabet>>>", "$alphabet")
+                            answerTextField.value = ""
+                            uriAnswer = null
+                        },
+                        modifier = Modifier
+                            .padding(vertical = 10.dp)
+                            .fillMaxWidth()
+                            .height(60.dp),
+                        border = BorderStroke(1.dp, Color.Black),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondary
+                        )
+                    ) {
+                        Text(
+                            text = "Add Answer", style = TextStyle(
+                                fontSize = 14.sp,
+                                color = Color.Black
+                            )
+                        )
+
+                    }
+
+                }
+
+            }
+            items(answerlist) { item ->
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(5.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.secondary
+                    )
+
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        Box() {
+                            Text(
+                                text = "${item.answerType}", style = TextStyle(
+                                    fontSize = 16.sp,
+                                    color = Color.Black
+                                )
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(15.dp))
+
+                        Column(
+
+                        ) {
+                            Text(
+                                text = "${item.answerText}", style = TextStyle(
+                                    fontSize = 12.sp,
+                                    color = Color.Black
+                                )
+                            )
+
+                            var img = item.answerImage.toUri()
+                            OutlinedCard (
+                                shape = RoundedCornerShape(20.dp),
+                                border = BorderStroke(1.dp, Color.Black),
+                                modifier = Modifier.padding(vertical = 10.dp)
+
+                            ){
+                                AsyncImage(
+                                    model = img,
+                                    contentDescription = null,
+                                )
+                            }
+                        }
+                    }
+
+                }
+
+            }
+            item {
+
+                Column {
+
+                    Text(
+                        text = "Solution Type", style = TextStyle(
+                            fontSize = 12.sp,
+                            color = Color.Black
+                        ), modifier = Modifier.padding(horizontal = 15.dp)
+                    )
+                    ExposedDropdownMenuBox(
+                        expanded = expandedSolution,
+                        onExpandedChange = { expandedSolution = !expandedSolution },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 10.dp)
+
+                    ) {
+                        OutlinedTextField(
+                            // The `menuAnchor` modifier must be passed to the text field for correctness.
+                            modifier = Modifier
+                                .menuAnchor()
+                                .fillMaxWidth(),
+                            readOnly = true,
+                            value = selectedSolutionText,
+                            onValueChange = {},
+                            shape = RoundedCornerShape(20.dp),
+                            textStyle = TextStyle(
+                                fontSize = 14.sp
+                            ),
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSolution) },
+                            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                                focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedBorderColor = Color.Black,
+                                focusedBorderColor = Color.Black,
+                                focusedTextColor = Color.Black,
+                                unfocusedTextColor = Color.Black,
+                                selectionColors = TextSelectionColors(
+                                    handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
+                                )
+
+                            ),
+                        )
+
+                        ExposedDropdownMenu(
+                            expanded = expandedSolution,
+                            onDismissRequest = { expandedSolution = false },
+                            modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                        ) {
+                            optionsSolution.forEach { selectionOption ->
+                                DropdownMenuItem(
+                                    text = { Text(selectionOption) },
+                                    onClick = {
+                                        selectedSolutionText = selectionOption
+                                        expandedSolution = false
+                                    },
+                                    modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                                    colors = MenuDefaults.itemColors(
+                                        textColor = Color.Black
+                                    )
+
+                                )
+                            }
+                        }
+                    }
+
+                    if (selectedSolutionText.equals("Text Only")) {
+
+                        OutlinedTextField(
+                            value = solutionTextField.value,
+                            enabled = true,
+                            onValueChange = { solutionTextField.value = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 10.dp),
+                            shape = RoundedCornerShape(20.dp),
 
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
@@ -546,277 +755,77 @@ fun QuestionEntryForm ( navController: NavController ) {
                             )
                         )
 
-                    }
-                }
-
-                OutlinedCard (
-                    shape = RoundedCornerShape(20.dp),
-                    border = BorderStroke(1.dp, Color.Black),
-                    modifier = Modifier.padding(vertical = 10.dp)
-
-                ){
-                    AsyncImage(
-                        model = uriAnswer,
-                        contentDescription = null,
-                    )
-                }
-
-
-                //Add Answer Button
-                Button(
-                    onClick = {
-
-                        var ans = Answer(
-                            answerType = alphabet,
-                            answerText = answerTextField.value,
-                            answerImage = uriAnswer.toString(),
-                        )
-                        answerlist.add(ans)
-
-                        isAddingAnswer != isAddingAnswer
-                        addingCount++
-                        alphabet++
-
-                        Log.d("Count>>>", "${addingCount}")
-                        Log.d("Alphabet>>>", "$alphabet")
-                        answerTextField.value = ""
-                        uriAnswer = null
-                    },
-                    modifier = Modifier
-                        .padding(vertical = 10.dp)
-                        .fillMaxWidth()
-                        .height(60.dp),
-                    border = BorderStroke(1.dp, Color.Black),
-                    shape = RoundedCornerShape(20.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.secondary
-                    )
-                ) {
-                    Text(
-                        text = "Add Answer", style = TextStyle(
-                            fontSize = 14.sp,
-                            color = Color.Black
-                        )
-                    )
-
-                }
-
-            }
-
-        }
-        items(answerlist) { item ->
-
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                )
-
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    Box() {
-                        Text(
-                            text = "${item.answerType}", style = TextStyle(
-                                fontSize = 16.sp,
-                                color = Color.Black
-                            )
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(15.dp))
-
-                    Column(
-
-                    ) {
-                        Text(
-                            text = "${item.answerText}", style = TextStyle(
-                                fontSize = 12.sp,
-                                color = Color.Black
-                            )
-                        )
-
-                        var img = item.answerImage.toUri()
-                        OutlinedCard (
+                    } else {
+                        OutlinedTextField(
+                            value = solutionTextField.value,
+                            enabled = true,
+                            onValueChange = { solutionTextField.value = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 10.dp),
                             shape = RoundedCornerShape(20.dp),
-                            border = BorderStroke(1.dp, Color.Black),
-                            modifier = Modifier.padding(vertical = 10.dp)
-
-                        ){
-                            AsyncImage(
-                                model = img,
-                                contentDescription = null,
-                            )
-                        }
-                    }
-                }
-
-            }
-
-        }
-        item {
-
-            Column {
-
-                Text(
-                    text = "Solution Type", style = TextStyle(
-                        fontSize = 12.sp,
-                        color = Color.Black
-                    ), modifier = Modifier.padding(horizontal = 15.dp)
-                )
-                ExposedDropdownMenuBox(
-                    expanded = expandedSolution,
-                    onExpandedChange = { expandedSolution = !expandedSolution },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-
-                ) {
-                    OutlinedTextField(
-                        // The `menuAnchor` modifier must be passed to the text field for correctness.
-                        modifier = Modifier
-                            .menuAnchor()
-                            .fillMaxWidth(),
-                        readOnly = true,
-                        value = selectedSolutionText,
-                        onValueChange = {},
-                        shape = RoundedCornerShape(20.dp),
-                        textStyle = TextStyle(
-                            fontSize = 14.sp
-                        ),
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSolution) },
-                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedBorderColor = Color.Black,
-                            focusedBorderColor = Color.Black,
-                            focusedTextColor = Color.Black,
-                            unfocusedTextColor = Color.Black,
-                            selectionColors = TextSelectionColors(
-                                handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
-                            )
-
-                        ),
-                    )
-
-                    ExposedDropdownMenu(
-                        expanded = expandedSolution,
-                        onDismissRequest = { expandedSolution = false },
-                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
-                    ) {
-                        optionsSolution.forEach { selectionOption ->
-                            DropdownMenuItem(
-                                text = { Text(selectionOption) },
-                                onClick = {
-                                    selectedSolutionText = selectionOption
-                                    expandedSolution = false
-                                },
-                                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
-                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
-                                colors = MenuDefaults.itemColors(
-                                    textColor = Color.Black
+                            trailingIcon = {
+                                Icon(imageVector = Icons.Default.AttachFile,
+                                    contentDescription = "Attached",
+                                    modifier = Modifier.clickable {
+                                        solutionPhotoPick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                                        //launcherSolution.launch("image/*")
+                                    }
                                 )
+                            },
 
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                focusedBorderColor = Color.Black,
+                                unfocusedBorderColor = Color.Black,
+                                focusedTextColor = Color.Black,
+                                unfocusedTextColor = Color.Black,
+                                cursorColor = Color.Black,
+                            )
+                        )
+                    }
+
+                    // Solution Image
+                    OutlinedCard (
+                        shape = RoundedCornerShape(20.dp),
+                        border = BorderStroke(1.dp, Color.Black),
+                        modifier = Modifier.padding(vertical = 10.dp)
+
+                    ){
+                        AsyncImage(
+                            model = uriSolution,
+                            contentDescription = null,
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+
+                        ) {
+
+
+                        Button(
+                            onClick = {  },
+                            modifier = Modifier.padding(horizontal = 10.dp)
+                        ) {
+                            Text(
+                                text = "Save", style = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
+                                ), modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp)
                             )
                         }
                     }
+
                 }
-
-                if (selectedSolutionText.equals("Text Only")) {
-
-                    OutlinedTextField(
-                        value = solutionTextField.value,
-                        enabled = true,
-                        onValueChange = { solutionTextField.value = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp),
-                        shape = RoundedCornerShape(20.dp),
-
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            focusedBorderColor = Color.Black,
-                            unfocusedBorderColor = Color.Black,
-                            focusedTextColor = Color.Black,
-                            unfocusedTextColor = Color.Black,
-                            cursorColor = Color.Black,
-                        )
-                    )
-
-                } else {
-                    OutlinedTextField(
-                        value = solutionTextField.value,
-                        enabled = true,
-                        onValueChange = { solutionTextField.value = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp),
-                        shape = RoundedCornerShape(20.dp),
-                        trailingIcon = {
-                            Icon(imageVector = Icons.Default.AttachFile,
-                                contentDescription = "Attached",
-                                modifier = Modifier.clickable {
-                                    solutionPhotoPick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                                    //launcherSolution.launch("image/*")
-                                }
-                            )
-                        },
-
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            focusedBorderColor = Color.Black,
-                            unfocusedBorderColor = Color.Black,
-                            focusedTextColor = Color.Black,
-                            unfocusedTextColor = Color.Black,
-                            cursorColor = Color.Black,
-                        )
-                    )
-                }
-
-                // Solution Image
-                OutlinedCard (
-                    shape = RoundedCornerShape(20.dp),
-                    border = BorderStroke(1.dp, Color.Black),
-                    modifier = Modifier.padding(vertical = 10.dp)
-
-                ){
-                    AsyncImage(
-                        model = uriSolution,
-                        contentDescription = null,
-                    )
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-
-                    ) {
-
-
-                    Button(
-                        onClick = {  },
-                        modifier = Modifier.padding(horizontal = 10.dp)
-                    ) {
-                        Text(
-                            text = "Save", style = TextStyle(
-                                color = Color.Black,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            ), modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp)
-                        )
-                    }
-                }
-
             }
         }
+
     }
+
 }
 
 

@@ -114,6 +114,7 @@ fun QuestionScreen(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.secondary)
             ) {
 
                 Row(

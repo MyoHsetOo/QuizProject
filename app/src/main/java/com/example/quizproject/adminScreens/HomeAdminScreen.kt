@@ -91,11 +91,7 @@ fun HomeAdminScreen ( navController: NavController ) {
     Scaffold (
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-            ){
+
                 Row (
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -112,7 +108,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                         color = Color.Black
                     ))
                 }
-            }
+
         },
         content = {
             Column (
@@ -217,9 +213,6 @@ fun HomeAdminScreen ( navController: NavController ) {
 
                                 if ( isAddingBatch ) {
 
-                                    
-
-
                                     AlertDialog(
                                         onDismissRequest = { isAddingBatch = false },
                                         title = { Text(text = "Enter Batch name",
@@ -237,10 +230,6 @@ fun HomeAdminScreen ( navController: NavController ) {
                                                 modifier = Modifier.size(30.dp)
                                             )
                                         },
-
-
-
-
 
                                         text = {
 
@@ -337,15 +326,14 @@ fun HomeAdminScreen ( navController: NavController ) {
                                         verticalAlignment = Alignment.CenterVertically,
                                     ){
 
-                                        Text(text = "Add Category" , style = TextStyle(
-                                            fontSize = 14.sp,
-                                        ), modifier = Modifier.padding(end = 5.dp)
-                                        )
-
                                         Icon(imageVector = Icons.Default.Add,
                                             contentDescription = "add",
                                             tint = Color.Black)
 
+                                        Text(text = "Add Category" , style = TextStyle(
+                                            fontSize = 14.sp,
+                                        ), modifier = Modifier.padding(start = 5.dp)
+                                        )
                                     }
 
                                 }

@@ -101,8 +101,8 @@ fun AdminQuestionScreen(navController: NavController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
+                        .background(MaterialTheme.colorScheme.secondary)
                 ) {
-
 
                     Row(
                         modifier = Modifier.padding(10.dp)

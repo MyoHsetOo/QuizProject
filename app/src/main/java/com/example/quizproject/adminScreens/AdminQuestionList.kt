@@ -66,28 +66,31 @@ fun AdminQuestionList(navController: NavController){
     Surface(modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.secondary) {
         Column {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-                    .background(MaterialTheme.colorScheme.secondary)
-            ) {
-                Row {
-                    IconButton(onClick = { navController.popBackStack() }) {
+
+                Row (
+                    modifier = Modifier.height(56.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             Icons.Default.ArrowBack, contentDescription = "back",
                             tint = Color.Black
                         )
                     }
-                    Box(modifier = Modifier.padding(10.dp)) {
                         Text(
                             text = "Hardware",
-                            style = TextStyle(color = Color.Black),
-                            fontSize = 18.sp
+                            style = TextStyle(
+                                color = Color.Black,
+                                fontSize = 18.sp,
+                            ),
+                            modifier = Modifier.padding( start = 5.dp )
+
                         )
-                    }
+
                 }
-            }
+
             // Spacer(modifier = Modifier.height(20.dp))
             Column(
                 modifier = Modifier

@@ -71,11 +71,7 @@ fun HomeScreen (navController: NavController) {
     Scaffold (
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-            ){
+
                 Row (
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -93,7 +89,7 @@ fun HomeScreen (navController: NavController) {
                         color = Color.Black
                     ))
                 }
-            }
+
         },
         content = {
             Column (

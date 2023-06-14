@@ -102,41 +102,28 @@ fun CourseListAdminScreen( navController: NavController ) {
         containerColor = MaterialTheme.colorScheme.primary,
 
         topBar = {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-            ){
                 Row (
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
                     verticalAlignment = Alignment.CenterVertically,
-
                     ){
 
-                    Box(
-                        modifier = Modifier
-                            .padding(start = 8.dp, end = 8.dp)
-
-
-                    ){
                         IconButton(onClick = {
                             navController.popBackStack()
                         }) {
                             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
                         }
 
-                    }
 
+                        Text(text = "ITPEC" , style = TextStyle(
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black,
+                        ), modifier = Modifier.padding( start = 5.dp ))
 
-                    Box (
-                        modifier = Modifier.padding(start = 8.dp , end = 8.dp)
-                    ) {
-                        Text(text = "ITPEC" , fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black )
-                    }
                 }
-            }
+
         },
 
         content =  {
@@ -252,7 +239,7 @@ fun CourseListAdminScreen( navController: NavController ) {
                                     .fillMaxWidth()
                                     .height(80.dp)
                                     .clickable {
-                                               navController.navigate("CourseContentAdminScreen")
+                                        navController.navigate("CourseContentAdminScreen")
                                     },
                                 elevation = CardDefaults.cardElevation(2.dp),
                                 //shape = RoundedCornerShape( topStart = 20.dp, bottomEnd = 20.dp),
