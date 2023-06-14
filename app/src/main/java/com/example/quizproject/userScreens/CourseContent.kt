@@ -37,6 +37,7 @@ import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButtonDefaults.elevation
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -87,14 +88,15 @@ fun CourseContent(navController: NavController){
             TopAppBar(
                 colors =TopAppBarDefaults.smallTopAppBarColors(MaterialTheme.colorScheme.secondary),
                 title = {
-                    Row {
-                        Box(modifier = Modifier
-                            .padding(10.dp)
-                            .clickable { navController.popBackStack() }) {
+                    Row(modifier=Modifier.fillMaxWidth()
+                        .height(56.dp),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically) {
+                        IconButton(onClick = { navController.popBackStack() }) {
                             Icon(Icons.Default.ArrowBack, contentDescription = "back",
                                 tint = Color.Black)
                         }
-                        Box(modifier = Modifier.padding(10.dp)){
+                        Box(modifier = Modifier.padding(5.dp)){
                             Text(text = "FE Class",
                                 style = androidx.compose.ui.text.TextStyle(
                                     color = Color.Black,
@@ -145,14 +147,14 @@ fun CourseContent(navController: NavController){
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
                                 modifier = Modifier.clickable { navController.navigate("BookListScreen")},
-                                icon= R.drawable.document,
+                                icon= R.drawable.ffbook,
                                 text = "FE"
                             )
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
                                 modifier = Modifier.clickable { navController.navigate("BookListScreen")},
-                                icon= R.drawable.fav,
+                                icon= R.drawable.fheart,
                                 text = "Favorite"
                             )
                         }
@@ -165,7 +167,7 @@ fun CourseContent(navController: NavController){
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
                                 modifier = Modifier.clickable { navController.navigate("BookListScreen")},
-                                icon= R.drawable.wishlist,
+                                icon= R.drawable.fffquiz,
                                 text = "Quiz"
                             )
 
@@ -173,7 +175,7 @@ fun CourseContent(navController: NavController){
 
                             CustomCard(
                                 modifier = Modifier.clickable { navController.navigate("BookListScreen")},
-                               icon= R.drawable.exam,
+                               icon= R.drawable.fftest,
                                 text = "Test"
                             )
                         }
@@ -191,7 +193,8 @@ fun CustomCard( modifier: Modifier,text:String, icon:Int){
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
     ){
-        Box(modifier = Modifier.fillMaxSize()
+        Box(modifier = Modifier
+            .fillMaxSize()
             .padding(top = 30.dp),
             contentAlignment = Alignment.Center
         ){
@@ -199,11 +202,14 @@ fun CustomCard( modifier: Modifier,text:String, icon:Int){
                 verticalArrangement = Arrangement.Center
             ) {
 
-              Box(modifier=Modifier.size(50.dp)) {
-                  Image(bitmap = ImageBitmap.imageResource(id = icon), contentDescription = "")
+              Box(modifier=Modifier.size(30.dp),
+                  contentAlignment = Alignment.Center) {
+                  Image(bitmap = ImageBitmap.imageResource(id = icon),
+                      contentDescription = "",
+                      modifier=Modifier.size(30.dp))
               }
                
-                Spacer(modifier = Modifier.height(6.dp))
+               // Spacer(modifier = Modifier.height(6.dp))
 
                 Box(modifier=Modifier.size(80.dp),
                     contentAlignment = Alignment.Center) {
