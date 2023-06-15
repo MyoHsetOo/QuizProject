@@ -141,7 +141,7 @@ fun QuestionScreen(navController: NavController) {
                     horizontalArrangement = Arrangement.End,
                 ) {
 
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = {  }) {
 
                         Icon(imageVector = Icons.Default.Favorite, contentDescription = "back", tint = MaterialTheme.colorScheme.onPrimary)
                     }
@@ -194,12 +194,8 @@ fun QuestionScreen(navController: NavController) {
                                 lineHeight = 25.sp,
                             )
                         )
-
                     }
-
                 }
-
-
             }
 
             Card(
