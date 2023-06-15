@@ -237,7 +237,7 @@ fun HomeScreen ( navController: NavController ) {
                                 containerColor = MaterialTheme.colorScheme.secondary
                             )
                         ) {
-                            Text(text = "View" , )
+                            Text(text = "View" , color = MaterialTheme.colorScheme.onPrimary )
                         }
 
                     }

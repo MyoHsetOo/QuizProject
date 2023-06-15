@@ -75,7 +75,7 @@ fun AdminUserConnectedScreen (navController: NavController) {
                 Text(text = "Choose your role", style = TextStyle(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
-                    , color = Color.Black
+                    , color = MaterialTheme.colorScheme.onPrimary
                 ))
 
 
@@ -100,12 +100,10 @@ fun AdminUserConnectedScreen (navController: NavController) {
                     Text(
                         text = "Admin Role", style = TextStyle(
                             fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold, color = Color.Black
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimary
                         )
                     )
-                    
-
-
                 }
 
                     Button(
@@ -125,7 +123,7 @@ fun AdminUserConnectedScreen (navController: NavController) {
                             text = "User Role", style = TextStyle(
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold
-                                , color = Color.Black
+                                , color = MaterialTheme.colorScheme.onPrimary
                             )
                         )
 

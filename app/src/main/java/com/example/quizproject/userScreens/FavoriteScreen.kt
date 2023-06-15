@@ -65,14 +65,14 @@ fun FavoriteScreen(){
                     Box(modifier = Modifier.padding(10.dp)) {
                         Icon(
                             Icons.Default.ArrowBack, contentDescription = "back",
-                            tint = Color.Black
+                            tint =MaterialTheme.colorScheme.onPrimary
                         )
                     }
                     Box(modifier = Modifier.padding(10.dp)) {
                         Text(
                             text = "Your Favorite List",
                             style = TextStyle(
-                                color = Color.Black,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 fontWeight = FontWeight.Bold
                             )
                         )
@@ -110,7 +110,7 @@ fun FavoriteScreen(){
                         Text(
                             text = "Your Favorite List is Empty",
                             style = TextStyle(
-                                color = Color.Black,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 fontWeight = FontWeight.Bold
                             )
                         )
@@ -137,7 +137,7 @@ fun FavoriteScreen(){
                                 ) {
                                 Text(
                                     text = item.question + " - " + item.number, style = TextStyle(
-                                        color = Color.Black
+                                        color =MaterialTheme.colorScheme.onPrimary
                                     )
                                 )
                             }
