@@ -63,7 +63,7 @@ fun SplashScreen(navController: NavController) {
                     style = TextStyle(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         fontStyle = FontStyle.Italic
                     )
                 )

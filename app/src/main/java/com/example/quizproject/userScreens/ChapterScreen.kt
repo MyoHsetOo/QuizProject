@@ -78,12 +78,19 @@ fun ChapterScreen( navController: NavController) {
                 IconButton(onClick = {
                     navController.popBackStack()
                 }) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back", tint = Color.Black)
+                    Icon(imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "back",
+                        tint = Color.Black)
                 }
 
-                Text(text = "Information Technology", modifier = Modifier.padding( start = 5.dp), style = TextStyle(
-                    color = Color.Black,
-                    fontSize = 16.sp
+                Text(text = "Information Technology",
+                    modifier = Modifier.
+                    padding( start = 5.dp),
+                    style = TextStyle(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = 16.sp,
+
+
                 ) )
 
             }
@@ -198,7 +205,7 @@ fun ChapterScreen( navController: NavController) {
                                     Text(
                                         text = "fg",
                                         modifier = Modifier.padding(15.dp),
-                                        color = Color.Black
+                                        color = MaterialTheme.colorScheme.onPrimary
                                     )
                                 }
                             }
@@ -218,7 +225,7 @@ fun ChapterScreen( navController: NavController) {
                                 Text(
                                     text = "fdgvffffffffffffffffffhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
                                     modifier = Modifier.padding(15.dp),
-                                    color = Color.Black
+                                    color = MaterialTheme.colorScheme.onPrimary
                                 )
                             }
                         }

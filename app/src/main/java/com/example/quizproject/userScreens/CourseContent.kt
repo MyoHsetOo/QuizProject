@@ -94,12 +94,12 @@ fun CourseContent(navController: NavController){
                 IconButton(onClick = {
                     navController.popBackStack()
                 }) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" , tint = Color.Black )
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" , tint = MaterialTheme.colorScheme.onPrimary )
                 }
 
                 Text(text = "FE Class", style = androidx.compose.ui.text.TextStyle(
                     fontSize = 16.sp,
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.onPrimary,
                 ), modifier = Modifier.padding( start = 5.dp))
 
             }
@@ -126,7 +126,7 @@ fun CourseContent(navController: NavController){
                     verticalArrangement = Arrangement.Center) {
                     Text(text = "Choose Your Category",
                         style = androidx.compose.ui.text.TextStyle(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         ))
@@ -212,7 +212,7 @@ fun CustomCard( modifier: Modifier,text:String, icon:Int){
                     contentAlignment = Alignment.Center) {
                     Text(text = text,
                         style = androidx.compose.ui.text.TextStyle(
-                            color = Color.Black ,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             fontSize = 16.sp))
                 }
                 }

@@ -67,13 +67,13 @@ fun QuestionList(navController: NavController) {
                 }) {
                     Icon(
                         Icons.Default.ArrowBack, contentDescription = "back",
-                        tint = Color.Black
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
                 Text(
                     text = "Hardware",
                     style = TextStyle(
-                        color = Color.Black,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 18.sp,
                     ),
                     modifier = Modifier.padding( start = 5.dp )
@@ -102,7 +102,7 @@ fun QuestionList(navController: NavController) {
                         ) {
                             Text(text = item.question +" - "+ item.number
                                 , style = TextStyle(
-                                    color = Color.Black
+                                    color = MaterialTheme.colorScheme.onPrimary
                                 )
                             )
                         }

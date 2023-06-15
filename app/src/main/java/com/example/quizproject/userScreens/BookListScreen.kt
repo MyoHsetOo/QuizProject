@@ -151,7 +151,11 @@ fun BookListScreen (navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
 
-                        Text(text = "Book List", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black , modifier =  Modifier.padding(end = 70.dp))
+                        Text(text = "Book List",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimary ,
+                            modifier =  Modifier.padding(end = 70.dp))
 
                     }
 
