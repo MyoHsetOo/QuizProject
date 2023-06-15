@@ -73,6 +73,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -245,12 +246,13 @@ fun QuestionEntryForm ( navController: NavController ) {
                         IconButton(onClick = {
                             navController.popBackStack()
                         }) {
-                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" )
+                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" ,
+                                tint = MaterialTheme.colorScheme.onPrimary,)
 
                         }
 
                         Text(text = "Data Entry Form", style = TextStyle(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             fontSize = 16.sp,
 
                             ), modifier = Modifier.padding(start = 8.dp))
@@ -259,7 +261,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                     Text(
                         text = "Question No.", style = TextStyle(
                             fontSize = 12.sp,
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.onPrimary
                         ), modifier = Modifier.padding(horizontal = 15.dp)
                     )
                     OutlinedTextField(
@@ -274,11 +276,11 @@ fun QuestionEntryForm ( navController: NavController ) {
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedContainerColor = MaterialTheme.colorScheme.secondary,
                             unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            focusedBorderColor = Color.Black,
-                            unfocusedBorderColor = Color.Black,
-                            focusedTextColor = Color.Black,
-                            unfocusedTextColor = Color.Black,
-                            cursorColor = Color.Black,
+                            focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                            focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                            cursorColor = MaterialTheme.colorScheme.onPrimary,
                         )
 
 
@@ -288,6 +290,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                     Text(
                         text = "Question Type", style = TextStyle(
                             fontSize = 12.sp,
+                            color = MaterialTheme.colorScheme.onPrimary,
 
                             ), modifier = Modifier.padding(horizontal = 15.dp)
                     )
@@ -312,7 +315,8 @@ fun QuestionEntryForm ( navController: NavController ) {
                             onValueChange = {},
                             shape = RoundedCornerShape(20.dp),
                             textStyle = TextStyle(
-                                fontSize = 14.sp
+                                fontSize = 14.sp,
+                                color = MaterialTheme.colorScheme.onPrimary,
                             ),
 
 
@@ -320,12 +324,13 @@ fun QuestionEntryForm ( navController: NavController ) {
                             colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                unfocusedBorderColor = Color.Black,
-                                focusedBorderColor = Color.Black,
-                                focusedTextColor = Color.Black,
-                                unfocusedTextColor = Color.Black,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
                                 selectionColors = TextSelectionColors(
-                                    handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
+                                    handleColor = MaterialTheme.colorScheme.onPrimary,
+                                    backgroundColor = MaterialTheme.colorScheme.secondary
                                 )
 
                             ),
@@ -346,7 +351,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                     modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
                                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                                     colors = MenuDefaults.itemColors(
-                                        textColor = Color.Black
+                                        textColor = MaterialTheme.colorScheme.onPrimary
                                     )
                                 )
                             }
@@ -367,11 +372,11 @@ fun QuestionEntryForm ( navController: NavController ) {
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                focusedBorderColor = Color.Black,
-                                unfocusedBorderColor = Color.Black,
-                                focusedTextColor = Color.Black,
-                                unfocusedTextColor = Color.Black,
-                                cursorColor = Color.Black,
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                cursorColor = MaterialTheme.colorScheme.onPrimary,
                             )
                         )
 
@@ -387,6 +392,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                             trailingIcon = {
                                 Icon(imageVector = Icons.Default.AttachFile,
                                     contentDescription = "Attached",
+                                    tint = MaterialTheme.colorScheme.onPrimary,
                                     modifier = Modifier.clickable {
 
                                         isAttachedQuestionClickable = true
@@ -399,11 +405,11 @@ fun QuestionEntryForm ( navController: NavController ) {
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                focusedBorderColor = Color.Black,
-                                unfocusedBorderColor = Color.Black,
-                                focusedTextColor = Color.Black,
-                                unfocusedTextColor = Color.Black,
-                                cursorColor = Color.Black,
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                cursorColor = MaterialTheme.colorScheme.onPrimary,
                             )
                         )
                     }
@@ -429,7 +435,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                     Text(
                         text = "Answer Type", style = TextStyle(
                             fontSize = 12.sp,
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.onPrimary
                         ), modifier = Modifier.padding(horizontal = 15.dp)
                     )
 /////
@@ -451,18 +457,20 @@ fun QuestionEntryForm ( navController: NavController ) {
                             onValueChange = {},
                             shape = RoundedCornerShape(20.dp),
                             textStyle = TextStyle(
-                                fontSize = 14.sp
+                                fontSize = 14.sp,
+                                color = MaterialTheme.colorScheme.onPrimary,
                             ),
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedAnswer) },
                             colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                unfocusedBorderColor = Color.Black,
-                                focusedBorderColor = Color.Black,
-                                focusedTextColor = Color.Black,
-                                unfocusedTextColor = Color.Black,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
                                 selectionColors = TextSelectionColors(
-                                    handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
+                                    handleColor = MaterialTheme.colorScheme.onPrimary,
+                                    backgroundColor = MaterialTheme.colorScheme.secondary
                                 )
 
                             ),
@@ -482,7 +490,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                     modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
                                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                                     colors = MenuDefaults.itemColors(
-                                        textColor = Color.Black
+                                        textColor = MaterialTheme.colorScheme.onPrimary
                                     )
                                 )
                             }
@@ -512,11 +520,11 @@ fun QuestionEntryForm ( navController: NavController ) {
                                 colors = OutlinedTextFieldDefaults.colors(
                                     focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                     unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                    focusedBorderColor = Color.Black,
-                                    unfocusedBorderColor = Color.Black,
-                                    focusedTextColor = Color.Black,
-                                    unfocusedTextColor = Color.Black,
-                                    cursorColor = Color.Black,
+                                    focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                    focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    cursorColor = MaterialTheme.colorScheme.onPrimary,
                                 )
                             )
 
@@ -533,6 +541,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                 trailingIcon = {
                                     Icon(imageVector = Icons.Default.AttachFile,
                                         contentDescription = "Attached",
+                                        tint = MaterialTheme.colorScheme.onPrimary,
                                         modifier = Modifier.clickable {
                                             answerPhotoPick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                                             //launcherAnswer.launch("image/*")
@@ -544,11 +553,11 @@ fun QuestionEntryForm ( navController: NavController ) {
                                 colors = OutlinedTextFieldDefaults.colors(
                                     focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                     unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                    focusedBorderColor = Color.Black,
-                                    unfocusedBorderColor = Color.Black,
-                                    focusedTextColor = Color.Black,
-                                    unfocusedTextColor = Color.Black,
-                                    cursorColor = Color.Black,
+                                    focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                    focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    cursorColor = MaterialTheme.colorScheme.onPrimary,
                                 )
                             )
 
@@ -601,7 +610,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                         Text(
                             text = "Add Answer", style = TextStyle(
                                 fontSize = 14.sp,
-                                color = Color.Black
+                                color = MaterialTheme.colorScheme.onPrimary,
                             )
                         )
 
@@ -630,7 +639,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                             Text(
                                 text = "${item.answerType}", style = TextStyle(
                                     fontSize = 16.sp,
-                                    color = Color.Black
+                                    color = MaterialTheme.colorScheme.onPrimary
                                 )
                             )
                         }
@@ -643,7 +652,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                             Text(
                                 text = "${item.answerText}", style = TextStyle(
                                     fontSize = 12.sp,
-                                    color = Color.Black
+                                    color = MaterialTheme.colorScheme.onPrimary
                                 )
                             )
 
@@ -672,7 +681,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                     Text(
                         text = "Solution Type", style = TextStyle(
                             fontSize = 12.sp,
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.onPrimary
                         ), modifier = Modifier.padding(horizontal = 15.dp)
                     )
                     ExposedDropdownMenuBox(
@@ -693,18 +702,20 @@ fun QuestionEntryForm ( navController: NavController ) {
                             onValueChange = {},
                             shape = RoundedCornerShape(20.dp),
                             textStyle = TextStyle(
-                                fontSize = 14.sp
+                                fontSize = 14.sp,
+                                color = MaterialTheme.colorScheme.onPrimary,
                             ),
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSolution) },
                             colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                unfocusedBorderColor = Color.Black,
-                                focusedBorderColor = Color.Black,
-                                focusedTextColor = Color.Black,
-                                unfocusedTextColor = Color.Black,
+                                unfocusedBorderColor =MaterialTheme.colorScheme.onPrimary,
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
                                 selectionColors = TextSelectionColors(
-                                    handleColor = Color.Black,backgroundColor = MaterialTheme.colorScheme.secondary
+                                    handleColor = MaterialTheme.colorScheme.onPrimary,
+                                    backgroundColor = MaterialTheme.colorScheme.secondary
                                 )
 
                             ),
@@ -717,7 +728,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                         ) {
                             optionsSolution.forEach { selectionOption ->
                                 DropdownMenuItem(
-                                    text = { Text(selectionOption) },
+                                    text = { Text(selectionOption ) },
                                     onClick = {
                                         selectedSolutionText = selectionOption
                                         expandedSolution = false
@@ -725,7 +736,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                     modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
                                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                                     colors = MenuDefaults.itemColors(
-                                        textColor = Color.Black
+                                        textColor = MaterialTheme.colorScheme.onPrimary,
                                     )
 
                                 )
@@ -747,11 +758,11 @@ fun QuestionEntryForm ( navController: NavController ) {
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                focusedBorderColor = Color.Black,
-                                unfocusedBorderColor = Color.Black,
-                                focusedTextColor = Color.Black,
-                                unfocusedTextColor = Color.Black,
-                                cursorColor = Color.Black,
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                cursorColor = MaterialTheme.colorScheme.onPrimary,
                             )
                         )
 
@@ -767,6 +778,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                             trailingIcon = {
                                 Icon(imageVector = Icons.Default.AttachFile,
                                     contentDescription = "Attached",
+                                    tint = MaterialTheme.colorScheme.onPrimary,
                                     modifier = Modifier.clickable {
                                         solutionPhotoPick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                                         //launcherSolution.launch("image/*")
@@ -777,11 +789,11 @@ fun QuestionEntryForm ( navController: NavController ) {
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                focusedBorderColor = Color.Black,
-                                unfocusedBorderColor = Color.Black,
-                                focusedTextColor = Color.Black,
-                                unfocusedTextColor = Color.Black,
-                                cursorColor = Color.Black,
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                cursorColor = MaterialTheme.colorScheme.onPrimary,
                             )
                         )
                     }
@@ -812,7 +824,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                         ) {
                             Text(
                                 text = "Save", style = TextStyle(
-                                    color = Color.Black,
+                                    color = MaterialTheme.colorScheme.onPrimary,
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
                                 ), modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp)

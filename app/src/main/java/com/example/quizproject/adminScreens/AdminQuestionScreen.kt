@@ -73,7 +73,7 @@ fun AdminQuestionScreen(navController: NavController) {
             .background(MaterialTheme.colorScheme.secondary),
         containerColor = MaterialTheme.colorScheme.secondary,
         sheetContainerColor = MaterialTheme.colorScheme.primary,
-        sheetContentColor = Color.Black,
+        sheetContentColor = MaterialTheme.colorScheme.onPrimary,
         sheetShadowElevation = 10.dp,
         sheetShape = RoundedCornerShape(40.dp),
         sheetContent = {
@@ -86,7 +86,8 @@ fun AdminQuestionScreen(navController: NavController) {
             ) {
                 Text(
                     text = "Solution", style = TextStyle(
-                        fontSize = 12.sp
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onPrimary,
                     )
                 )
             }
@@ -114,7 +115,7 @@ fun AdminQuestionScreen(navController: NavController) {
                         IconButton(onClick = { navController.popBackStack() }) {
                             Icon(
                                 Icons.Default.ArrowBack, contentDescription = "back",
-                                tint = Color.Black,
+                                tint = MaterialTheme.colorScheme.onPrimary,
                             )
                         }
 
@@ -123,7 +124,7 @@ fun AdminQuestionScreen(navController: NavController) {
                         Text(
                             text = "2023 April ",
                             style = TextStyle(
-                                color = Color.Black,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp
                             )
@@ -135,13 +136,13 @@ fun AdminQuestionScreen(navController: NavController) {
                     ) {
                         Icon(
                             Icons.Default.Edit, contentDescription = "back",
-                            tint = Color.Black
+                            tint = MaterialTheme.colorScheme.onPrimary
                         )
 
                         Spacer(modifier = Modifier.width(10.dp))
                         Icon(
                             Icons.Default.Delete, contentDescription = "back",
-                            tint = Color.Black
+                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 }
@@ -159,7 +160,7 @@ fun AdminQuestionScreen(navController: NavController) {
             Text(
                 text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating.",
                 style = TextStyle(
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.onPrimary,
                    lineHeight = 25.sp
                 ),
                 modifier = Modifier.padding(5.dp),
@@ -185,7 +186,7 @@ fun AdminQuestionScreen(navController: NavController) {
                         Icon(
                             Icons.Default.Check,
                             contentDescription = "Localized description",
-                            tint = Color.Black,
+                            tint = MaterialTheme.colorScheme.onPrimary,
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -196,7 +197,9 @@ fun AdminQuestionScreen(navController: NavController) {
                     ) {
                         Text(
                             text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                            style = TextStyle(color = Color.Black,lineHeight = 25.sp)
+                            style = TextStyle(
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                lineHeight = 25.sp)
                         )
 
                     }
@@ -219,7 +222,9 @@ fun AdminQuestionScreen(navController: NavController) {
 
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(color = Color.Black,lineHeight = 25.sp)
+                        style = TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            lineHeight = 25.sp)
                     )
 
                 }
@@ -241,7 +246,7 @@ fun AdminQuestionScreen(navController: NavController) {
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimary ,
                             lineHeight = 25.sp
                     )
                     )
@@ -264,7 +269,9 @@ fun AdminQuestionScreen(navController: NavController) {
 
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(color = Color.Black,lineHeight = 25.sp)
+                        style = TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            lineHeight = 25.sp)
                     )
 
                 }
@@ -280,7 +287,7 @@ fun AdminQuestionScreen(navController: NavController) {
                 ) {
                     Text(
                         text = "Submit",
-                        color = Color.Black
+                        color = MaterialTheme.colorScheme.onPrimary ,
                     )
                 }
 

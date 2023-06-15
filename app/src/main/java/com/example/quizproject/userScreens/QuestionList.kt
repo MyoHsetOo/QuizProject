@@ -83,7 +83,8 @@ fun QuestionList(navController: NavController) {
             }
            // Spacer(modifier = Modifier.height(20.dp))
             Column(modifier=Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding( top = 10.dp ),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -92,7 +93,7 @@ fun QuestionList(navController: NavController) {
                         Button(
                             onClick = { navController.navigate("QuestionScreen")},
                             modifier = Modifier
-                                .fillMaxWidth(0.8f)
+                                .fillMaxWidth(0.85f)
                                 .fillMaxHeight(),
                             shape = RoundedCornerShape(20.dp),
                             elevation = ButtonDefaults.elevatedButtonElevation(10.dp),

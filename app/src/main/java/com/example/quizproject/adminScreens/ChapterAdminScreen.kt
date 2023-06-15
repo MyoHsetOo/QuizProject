@@ -90,11 +90,11 @@ fun ChapterAdminScreen( navController: NavController ) {
                 IconButton(onClick = {
                     navController.popBackStack()
                 }) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back", tint = Color.Black)
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back", tint = MaterialTheme.colorScheme.onPrimary)
                 }
 
                 Text(text = "Information Technology", modifier = Modifier.padding( start = 5.dp), style = TextStyle(
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 16.sp
                 ) )
 
@@ -145,7 +145,7 @@ fun ChapterAdminScreen( navController: NavController ) {
                             Icon(
                                 imageVector = Icons.Default.Add,
                                 contentDescription = "menu",
-                                tint = Color.Black,
+                                tint = MaterialTheme.colorScheme.onPrimary,
                                 //modifier = Modifier.padding(10.dp)
                             )
                         }
@@ -169,8 +169,8 @@ fun ChapterAdminScreen( navController: NavController ) {
                             colors = TextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                focusedTextColor = Color.Black,
-                                unfocusedTextColor = Color.Black,
+                                focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
                                 focusedIndicatorColor = Color.Transparent,
                                 unfocusedIndicatorColor = Color.Transparent,
                                 //textColor = Color.Black
@@ -212,7 +212,7 @@ fun ChapterAdminScreen( navController: NavController ) {
                                     Text(
                                         text = "${item.chapterNo}",
                                         modifier = Modifier.padding(15.dp),
-                                        color = Color.Black
+                                        color = MaterialTheme.colorScheme.onPrimary
                                     )
                                 }
                             }
@@ -232,7 +232,7 @@ fun ChapterAdminScreen( navController: NavController ) {
                                 Text(
                                     text = "${item.chapterName}",
                                     modifier = Modifier.padding(15.dp),
-                                    color = Color.Black
+                                    color = MaterialTheme.colorScheme.onPrimary
                                 )
                             }
                         }

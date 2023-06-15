@@ -45,6 +45,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -73,6 +74,12 @@ fun HomeAdminScreen ( navController: NavController ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bulb))
 
     var isPlaying by remember { mutableStateOf(true) }
+
+    val textFieldValue = remember { mutableStateOf("") }
+
+    val showAlert = remember { mutableStateOf(false) }
+
+    val itemList = remember { mutableStateListOf<String>() }
 
     var isAddingBatch by remember {
         mutableStateOf(false)
@@ -132,7 +139,9 @@ fun HomeAdminScreen ( navController: NavController ) {
                 }
             }
             Box {
-                Button(onClick = { /*TODO*/ },
+                Button(onClick = {
+                                 showAlert.value = !showAlert.value
+                                 },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.secondary
                     ),
@@ -143,16 +152,76 @@ fun HomeAdminScreen ( navController: NavController ) {
                         verticalAlignment = Alignment.CenterVertically,
 
                     ){
+                        Icon(imageVector = Icons.Default.Add, contentDescription = "add",
+                            modifier = Modifier.padding(end = 0.dp, start = 5.dp))
+
                         Text(text = "Add Course" , style = TextStyle(
                             fontSize = 14.sp,
                             color = MaterialTheme.colorScheme.onPrimary
                         ), modifier = Modifier.padding( start = 10.dp, end = 0.dp))
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "add",
-                            modifier = Modifier.padding(end = 0.dp, start = 5.dp))
                     }
 
                 }
             }
+
+        }
+
+        if (showAlert.value) {
+
+            AlertDialog(
+                onDismissRequest = { showAlert.value = false },
+                title = { Text(text = "Enter Book name",
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 16.sp
+                    )
+                ) },
+                containerColor = MaterialTheme.colorScheme.secondary,
+                icon = {
+                    Icon(imageVector = Icons.Default.MenuBook,
+                        contentDescription = "Edit",
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(30.dp)
+                    )
+                },
+
+                text = {
+
+                    OutlinedTextField(
+                        value = textFieldValue.value,
+                        onValueChange = { textFieldValue.value = it },
+                        modifier = Modifier
+                            .border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp)),
+
+                        colors = OutlinedTextFieldDefaults.colors(
+                            cursorColor = Color.Black,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            // focusedBorderColor = Color(0xFF4B6DA3),
+                            //unfocusedBorderColor = Color(0xFF4B6DA3),
+                            unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                            focusedTextColor = MaterialTheme.colorScheme.onPrimary
+
+                        ),
+                        shape = RoundedCornerShape(10.dp)
+
+                    )
+                },
+                confirmButton = {
+                    Button(onClick = { showAlert.value = false
+                        itemList.add(textFieldValue.value)
+
+                        textFieldValue.value = ""
+
+                    },
+                        colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
+                    ) {
+                        Text(text = "Submit", color = MaterialTheme.colorScheme.secondary)
+                    }
+                }
+            )
+
 
         }
         Column (

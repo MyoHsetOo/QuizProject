@@ -112,14 +112,14 @@ fun CourseListAdminScreen( navController: NavController ) {
                         IconButton(onClick = {
                             navController.popBackStack()
                         }) {
-                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
+                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = MaterialTheme.colorScheme.onPrimary)
                         }
 
 
                         Text(text = "ITPEC" , style = TextStyle(
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimary,
                         ), modifier = Modifier.padding( start = 5.dp ))
 
                 }
@@ -154,6 +154,7 @@ fun CourseListAdminScreen( navController: NavController ) {
 
                     Text(text = "Course Lists" , style = TextStyle(
                         fontSize = 18.sp,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         fontWeight = FontWeight.Bold,
 
                     ), modifier = Modifier.padding( start = 15.dp, bottom = 20.dp) )
