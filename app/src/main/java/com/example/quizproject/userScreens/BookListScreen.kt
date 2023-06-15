@@ -102,24 +102,15 @@ fun BookListScreen (navController: NavController) {
 
         topBar = {
 
-            Column(
+            Row (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp)
                     .height(56.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ){
 
-                Row (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ){
-
-                    IconButton(onClick = { navController.popBackStack() }){
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
-                    }
+                IconButton(onClick = { navController.popBackStack() }){
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
                 }
             }
         },

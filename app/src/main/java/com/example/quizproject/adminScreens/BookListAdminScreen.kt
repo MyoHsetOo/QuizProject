@@ -104,26 +104,18 @@ fun BookListAdminScreen (navController: NavController) {
 
         topBar = {
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .height(56.dp),
-            ){
-
                 Row (
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
                 ){
 
                     IconButton(onClick = { navController.popBackStack() }){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
                     }
                 }
-            }
+
         },
 
         content = {

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.service.autofill.OnClickAction
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -54,7 +55,7 @@ fun CourseContentAdminScreen(navController: NavController) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
-            TopAppBar(
+            /*TopAppBar(
                 colors = TopAppBarDefaults.smallTopAppBarColors(MaterialTheme.colorScheme.secondary),
                 title = {
                     Row {
@@ -75,7 +76,26 @@ fun CourseContentAdminScreen(navController: NavController) {
                             )
                         }
                     }
-                })
+                })*/
+
+                 Row (
+                     verticalAlignment = Alignment.CenterVertically,
+                     modifier = Modifier
+                         .fillMaxWidth()
+
+                 ){
+                     IconButton(onClick = {
+                         navController.popBackStack()
+                     }) {
+                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" , tint = Color.Black )
+                     }
+
+                     Text(text = "FE Class", style = TextStyle(
+                         fontSize = 16.sp,
+                         color = Color.Black,
+                     ), modifier = Modifier.padding( start = 5.dp))
+
+                 }
         },
         content = {
             val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.datapresentation))
