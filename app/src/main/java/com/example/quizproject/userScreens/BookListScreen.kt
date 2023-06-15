@@ -102,24 +102,15 @@ fun BookListScreen (navController: NavController) {
 
         topBar = {
 
-            Column(
+            Row (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp)
                     .height(56.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ){
 
-                Row (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ){
-
-                    IconButton(onClick = { navController.popBackStack() }){
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
-                    }
+                IconButton(onClick = { navController.popBackStack() }){
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
                 }
             }
         },
@@ -160,7 +151,11 @@ fun BookListScreen (navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
 
-                        Text(text = "Book List", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black , modifier =  Modifier.padding(end = 70.dp))
+                        Text(text = "Book List",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimary ,
+                            modifier =  Modifier.padding(end = 70.dp))
 
                     }
 

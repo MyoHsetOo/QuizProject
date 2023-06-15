@@ -85,28 +85,24 @@ fun CourseContent(navController: NavController){
     Scaffold(
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
-            TopAppBar(
-                colors =TopAppBarDefaults.smallTopAppBarColors(MaterialTheme.colorScheme.secondary),
-                title = {
-                    Row(modifier=Modifier.fillMaxWidth()
-                        .height(56.dp),
-                        horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically) {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Icon(Icons.Default.ArrowBack, contentDescription = "back",
-                                tint = Color.Black)
-                        }
-                        Box(modifier = Modifier.padding(5.dp)){
-                            Text(text = "FE Class",
-                                style = androidx.compose.ui.text.TextStyle(
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp
-                                )
-                            )
-                        }
-                    }
-                })
+            Row (
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+
+            ){
+                IconButton(onClick = {
+                    navController.popBackStack()
+                }) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" , tint = MaterialTheme.colorScheme.onPrimary )
+                }
+
+                Text(text = "FE Class", style = androidx.compose.ui.text.TextStyle(
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                ), modifier = Modifier.padding( start = 5.dp))
+
+            }
             },
         content = {
             val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.datapresentation)  )
@@ -130,7 +126,7 @@ fun CourseContent(navController: NavController){
                     verticalArrangement = Arrangement.Center) {
                     Text(text = "Choose Your Category",
                         style = androidx.compose.ui.text.TextStyle(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         ))
@@ -216,7 +212,7 @@ fun CustomCard( modifier: Modifier,text:String, icon:Int){
                     contentAlignment = Alignment.Center) {
                     Text(text = text,
                         style = androidx.compose.ui.text.TextStyle(
-                            color = Color.Black ,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             fontSize = 16.sp))
                 }
                 }

@@ -100,8 +100,10 @@ fun QuestionScreen(navController: NavController) {
                     .background(MaterialTheme.colorScheme.primary),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                Text(text = "Solution", style = TextStyle(
-                    fontSize = 12.sp
+                Text(text = "Solution",
+                    style = TextStyle(
+                    fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onPrimary
                 ))
             }
 
@@ -124,11 +126,11 @@ fun QuestionScreen(navController: NavController) {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             Icons.Default.ArrowBack, contentDescription = "back",
-                            tint = Color.Black)
+                            tint =MaterialTheme.colorScheme.onPrimary)
                     }
                     Text(text = "2023 April-Q2 ",
                         style = TextStyle(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             fontWeight = FontWeight.Bold,
                             fontSize = 16.sp,
                         )
@@ -141,7 +143,7 @@ fun QuestionScreen(navController: NavController) {
                     horizontalArrangement = Arrangement.End,
                 ) {
 
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = {  }) {
 
                         Icon(imageVector = Icons.Default.Favorite, contentDescription = "back", tint = MaterialTheme.colorScheme.onPrimary)
                     }
@@ -160,7 +162,7 @@ fun QuestionScreen(navController: NavController) {
 
             Text(text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating."
                 , style = TextStyle(
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     lineHeight = 25.sp,
                 ),
                 modifier = Modifier.padding(5.dp)
@@ -181,7 +183,10 @@ fun QuestionScreen(navController: NavController) {
                 Row {
 
                     IconButton(onClick = {}) {
-                        Icon(Icons.Default.Check, contentDescription = "Localized description", tint = Color.Black, modifier = Modifier.size(20.dp))
+                        Icon(Icons.Default.Check,
+                            contentDescription = "Localized description",
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.size(20.dp))
                     }
 
 
@@ -190,16 +195,12 @@ fun QuestionScreen(navController: NavController) {
                     ){
                         Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                             style = TextStyle(
-                                color = Color.Black,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 lineHeight = 25.sp,
                             )
                         )
-
                     }
-
                 }
-
-
             }
 
             Card(
@@ -214,9 +215,9 @@ fun QuestionScreen(navController: NavController) {
                 ){
 
                     Text(
-                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                        text = "(b) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             lineHeight = 25.sp,
                         )
                     )
@@ -240,7 +241,7 @@ fun QuestionScreen(navController: NavController) {
                     Text(
                         text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             lineHeight = 25.sp,
                         )
                     )
@@ -263,7 +264,7 @@ fun QuestionScreen(navController: NavController) {
 
                     Text(text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
                         style = TextStyle(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             lineHeight = 25.sp,
                         )
                     )
@@ -279,7 +280,7 @@ fun QuestionScreen(navController: NavController) {
                 Button(modifier = Modifier.padding(top=30.dp),onClick = { /*TODO*/ },
                 ) {
                     Text(text = "Submit",
-                        color = Color.Black
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
 

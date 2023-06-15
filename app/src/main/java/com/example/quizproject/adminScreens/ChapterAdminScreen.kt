@@ -90,10 +90,13 @@ fun ChapterAdminScreen( navController: NavController ) {
                 IconButton(onClick = {
                     navController.popBackStack()
                 }) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back", tint = Color.Black)
                 }
 
-                Text(text = "Information Technology", modifier = Modifier.padding( start = 5.dp) )
+                Text(text = "Information Technology", modifier = Modifier.padding( start = 5.dp), style = TextStyle(
+                    color = Color.Black,
+                    fontSize = 16.sp
+                ) )
 
             }
 
@@ -162,12 +165,14 @@ fun ChapterAdminScreen( navController: NavController ) {
                             enabled = true,
                             onValueChange = { addChapterField.value = it },
                             modifier = Modifier,
-                            maxLines = 1,
+
                             colors = TextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                                 focusedTextColor = Color.Black,
                                 unfocusedTextColor = Color.Black,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
                                 //textColor = Color.Black
                             ),
                             placeholder = {

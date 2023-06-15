@@ -58,24 +58,28 @@ fun QuestionList(navController: NavController) {
         Column (
 
         ){
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-
-            ) {
-                Row {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "back",
-                            tint = Color.Black)
-                    }
-                    Box(modifier = Modifier.padding(10.dp)) {
-                        Text(text = "Hardware",
-                            style = TextStyle(color = Color.Black,
-                                fontSize = 18.sp)
-                        )
-                    }
+            Row (
+                modifier = Modifier.height(56.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                IconButton(onClick = {
+                    navController.popBackStack()
+                }) {
+                    Icon(
+                        Icons.Default.ArrowBack, contentDescription = "back",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
                 }
+                Text(
+                    text = "Hardware",
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontSize = 18.sp,
+                    ),
+                    modifier = Modifier.padding( start = 5.dp )
+
+                )
+
             }
            // Spacer(modifier = Modifier.height(20.dp))
             Column(modifier=Modifier
@@ -97,7 +101,7 @@ fun QuestionList(navController: NavController) {
                         ) {
                             Text(text = item.question +" - "+ item.number
                                 , style = TextStyle(
-                                    color = Color.Black
+                                    color = MaterialTheme.colorScheme.onPrimary
                                 )
                             )
                         }
