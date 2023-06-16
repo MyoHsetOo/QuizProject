@@ -29,6 +29,7 @@ import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.ContentPasteSearch
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.LibraryBooks
+import androidx.compose.material.icons.outlined.ArrowCircleRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -142,7 +143,10 @@ fun card(text:String , navController: NavController){
         modifier = Modifier
             .height(130.dp)
             .fillMaxWidth(0.75f)
-        .clickable { navController.navigate("CourseContentAdminScreen") },
+            .clickable {
+
+                navController.navigate("CourseContent")
+            },
          //   .padding(60.dp)
            ) {
         Card(
@@ -181,9 +185,7 @@ fun card(text:String , navController: NavController){
                    )
 
                    IconButton(onClick = { }) {
-                       Image(bitmap = ImageBitmap.imageResource(id = R.drawable.arrow),
-                           contentDescription = "",
-                           modifier=Modifier.size(30.dp))
+                       Icon(imageVector = Icons.Outlined.ArrowCircleRight, contentDescription = "right")
                    }
 
                }

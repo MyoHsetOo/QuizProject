@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.NoteAlt
+import androidx.compose.material.icons.outlined.ArrowCircleRight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -225,10 +226,11 @@ fun CourseListAdminScreen( navController: NavController ) {
                 containerColor = MaterialTheme.colorScheme.secondary,
                 icon = {
                     IconButton(onClick = { }) {
-                        Image(bitmap = ImageBitmap.imageResource(id = R.drawable.add),
+                        /*Image(bitmap = ImageBitmap.imageResource(id = R.drawable.add),
                             contentDescription = "",
                             modifier=Modifier.size(30.dp)
-                        )
+                        )*/
+                        Icon(imageVector = Icons.Outlined.ArrowCircleRight, contentDescription = "next")
                     }
                 },
                 text = {
