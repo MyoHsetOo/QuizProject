@@ -186,12 +186,13 @@ fun CourseListAdminScreen( navController: NavController ) {
                         horizontalArrangement = Arrangement.Start,
 
                     ) {
-                        IconButton(onClick = { }) {
+
                             Icon(
                                 Icons.Default.Add, contentDescription = "back",
-                                tint = MaterialTheme.colorScheme.onPrimary
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                modifier = Modifier.padding(5.dp)
                             )
-                        }
+
 
                             Text(
                                 text = "Add Course",
@@ -283,7 +284,7 @@ fun card(text:String , navController: NavController){
         modifier = Modifier
             .height(130.dp)
             .fillMaxWidth(0.75f)
-            .clickable { navController.navigate("CourseContentAdminScreen") },
+
 
         //   .padding(60.dp)
     ) {
@@ -306,7 +307,8 @@ fun card(text:String , navController: NavController){
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp)) {
-                Row(modifier = Modifier.fillMaxWidth(),
+                Row(modifier = Modifier.fillMaxWidth()
+                    .clickable { navController.navigate("CourseContentAdminScreen") },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(text = text,
@@ -315,11 +317,11 @@ fun card(text:String , navController: NavController){
                         )
                     )
 
-                    IconButton(onClick = { }) {
+
                         Image(bitmap = ImageBitmap.imageResource(id = R.drawable.arrow),
                             contentDescription = "",
                             modifier=Modifier.size(30.dp))
-                    }
+
 
                 }
 

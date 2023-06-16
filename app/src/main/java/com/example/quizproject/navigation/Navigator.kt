@@ -13,6 +13,7 @@ import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.adminScreens.HomeAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.login.LoginPage
+import com.example.quizproject.login.RegisterPage
 import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
@@ -31,7 +32,7 @@ fun Nav() {
 
 
     NavHost(navController,
-        startDestination = "LoginPage") {
+        startDestination = "RegisterPage") {
 
         //UserScreen
 
@@ -152,6 +153,12 @@ fun Nav() {
         composable(route = "LoginPage") {
             LoginPage(navController)
         }
+
+        //register
+        composable(route = "RegisterPage") {
+            RegisterPage(navController)
+        }
+
 
     }
 

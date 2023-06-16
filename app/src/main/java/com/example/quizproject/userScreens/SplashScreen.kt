@@ -40,6 +40,13 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
 import kotlinx.coroutines.delay
 
+
+
+
+
+
+
+
 @Composable
 fun SplashScreen(navController: NavController) {
 //
@@ -56,7 +63,7 @@ fun SplashScreen(navController: NavController) {
         LaunchedEffect(key1 = true) {
             startAnimation = true
             delay(7000)
-            navController.navigate("LoginPage")
+            navController.navigate("RegisterPage")
         }
             Splash(alpha = alphaAnim.value)
                 Text(text = "Quiz",
