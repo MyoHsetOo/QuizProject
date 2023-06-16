@@ -2,6 +2,8 @@ package com.example.quizproject.userScreens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,14 +14,17 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.ContentPasteSearch
 import androidx.compose.material.icons.filled.Description
@@ -41,6 +46,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -57,167 +66,129 @@ import com.example.quizproject.R
 @Composable
 fun CourseListScreen (navController: NavController) {
 
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.course))
-    var isPlaying by remember { mutableStateOf(true) }
 
-    val progress by animateLottieCompositionAsState(
-        composition = composition,
-        isPlaying = isPlaying
-    )
-//
-    LaunchedEffect(key1 = progress){
-        if( progress == 0f){
-            isPlaying = true
-        }
-        if ( progress == 1f){
-            isPlaying = false
-        }
-    }
 
-    Scaffold (
 
-    containerColor = MaterialTheme.colorScheme.primary,
-
-        topBar = {
-
-            Row (
+    Column() {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)) {
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
-                verticalAlignment = Alignment.CenterVertically,
+                shape = RoundedCornerShape(
+                    topStart = 0.dp,
+                    topEnd = 0.dp,
+                    bottomStart = 10.dp,
+                    bottomEnd = 10.dp
+                ),
+                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+            ) {
 
-            ){
-
-                IconButton(onClick = { navController.popBackStack() }){
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
+                Row(modifier = Modifier.fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically) {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            Icons.Default.ArrowBack, contentDescription = "back",
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
                     }
 
-                Text(text = "ITPEC" , style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                     fontSize = 18.sp,
-                ), modifier = Modifier.padding( start = 5.dp ))
-
-            }
-
-    },
-
-        content =  {
-
-         Column () {
-
-
-             Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.3f),
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.End
-
-            ) {
-                 Box(
-                ) {
-                    LottieAnimation(
-                        modifier = Modifier
-                            .size(200.dp),
-                        iterations = 100,
-                        composition = composition
+                    Text(
+                        text = "Course List",
+                        style = androidx.compose.ui.text.TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
+                        )
                     )
-                 }
-             }
-
-            Box (
-                modifier = Modifier.padding(start = 15.dp )
-            ) {
-                Text(text = "Course Lists" , fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black )
-            }
-
-             Spacer(modifier = Modifier.height(30.dp))
-
-             Card ( modifier = Modifier
-                .fillMaxSize(),
-                shape = RoundedCornerShape(  topStart = 30.dp , topEnd = 30.dp ),
-                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
-
-                 ){
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-
-                        .verticalScroll(rememberScrollState()),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                    ) {
-
-                    Card(
-
-                        modifier = Modifier
-                            .fillMaxWidth(0.8f)
-                            .clickable { navController.navigate("CourseContent") },
-
-                        elevation = CardDefaults.cardElevation(2.dp),
-                        border = BorderStroke(1.dp, Color(0xFF3A416D)),
-                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-
-                    ) {
-
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .height(90.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-
-                            Row ( modifier = Modifier
-                                .fillMaxWidth(0.8f)
-                                .padding(top = 20.dp, bottom = 20.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-
-                                Icon(imageVector = Icons.Default.Description, contentDescription = "Description", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-
-                                Text(text = "IT passport Exam (IP)  " , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(60.dp))
-
-                    Card(
-
-                        modifier = Modifier
-                            .fillMaxWidth(0.8f)
-                            .clickable { navController.navigate("CourseContent") },
-
-                        elevation = CardDefaults.cardElevation(2.dp),
-                        border = BorderStroke(1.dp, Color(0xFF3A416D)),
-                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-
-                    ) {
-
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-
-                            Row ( modifier = Modifier
-                                .fillMaxWidth(0.8f)
-                                .padding(top = 20.dp, bottom = 20.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-
-                                Icon(imageVector = Icons.Default.Description, contentDescription = "Description", tint = Color.Black, modifier = Modifier.padding(end = 20.dp))
-
-                                Text(text = "Fundamental Engineering Exam (FE)  " , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
-                            }
-                        }
-                    }
                 }
+
+
+        }
+        }
+        
+        Spacer(modifier = Modifier.height(30.dp))
+
+    Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.secondary)
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+                card(
+                    text = "Information Technology Vol.1",
+                    navController
+                )
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                card(
+                    text="Strategy and Management Vol.2"
+                ,navController
+                )
             }
         }
-    } )
+}
+
+
+
+@Composable
+fun card(text:String , navController: NavController){
+    Column(
+        modifier = Modifier
+            .height(130.dp)
+            .fillMaxWidth(0.75f)
+        .clickable { navController.navigate("CourseContentAdminScreen") },
+         //   .padding(60.dp)
+           ) {
+        Card(
+            modifier = Modifier
+                .fillMaxSize(),
+            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
+            elevation = CardDefaults.cardElevation(10.dp),
+            shape = RoundedCornerShape(topStart = 0.dp, topEnd = 10.dp, bottomEnd = 0.dp, bottomStart = 10.dp)
+        ) {
+            Card(modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp),
+                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+                shape = RoundedCornerShape( topStart = 0.dp, topEnd = 0.dp, bottomEnd = 0.dp, bottomStart = 0.dp)
+                ) {
+                /*Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .offset(0.dp, (-30).dp),
+                    painter = painterResource(id = R.drawable.bg_main),
+                    contentDescription = "Header Background",
+                    contentScale = ContentScale.FillWidth
+                )*/
+            }
+            Column(verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp)) {
+               Row(modifier = Modifier.fillMaxWidth(),
+                   verticalAlignment = Alignment.CenterVertically,
+                   horizontalArrangement = Arrangement.SpaceBetween) {
+                   Text(text = text,
+                       style = TextStyle(
+                           color=MaterialTheme.colorScheme.onPrimary
+                       )
+                   )
+
+                   IconButton(onClick = { }) {
+                       Image(bitmap = ImageBitmap.imageResource(id = R.drawable.arrow),
+                           contentDescription = "",
+                           modifier=Modifier.size(30.dp))
+                   }
+
+               }
+
+            }
+        }
+    }
 }

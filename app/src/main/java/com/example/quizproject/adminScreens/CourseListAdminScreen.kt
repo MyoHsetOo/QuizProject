@@ -1,6 +1,7 @@
 package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -51,7 +52,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -62,265 +65,262 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.userScreens.card
+
 //
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CourseListAdminScreen( navController: NavController ) {
-//////
+
+    val showAlert = remember { mutableStateOf(false) }
+    val textFieldValue = remember { mutableStateOf("") }
+
     val itemList = remember { mutableStateListOf<String>() }
-    val addCourseTextField = remember { mutableStateOf("") }
-    var isAddingCourse by remember { mutableStateOf(false) }
-
-    val context = LocalContext.current
-
-    var count = remember {
-        mutableStateOf(0)
-    }
-
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.course))
-
-    var isPlaying by remember { mutableStateOf(true) }
-
-    val progress by animateLottieCompositionAsState(
-        composition = composition,
-
-        isPlaying = isPlaying
-    )
-
-    LaunchedEffect(key1 = progress){
-        if( progress == 0f){
-            isPlaying = true
-        }
-        if ( progress == 1f){
-            isPlaying = false
-        }
-    }
-
-    Scaffold (
-
-        containerColor = MaterialTheme.colorScheme.primary,
-
-        topBar = {
-                Row (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    ){
-
-                        IconButton(onClick = {
-                            navController.popBackStack()
-                        }) {
-                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = MaterialTheme.colorScheme.onPrimary)
-                        }
 
 
-                        Text(text = "ITPEC" , style = TextStyle(
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimary,
-                        ), modifier = Modifier.padding( start = 5.dp ))
+//////
+    Column() {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(
+                    topStart = 0.dp,
+                    topEnd = 0.dp,
+                    bottomStart = 10.dp,
+                    bottomEnd = 10.dp
+                ),
+                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+            ) {
 
-                }
-
-        },
-
-        content =  {
-
-            Column () {
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.30f)
-                        ,
-                    verticalArrangement = Arrangement.Bottom,
-                    horizontalAlignment = Alignment.End
-
-                ) {
-
-                    Box(
-                    ) {
-
-                        LottieAnimation(
-                            modifier = Modifier
-                                .size(250.dp),
-                            iterations = 100,
-                            composition = composition
+                Row(modifier = Modifier.fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically) {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            Icons.Default.ArrowBack, contentDescription = "back",
+                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
-                }
 
-                    Text(text = "Course Lists" , style = TextStyle(
-                        fontSize = 18.sp,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        fontWeight = FontWeight.Bold,
-
-                    ), modifier = Modifier.padding( start = 15.dp, bottom = 20.dp) )
-
-                if ( isAddingCourse ) {
-
-                    AlertDialog(
-                        onDismissRequest = { isAddingCourse = false },
-                        title = { Text(text = "Enter course name",
-                            style = TextStyle(
-                                color = MaterialTheme.colorScheme.onPrimary,
-                                fontWeight = FontWeight.ExtraBold,
-                                fontSize = 16.sp
-                            )
-                        ) },
-                        containerColor = MaterialTheme.colorScheme.secondary,
-                        icon = {
-                            Icon(imageVector = Icons.Default.BorderColor,
-                                contentDescription = "Edit",
-                                tint = MaterialTheme.colorScheme.onPrimary,
-                                modifier = Modifier.size(30.dp)
-                            )
-                        },
-
-                        text = {
-
-                            OutlinedTextField(
-                                value = addCourseTextField.value,
-                                onValueChange = { addCourseTextField.value = it },
-                                modifier = Modifier
-                                    .border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp)),
-
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    cursorColor = Color.Black,
-                                    unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                    focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                    // focusedBorderColor = Color(0xFF4B6DA3),
-                                    //unfocusedBorderColor = Color(0xFF4B6DA3),
-                                    unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
-                                    focusedTextColor = MaterialTheme.colorScheme.onPrimary
-
-                                ),
-                                shape = RoundedCornerShape(10.dp)
-
-                            )
-                        },
-                        confirmButton = {
-                            Button(onClick = { isAddingCourse = false
-                                itemList.add (addCourseTextField.value)
-
-                                addCourseTextField.value = ""
-
-                            },
-                                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
-                            ) {
-                                Text(text = "Submit", color = MaterialTheme.colorScheme.secondary)
-                            }
-                        }
+                    Text(
+                        text = "Course List",
+                        style = androidx.compose.ui.text.TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
+                        )
                     )
                 }
 
-                Card ( modifier = Modifier
-                    .fillMaxSize(),
-                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
-                    ){
 
-                    Column(
+            }
+        }
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.secondary)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+
+
+            Column(
+                modifier = Modifier
+                    .height(130.dp)
+                    .fillMaxWidth(0.75f)
+            ) {
+                Card(
+                modifier = Modifier
+                    .fillMaxSize(),
+                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
+                elevation = CardDefaults.cardElevation(10.dp),
+                shape = RoundedCornerShape(
+                    topStart = 0.dp,
+                    topEnd = 10.dp,
+                    bottomEnd = 0.dp,
+                    bottomStart = 10.dp
+                )
+            ) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(40.dp),
+                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+                    shape = RoundedCornerShape(
+                        topStart = 0.dp,
+                        topEnd = 0.dp,
+                        bottomEnd = 0.dp,
+                        bottomStart = 0.dp
+                    )
+                ) {
+                    /*Image(
                         modifier = Modifier
                             .fillMaxWidth()
-
-                            .padding(30.dp)
-                            .verticalScroll(rememberScrollState()),
-                        horizontalAlignment = Alignment.CenterHorizontally,
+                            .offset(0.dp, (-30).dp),
+                        painter = painterResource(id = R.drawable.bg_main),
+                        contentDescription = "Header Background",
+                        contentScale = ContentScale.FillWidth
+                    )*/
+                }
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(10.dp)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { showAlert.value = true },
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start,
 
                     ) {
-
-                        for (item in itemList) {
-
-
-                            Card(
-                                modifier = Modifier
-                                    .padding(20.dp)
-                                    .fillMaxWidth()
-                                    .height(80.dp)
-                                    .clickable {
-                                        navController.navigate("CourseContentAdminScreen")
-                                    },
-                                elevation = CardDefaults.cardElevation(2.dp),
-                                //shape = RoundedCornerShape( topStart = 20.dp, bottomEnd = 20.dp),
-                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxSize(),
-                                    ) {
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .fillMaxHeight()
-                                            .padding(top = 15.dp, bottom = 15.dp, start = 20.dp),
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.Start
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Description,
-                                            contentDescription = "Add",
-                                            tint = Color.Black,
-                                            modifier = Modifier.padding(end = 20.dp)
-                                        )
-                                        Text(
-                                            text = "$item",
-                                            fontSize = 14.sp,
-                                            fontWeight = FontWeight.SemiBold,
-                                            color = Color.Black
-                                        )
-                                    }
-                                }
-                            }
-
+                        IconButton(onClick = { }) {
+                            Icon(
+                                Icons.Default.Add, contentDescription = "back",
+                                tint = MaterialTheme.colorScheme.onPrimary
+                            )
                         }
 
-                        Card(
-                            modifier = Modifier
-                                .padding(20.dp)
-                                .fillMaxWidth()
-                                .height(80.dp)
-                                .clickable { isAddingCourse = !isAddingCourse },
-
-                            elevation = CardDefaults.cardElevation(2.dp),
-                            //shape = RoundedCornerShape( topStart = 20.dp, bottomEnd = 20.dp),
-                            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-                        ) {
-
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize(),
-
-                                ) {
-
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .fillMaxHeight()
-                                        .padding(top = 15.dp, bottom = 15.dp, start = 20.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.Start
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Add,
-                                        contentDescription = "Add",
-                                        tint = Color.Black,
-                                        modifier = Modifier.padding(end = 20.dp)
-                                    )
-                                    Text(
-                                        text = " Add Course  ",
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = Color.Black
-                                    )
-                                }
-                            }
-                        }
+                            Text(
+                                text = "Add Course",
+                                style = TextStyle(
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                            )
                     }
                 }
             }
-        },
+        }
 
-    )
+            Spacer(modifier = Modifier.height(30.dp))
+            for (item in itemList){
+                card(text = item, navController = navController)
+                Spacer(modifier = Modifier.height(30.dp))
+            }
+        }
+        if (showAlert.value) {
+            AlertDialog(
+                onDismissRequest = { showAlert.value = false },
+                title = {
+                    Text(
+                        text = "Enter Course Name",
+                        style = TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 16.sp
+                        )
+                    )
+                },
+                containerColor = MaterialTheme.colorScheme.secondary,
+                icon = {
+                    IconButton(onClick = { }) {
+                        Image(bitmap = ImageBitmap.imageResource(id = R.drawable.add),
+                            contentDescription = "",
+                            modifier=Modifier.size(30.dp)
+                        )
+                    }
+                },
+                text = {
+
+                    OutlinedTextField(
+                        value = textFieldValue.value,
+                        onValueChange = { textFieldValue.value = it },
+                        modifier = Modifier
+                            .border(
+                                1.dp,
+                                MaterialTheme.colorScheme.onPrimary,
+                                shape = RoundedCornerShape(10.dp)
+                            ),
+
+                        colors = OutlinedTextFieldDefaults.colors(
+                            cursorColor = Color.Black,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            // focusedBorderColor = Color(0xFF4B6DA3),
+                            //unfocusedBorderColor = Color(0xFF4B6DA3),
+                            unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                            focusedTextColor = MaterialTheme.colorScheme.onPrimary
+
+                        ),
+                        shape = RoundedCornerShape(10.dp)
+
+                    )
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            showAlert.value = false
+                            itemList.add(textFieldValue.value)
+                            textFieldValue.value = ""
+                                  },
+                        colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
+                    ) {
+                        Text(text = "Submit", color = MaterialTheme.colorScheme.secondary)
+                    }
+                }
+            )
+        }
+
+    }
+}
+
+@Composable
+fun card(text:String , navController: NavController){
+    Column(
+        modifier = Modifier
+            .height(130.dp)
+            .fillMaxWidth(0.75f)
+            .clickable { navController.navigate("CourseContentAdminScreen") },
+
+        //   .padding(60.dp)
+    ) {
+        Card(
+            modifier = Modifier
+                .fillMaxSize(),
+            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
+            elevation = CardDefaults.cardElevation(10.dp),
+            shape = RoundedCornerShape(topStart = 0.dp, topEnd = 10.dp, bottomEnd = 0.dp, bottomStart = 10.dp)
+        ) {
+            Card(modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp),
+                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+                shape = RoundedCornerShape( topStart = 0.dp, topEnd = 0.dp, bottomEnd = 0.dp, bottomStart = 0.dp)
+            ) {
+
+            }
+            Column(verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(10.dp)) {
+                Row(modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween) {
+                    Text(text = text,
+                        style = TextStyle(
+                            color=MaterialTheme.colorScheme.onPrimary
+                        )
+                    )
+
+                    IconButton(onClick = { }) {
+                        Image(bitmap = ImageBitmap.imageResource(id = R.drawable.arrow),
+                            contentDescription = "",
+                            modifier=Modifier.size(30.dp))
+                    }
+
+                }
+
+            }
+        }
+    }
 }
