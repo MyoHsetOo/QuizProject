@@ -241,7 +241,7 @@ fun HomeScreen ( navController: NavController ) {
                         Row (
                             modifier = Modifier.padding( vertical = 15.dp ,)
                                 .clickable {
-
+                                    navController.navigate("LoginPage")
                                 }
                         ){
                             Icon(imageVector = Icons.Outlined.Logout, contentDescription = "logout", tint = MaterialTheme.colorScheme.onPrimary)

@@ -56,12 +56,6 @@ fun Nav() {
 
         }
 
-        //SplashScreen
-        composable(route = "SplashScreen" ) {
-
-            CourseListScreen(navController)
-
-        }
 
         //BookListScreen
         composable(route = "BookListScreen" ) {
@@ -77,12 +71,7 @@ fun Nav() {
 
         }
 
-        //SplashScreen
-        composable(route = "SplashScreen" ) {
 
-            SplashScreen(navController)
-
-        }
 
         //QuestionList
         composable(route = "QuestionList" ) {
@@ -104,9 +93,6 @@ fun Nav() {
 
         }
 
-        composable(route = "QuestionEntry" ) {
-            CourseContent(navController)
-        }
 
         //Admin Screen
 
