@@ -53,7 +53,9 @@ private val DarkColors = darkColorScheme(
     primary = md_theme_dark_primary,
     secondary = Color(0xFFf5f5f5),
     onPrimary = Color(0xFF2F4466),
-    onSecondary = Color(0xFF6282B6)
+    onSecondary = Color(0xFF6282B6),
+    tertiary = Color(0xFF4B4DF7)
+
     /*onPrimary = md_theme_dark_onPrimary,
     primaryContainer = md_theme_dark_primaryContainer,
     onPrimaryContainer = md_theme_dark_onPrimaryContainer,

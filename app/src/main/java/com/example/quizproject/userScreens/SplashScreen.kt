@@ -56,7 +56,7 @@ fun SplashScreen(navController: NavController) {
         LaunchedEffect(key1 = true) {
             startAnimation = true
             delay(7000)
-            navController.navigate("AdminUserConnectedScreen")
+            navController.navigate("LoginPage")
         }
             Splash(alpha = alphaAnim.value)
                 Text(text = "Quiz",

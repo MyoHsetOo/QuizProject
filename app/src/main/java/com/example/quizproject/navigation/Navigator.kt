@@ -12,6 +12,7 @@ import com.example.quizproject.adminScreens.CourseContentAdminScreen
 import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.adminScreens.HomeAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm
+import com.example.quizproject.login.LoginPage
 import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
@@ -29,7 +30,7 @@ fun Nav() {
 
 
     NavHost(navController,
-        startDestination = "SplashScreen") {
+        startDestination = "LoginPage") {
 
         //UserScreen
 
@@ -144,6 +145,11 @@ fun Nav() {
 
         composable(route = "AdminQuestionScreen") {
             AdminQuestionScreen(navController)
+        }
+
+        //login
+        composable(route = "LoginPage") {
+            LoginPage(navController)
         }
 
     }
