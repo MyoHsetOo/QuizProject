@@ -68,6 +68,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 //
+//
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookListAdminScreen (navController: NavController) {
@@ -112,7 +113,7 @@ fun BookListAdminScreen (navController: NavController) {
                 ){
 
                     IconButton(onClick = { navController.popBackStack() }){
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = MaterialTheme.colorScheme.onPrimary)
                     }
                 }
 
@@ -164,10 +165,6 @@ fun BookListAdminScreen (navController: NavController) {
                             )
                         },
 
-
-
-
-
                         text = {
 
                             OutlinedTextField(
@@ -216,7 +213,11 @@ fun BookListAdminScreen (navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
 
-                        Text(text = "Book List", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black , modifier =  Modifier.padding(end = 70.dp))
+                        Text(text = "Book List",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimary ,
+                            modifier =  Modifier.padding(end = 70.dp))
 
                         Button(
                             onClick = { showAlert.value = true },
@@ -228,14 +229,15 @@ fun BookListAdminScreen (navController: NavController) {
                             elevation = ButtonDefaults.buttonElevation(5.dp),
                         ) {
 
-                            Icon(imageVector = Icons.Default.Add, contentDescription = "add", tint = Color.Black ,
+                            Icon(imageVector = Icons.Default.Add, contentDescription = "add", tint = MaterialTheme.colorScheme.onPrimary ,
                                 modifier = Modifier.size(30.dp))
                             Spacer(modifier = Modifier.width(5.dp))
 
                             Text(text = "Add Book", style = TextStyle(
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.SemiBold,
-                            ), color = Color.Black
+                                color = MaterialTheme.colorScheme.onPrimary,
+                            ),
                             )
                         }
                     }
@@ -248,37 +250,7 @@ fun BookListAdminScreen (navController: NavController) {
 
                             BookCard(navController,item )
 
-                           /* Card(
-                                modifier = Modifier
-                                    .width(250.dp)
-                                    .height(150.dp)
-                                    .padding(start = 20.dp, end = 20.dp)
-                                    ,
-                               // onClick = { navController.navigate("ChapterAdminScreen")} ,
-                                elevation = CardDefaults.cardElevation(2.dp),
-                                shape = RoundedCornerShape(30.dp),
-                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
 
-                                ) {
-
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxSize(),
-                                       // .padding(30.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-
-                                    Column(  modifier = Modifier
-                                        .fillMaxWidth(0.8f)
-                                        .padding(10.dp),
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        verticalArrangement = Arrangement.Center
-                                    ) {
-
-                                        Text(text = "$item" , fontSize = 18.sp, fontWeight = FontWeight.SemiBold , color = Color.Black)
-                                    }
-                                }
-                            }*/
                         }
                     }
                 }
@@ -320,19 +292,6 @@ private fun BookCard(
                 bitmap = ImageBitmap.imageResource(id = R.drawable.openbook),
                 contentDescription = "book_card"
             )
-
-
-           /* Box(
-            ) {
-                LottieAnimation(
-                    modifier = Modifier
-                        .size(200.dp),
-                    iterations = 100,
-                    composition = composition2
-                )
-
-            }*/
-
 
             Box(modifier = Modifier.padding( 20.dp)) {
                 Column( modifier = Modifier.fillMaxSize(),

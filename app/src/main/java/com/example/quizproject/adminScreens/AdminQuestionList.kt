@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.progressSemantics
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -32,6 +33,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -46,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quizproject.userScreens.Question
+//
 //
 @Composable
 fun AdminQuestionList(navController: NavController){
@@ -82,7 +85,7 @@ fun AdminQuestionList(navController: NavController){
                         Text(
                             text = "Hardware",
                             style = TextStyle(
-                                MaterialTheme.colorScheme.onPrimary,
+                               color =  MaterialTheme.colorScheme.onPrimary,
                                 fontSize = 18.sp,
                             ),
                             modifier = Modifier.padding( start = 5.dp )
@@ -95,49 +98,18 @@ fun AdminQuestionList(navController: NavController){
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding( top = 20.dp)
                     .background(MaterialTheme.colorScheme.secondary),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                if (showAlert.value) {
-                    AlertDialog(
-                        onDismissRequest = { showAlert.value = false },
-                        title = { Text(text = "Enter Book name") },
-                        text = {
-
-                            TextField(
-                                value = textFieldValue.value,
-                                onValueChange = { textFieldValue.value = it }
-                            )
-                        },
-                        confirmButton = {
-
-                            Button(onClick = {
-                                showAlert.value = false
-
-                                if (textFieldValue.value.isNotEmpty()) {
-                                    itemList.add(textFieldValue.value)
-                                }
-
-                                textFieldValue.value = ""
-
-                            }) {
-                                Text(text = "OK", style = TextStyle(
-                                    fontSize = 16.sp,
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                )
-                                )
-                            }
-                        }
-                    )
-                }
 
                   Button(
                     onClick = {
                               navController.navigate("QuestionEntryForm")
                     },
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(0.85f),
                     shape = RoundedCornerShape(20.dp),
                     elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
                     colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
@@ -149,7 +121,7 @@ fun AdminQuestionList(navController: NavController){
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
 
-                    Spacer(modifier = Modifier.width(20.dp))
+                    Spacer(modifier = Modifier.width(10.dp))
 
                     Text(
                         text = "Enter Question", style = TextStyle(
@@ -175,7 +147,7 @@ fun AdminQuestionList(navController: NavController){
                                  navController.navigate("AdminQuestionScreen")
                             },
                             modifier = Modifier
-                                .fillMaxWidth(0.8f)
+                                .fillMaxWidth(0.85f)
                                 .fillMaxHeight(),
                             shape = RoundedCornerShape(20.dp),
                             elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
@@ -184,7 +156,7 @@ fun AdminQuestionList(navController: NavController){
                             ) {
                             Text(
                                 text = item.question + " - " + item.number, style = TextStyle(
-                                    color = Color.Black
+                                    color = MaterialTheme.colorScheme.onPrimary,
                                 )
                             )
                         }
