@@ -48,6 +48,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
 import com.example.quizproject.userScreens.CustomCard
 //
+//
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

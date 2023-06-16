@@ -70,6 +70,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
 //////
 /////
+//
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)

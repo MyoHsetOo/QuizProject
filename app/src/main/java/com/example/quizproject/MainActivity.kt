@@ -60,7 +60,7 @@ import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.CourseListScreen
 import com.example.quizproject.userScreens.FavoriteScreen
 import com.example.quizproject.userScreens.HomeScreen
-import com.example.quizproject.userScreens.ShaderBrushExample
+
 
 //
 class MainActivity : ComponentActivity() {
@@ -71,37 +71,6 @@ class MainActivity : ComponentActivity() {
             QuizProjectThem {
                 // A surface container using the 'background' color from the theme
                Nav()
-
-                /*Column(verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxSize()) {
-                    Card(
-                        modifier = Modifier.size(200.dp),
-                        colors = CardDefaults.cardColors(Color.Yellow)
-                    ) {
-                        Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
-                            Image(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(80.dp)
-                                    .absoluteOffset((0).dp,(-40).dp),
-                                    //.offset( (10).dp, (20).dp),
-                                painter = painterResource(id = R.drawable.bg_main),
-                                contentDescription = "Header Background",
-                                contentScale = ContentScale.FillWidth
-                            )
-                            Column(verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                modifier = Modifier.fillMaxSize()) {
-                                Text(text = "Hello")
-
-                            }
-                        }
-                    }
-                }*/
-
-
-
             }
         }
     }
