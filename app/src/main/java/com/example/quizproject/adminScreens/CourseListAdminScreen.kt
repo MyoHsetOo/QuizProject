@@ -213,7 +213,7 @@ fun CourseListAdminScreen( navController: NavController ) {
                 onDismissRequest = { showAlert.value = false },
                 title = {
                     Text(
-                        text = "Enter Book name",
+                        text = "Enter Course Name",
                         style = TextStyle(
                             color = MaterialTheme.colorScheme.onPrimary,
                             fontWeight = FontWeight.ExtraBold,
@@ -223,12 +223,12 @@ fun CourseListAdminScreen( navController: NavController ) {
                 },
                 containerColor = MaterialTheme.colorScheme.secondary,
                 icon = {
-                    Icon(
-                        imageVector = Icons.Default.MenuBook,
-                        contentDescription = "Edit",
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.size(30.dp)
-                    )
+                    IconButton(onClick = { }) {
+                        Image(bitmap = ImageBitmap.imageResource(id = R.drawable.add),
+                            contentDescription = "",
+                            modifier=Modifier.size(30.dp)
+                        )
+                    }
                 },
                 text = {
 
@@ -297,14 +297,7 @@ fun card(text:String , navController: NavController){
                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
                 shape = RoundedCornerShape( topStart = 0.dp, topEnd = 0.dp, bottomEnd = 0.dp, bottomStart = 0.dp)
             ) {
-                /*Image(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(0.dp, (-30).dp),
-                    painter = painterResource(id = R.drawable.bg_main),
-                    contentDescription = "Header Background",
-                    contentScale = ContentScale.FillWidth
-                )*/
+
             }
             Column(verticalArrangement = Arrangement.Center,
                 modifier = Modifier

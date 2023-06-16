@@ -29,7 +29,7 @@ fun Nav() {
 
 
     NavHost(navController,
-        startDestination = "CourseListAdminScreen") {
+        startDestination = "SplashScreen") {
 
         //UserScreen
 
