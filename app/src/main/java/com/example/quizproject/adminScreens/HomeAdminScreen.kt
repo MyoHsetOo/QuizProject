@@ -1,6 +1,7 @@
 package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -112,7 +115,8 @@ fun HomeAdminScreen ( navController: NavController ) {
         ){
 
         Row (
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(5.dp)
                 ,
             verticalAlignment = Alignment.CenterVertically,
@@ -192,7 +196,9 @@ fun HomeAdminScreen ( navController: NavController ) {
                         value = textFieldValue.value,
                         onValueChange = { textFieldValue.value = it },
                         modifier = Modifier
-                            .border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp)),
+
+                            //.border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp))
+                            .padding(5.dp),
 
                         colors = OutlinedTextFieldDefaults.colors(
                             cursorColor = Color.Black,
@@ -249,54 +255,62 @@ fun HomeAdminScreen ( navController: NavController ) {
             modifier = Modifier
                 .padding( top = 20.dp)
         ){
+Log.d (">>>","${itemList.size}")
 
-            Card (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(230.dp)
-                    .padding(vertical = 10.dp, horizontal = 20.dp),
-                shape = RoundedCornerShape(30.dp),
-                elevation = CardDefaults.cardElevation(5.dp)
-            ){
+            for (item in itemList){
 
-                Box(
+                Card (
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight()
-                        .background(
-                            Brush.linearGradient(
-                                colors = listOf(
-
-                                    MaterialTheme.colorScheme.primary,
-
-                                    MaterialTheme.colorScheme.primary,
-
-                                    ),
-                                start = Offset.Zero, // Starting point of the gradient
-                                end = Offset.Infinite, // Ending point of the gradient
-                                tileMode = TileMode.Clamp // Tile mode for extending the gradient
-                            )
-                        )
+                        .padding(vertical = 10.dp, horizontal = 20.dp),
+                    shape = RoundedCornerShape(30.dp),
+                    elevation = CardDefaults.cardElevation(5.dp)
                 ){
-                    Column {
 
-                        Text(text = "Information Technology Professionals Examination Council ( ITPEC )", style = TextStyle(
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            fontSize = 16.sp,
-                            lineHeight = 25.sp,
-                            fontWeight = FontWeight.Bold
-                        ), modifier = Modifier.padding( top = 30.dp, bottom = 20.dp, start = 20.dp, ))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                            .background(
+                                Brush.linearGradient(
+                                    colors = listOf(
 
-                        Button(onClick = {
-                            navController.navigate("CourseListAdminScreen")
+                                        MaterialTheme.colorScheme.primary,
 
-                        },
-                            modifier = Modifier.padding( top = 40.dp, bottom = 10.dp, start = 20.dp,),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.secondary
+                                        MaterialTheme.colorScheme.primary,
+
+                                        ),
+                                    start = Offset.Zero, // Starting point of the gradient
+                                    end = Offset.Infinite, // Ending point of the gradient
+                                    tileMode = TileMode.Clamp // Tile mode for extending the gradient
+                                )
                             )
+                    ){
+                        Column(
+                            modifier = Modifier.padding(20.dp)
                         ) {
-                            Text(text = "View" , )
+
+                            Text(text = "$item", style = TextStyle(
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                fontSize = 16.sp,
+                                lineHeight = 25.sp,
+                                fontWeight = FontWeight.Bold
+                            ), modifier = Modifier.padding(  bottom = 20.dp,  ))
+                            
+                            Spacer(modifier = Modifier.height(40.dp))
+
+                            Button(onClick = {
+                                navController.navigate("CourseListAdminScreen")
+
+                            },
+                                //modifier = Modifier.padding( ),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.secondary
+                                )
+                            ) {
+                                Text(text = "View" , )
+                            }
+
                         }
 
                     }
@@ -304,8 +318,70 @@ fun HomeAdminScreen ( navController: NavController ) {
                 }
 
             }
+           /* LazyColumn{
+                items( itemList ) {item ->
 
-            Card (
+                    Card (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(230.dp)
+                            .padding(vertical = 10.dp, horizontal = 20.dp),
+                        shape = RoundedCornerShape(30.dp),
+                        elevation = CardDefaults.cardElevation(5.dp)
+                    ){
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight()
+                                .background(
+                                    Brush.linearGradient(
+                                        colors = listOf(
+
+                                            MaterialTheme.colorScheme.primary,
+
+                                            MaterialTheme.colorScheme.primary,
+
+                                            ),
+                                        start = Offset.Zero, // Starting point of the gradient
+                                        end = Offset.Infinite, // Ending point of the gradient
+                                        tileMode = TileMode.Clamp // Tile mode for extending the gradient
+                                    )
+                                )
+                        ){
+                            Column {
+
+                                Text(text = "decfsderf", style = TextStyle(
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    fontSize = 16.sp,
+                                    lineHeight = 25.sp,
+                                    fontWeight = FontWeight.Bold
+                                ), modifier = Modifier.padding( top = 30.dp, bottom = 20.dp, start = 20.dp, ))
+
+                                Button(onClick = {
+                                    navController.navigate("CourseListAdminScreen")
+
+                                },
+                                    modifier = Modifier.padding( top = 40.dp, bottom = 10.dp, start = 20.dp,),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.secondary
+                                    )
+                                ) {
+                                    Text(text = "View" , )
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            }*/
+
+
+
+           /* Card (
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(230.dp)
@@ -358,7 +434,7 @@ fun HomeAdminScreen ( navController: NavController ) {
 
                 }
 
-            }
+            }*/
 
         }
 
