@@ -71,7 +71,7 @@ fun ChapterScreen( navController: NavController) {
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp),
+                    .height(60.dp),
                 verticalAlignment = Alignment.CenterVertically,
 
                 ){
@@ -102,135 +102,74 @@ fun ChapterScreen( navController: NavController) {
 
             ){
 
-                /*Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .padding(vertical = 10.dp, horizontal = 20.dp)
-                        .fillMaxWidth()
 
-                ) {
+           Card(modifier = Modifier.fillMaxSize(),
+               shape = RoundedCornerShape(
+                   topStart = 40.dp,
+                   topEnd = 40.dp,
+                   bottomStart = 0.dp,
+                   bottomEnd = 0.dp
+               ),
+               colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
+           ) {
 
-                    Card(
-                        modifier = Modifier
-                            .padding(start = 5.dp)
-                            .clickable {
+               LazyColumn(modifier = Modifier.padding(top = 25.dp)) {
+                   item {
 
-                                *//*isAddChapter = !isAddChapter
-                                count.value++
-                                Log.d(">>>>>", "$isAddChapter")
+                       Row(
+                           horizontalArrangement = Arrangement.Center,
+                           verticalAlignment = Alignment.CenterVertically,
+                           modifier = Modifier.padding(vertical = 10.dp, horizontal = 15.dp)
 
-                                var chapter = Chapter(
-                                    chapterNo = count.value,
-                                    chapterName = addChapterField.value
-                                )
-                                chapterList.add(chapter)
-                                Log.d("Size>>>", "${chapterList.size}")*//*
-                            },
-                        shape = RoundedCornerShape(20.dp),
-                        elevation = CardDefaults.cardElevation(5.dp),
-                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-                    ) {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier.padding(15.dp)
-                            ,
+                       ) {
 
-                            ) {
-                            Icon(
-                                imageVector = Icons.Default.Add,
-                                contentDescription = "menu",
-                                tint = Color.Black,
-                                //modifier = Modifier.padding(10.dp)
-                            )
-                        }
-                    }
-                    Card(
-                        modifier = Modifier
-                            .padding(start = 8.dp)
-                            .fillMaxWidth()
-                        ,
-                        shape = RoundedCornerShape(20.dp),
-                        elevation = CardDefaults.cardElevation(5.dp),
-                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
+                           Card(
+                               modifier = Modifier
+                                   .fillMaxHeight(0.1f)
+                                   .fillMaxWidth(0.18f)
+                                   .padding(start = 10.dp),
+                               shape = RoundedCornerShape(20.dp),
+                               elevation = CardDefaults.cardElevation(5.dp),
+                               colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
+                           ) {
+                               Box(
+                                   contentAlignment = Alignment.Center,
+                                   modifier = Modifier
+                                       .fillMaxWidth()
+                                       .fillMaxHeight(),
 
-                    ) {
-                        TextField(
-                            value = addChapterField.value,
-                            enabled = true,
-                            onValueChange = { addChapterField.value = it },
-                            modifier = Modifier,
-                            maxLines = 1,
-                            colors = TextFieldDefaults.colors(
-                                focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                focusedTextColor = Color.Black,
-                                unfocusedTextColor = Color.Black,
-                                //textColor = Color.Black
-                            ),
-                            placeholder = {
-                                Text(text = "Add chapter")
-                            }
-                        )
-                    }
-                }*/
+                                   ) {
+                                   Text(
+                                       text = "fg",
+                                       modifier = Modifier.padding(15.dp),
+                                       color = MaterialTheme.colorScheme.onPrimary
+                                   )
+                               }
+                           }
+                           Card(
+                               modifier = Modifier
+                                   .padding(8.dp)
+                                   .fillMaxWidth()
+                                   .fillMaxHeight(0.1f),
+                               onClick = {
+                                   navController.navigate("QuestionList")
+                               },
+                               shape = RoundedCornerShape(20.dp),
+                               elevation = CardDefaults.cardElevation(5.dp),
+                               colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
 
+                           ) {
+                               Text(
+                                   text = "Hardware",
+                                   modifier = Modifier.padding(15.dp),
+                                   color = MaterialTheme.colorScheme.onPrimary
+                               )
+                           }
+                       }
+                   }
+               }
+           }
 
-                LazyColumn() {
-                    item {
-
-                        Row(
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 10.dp, horizontal = 15.dp)
-
-                        ) {
-
-                            Card(
-                                modifier = Modifier
-                                    .fillMaxHeight(0.1f)
-                                    .fillMaxWidth(0.18f)
-                                    .padding(start = 10.dp),
-                                shape = RoundedCornerShape(20.dp),
-                                elevation = CardDefaults.cardElevation(5.dp),
-                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-                            ) {
-                                Box(
-                                    contentAlignment = Alignment.Center,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .fillMaxHeight(),
-
-                                    ) {
-                                    Text(
-                                        text = "fg",
-                                        modifier = Modifier.padding(15.dp),
-                                        color = MaterialTheme.colorScheme.onPrimary
-                                    )
-                                }
-                            }
-                            Card(
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .fillMaxWidth()
-                                    .fillMaxHeight(0.1f),
-                                onClick = {
-                                    navController.navigate("QuestionList")
-                                },
-                                shape = RoundedCornerShape(20.dp),
-                                elevation = CardDefaults.cardElevation(5.dp),
-                                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-
-                            ) {
-                                Text(
-                                    text = "fdgvffffffffffffffffffhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
-                                    modifier = Modifier.padding(15.dp),
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
-                            }
-                        }
-                    }
-                }
 
             }
 
