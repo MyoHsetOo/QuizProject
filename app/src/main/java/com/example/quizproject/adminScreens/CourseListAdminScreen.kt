@@ -82,7 +82,10 @@ fun CourseListAdminScreen( navController: NavController ) {
 
 
 //////
-    Column() {
+    Column(
+        modifier = Modifier.fillMaxSize()
+            .background( MaterialTheme.colorScheme.secondary )
+    ) {
         Row(modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)) {
@@ -138,6 +141,8 @@ fun CourseListAdminScreen( navController: NavController ) {
                 modifier = Modifier
                     .height(130.dp)
                     .fillMaxWidth(0.75f)
+                    .fillMaxHeight(),
+
             ) {
                 Card(
                 modifier = Modifier
@@ -226,13 +231,11 @@ fun CourseListAdminScreen( navController: NavController ) {
                 },
                 containerColor = MaterialTheme.colorScheme.secondary,
                 icon = {
-                    IconButton(onClick = { }) {
-                        /*Image(bitmap = ImageBitmap.imageResource(id = R.drawable.add),
-                            contentDescription = "",
-                            modifier=Modifier.size(30.dp)
-                        )*/
-                        Icon(imageVector = Icons.Outlined.ArrowCircleRight, contentDescription = "next")
-                    }
+                    Icon(imageVector = Icons.Default.MenuBook,
+                        contentDescription = "Edit",
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(30.dp)
+                    )
                 },
                 text = {
 
@@ -307,7 +310,8 @@ fun cardAdmin(text:String , navController: NavController){
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp)) {
-                Row(modifier = Modifier.fillMaxWidth()
+                Row(modifier = Modifier
+                    .fillMaxWidth()
                     .clickable { navController.navigate("CourseContentAdminScreen") },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween) {
@@ -318,10 +322,12 @@ fun cardAdmin(text:String , navController: NavController){
                     )
 
 
-                        Image(bitmap = ImageBitmap.imageResource(id = R.drawable.arrow),
-                            contentDescription = "",
-                            modifier=Modifier.size(30.dp))
+                        IconButton(onClick = {
+                            navController.navigate("CourseContentAdminScreen")
+                        }) {
+                            Icon(imageVector = Icons.Outlined.ArrowCircleRight, contentDescription = "right")
 
+                        }
 
                 }
 

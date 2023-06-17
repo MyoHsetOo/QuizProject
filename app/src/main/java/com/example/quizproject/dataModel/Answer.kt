@@ -16,6 +16,12 @@ class Chapter (
     var chapterName : String,
 )
 
+
+class  Category (
+    var categoryName : String,
+    var categoryDescription : String,
+)
+
 //////
 
 

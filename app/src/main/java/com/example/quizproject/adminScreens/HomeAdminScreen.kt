@@ -54,6 +54,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDrawerState
@@ -74,6 +75,7 @@ import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -82,6 +84,8 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.dataModel.Answer
+import com.example.quizproject.dataModel.Category
 import kotlinx.coroutines.launch
 
 //////
@@ -96,9 +100,11 @@ fun HomeAdminScreen ( navController: NavController ) {
 
     var isPlaying by remember { mutableStateOf(true) }
 
-    val textFieldValue = remember { mutableStateOf("") }
+    val categoryTextField = remember { mutableStateOf("") }
 
-    val showAlert = remember { mutableStateOf(false) }
+    val descriptionTextField = remember { mutableStateOf("") }
+
+    val isshowAlertDialog = remember { mutableStateOf(false) }
 
     val itemList = remember { mutableStateListOf<String>() }
 
@@ -125,7 +131,16 @@ fun HomeAdminScreen ( navController: NavController ) {
     }
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+
     val scope = rememberCoroutineScope()
+
+    var categorylist = remember {
+        mutableStateListOf<Category>()
+    }
+
+    var isExpanded by remember {
+        mutableStateOf(false)
+    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -264,7 +279,8 @@ fun HomeAdminScreen ( navController: NavController ) {
                         ){
 
                         Row (
-                            modifier = Modifier.padding( vertical = 15.dp ,)
+                            modifier = Modifier
+                                .padding(vertical = 15.dp,)
                                 .clickable {
                                     navController.navigate("LoginPage")
 
@@ -292,13 +308,14 @@ fun HomeAdminScreen ( navController: NavController ) {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.secondary)
-                    .verticalScroll(rememberScrollState()),
+                    ,
 
                 ){
 
                 Row (
                     modifier = Modifier
                         .fillMaxWidth()
+
                         .padding(5.dp)
                     ,
                     verticalAlignment = Alignment.CenterVertically,
@@ -318,8 +335,8 @@ fun HomeAdminScreen ( navController: NavController ) {
                                 }
                             }){
                                 Icon(imageVector = Icons.Default.Menu,
-                                    contentDescription = "back",
-                                    tint = Color.Black)
+                                    contentDescription = "menu",
+                                    tint = MaterialTheme.colorScheme.onPrimary)
                             }
                             Text(text = "Quiz", style = TextStyle(
                                 fontSize = 16.sp,
@@ -330,7 +347,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                     }
                     Box {
                         Button(onClick = {
-                            showAlert.value = !showAlert.value
+                            isshowAlertDialog.value = !isshowAlertDialog.value
                         },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.secondary
@@ -345,7 +362,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                                 Icon(imageVector = Icons.Default.Add, contentDescription = "add",
                                     modifier = Modifier.padding(end = 0.dp, start = 5.dp))
 
-                                Text(text = "Add Course" , style = TextStyle(
+                                Text(text = "Add Category" , style = TextStyle(
                                     fontSize = 14.sp,
                                     color = MaterialTheme.colorScheme.onPrimary
                                 ), modifier = Modifier.padding( start = 10.dp, end = 0.dp))
@@ -356,11 +373,12 @@ fun HomeAdminScreen ( navController: NavController ) {
 
                 }
 
-                if (showAlert.value) {
+                if (isshowAlertDialog.value) {
 
                     AlertDialog(
-                        onDismissRequest = { showAlert.value = false },
-                        title = { Text(text = "Enter Book name",
+                        modifier = Modifier.fillMaxHeight(0.7f),
+                        onDismissRequest = { isshowAlertDialog.value = false },
+                        title = { Text(text = "Enter Category and Description",
                             style = TextStyle(
                                 color = MaterialTheme.colorScheme.onPrimary,
                                 fontWeight = FontWeight.ExtraBold,
@@ -378,33 +396,87 @@ fun HomeAdminScreen ( navController: NavController ) {
 
                         text = {
 
-                            OutlinedTextField(
-                                value = textFieldValue.value,
-                                onValueChange = { textFieldValue.value = it },
-                                modifier = Modifier
+                            Column(
+                                modifier = Modifier.fillMaxWidth()
 
-                                    //.border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp))
                                     .padding(5.dp),
+                                verticalArrangement = Arrangement.Center
 
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    cursorColor = Color.Black,
-                                    unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                    focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                                    // focusedBorderColor = Color(0xFF4B6DA3),
-                                    //unfocusedBorderColor = Color(0xFF4B6DA3),
-                                    unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
-                                    focusedTextColor = MaterialTheme.colorScheme.onPrimary
+                            ) {
 
-                                ),
-                                shape = RoundedCornerShape(10.dp)
+                                OutlinedTextField(
+                                    value = categoryTextField.value,
+                                    onValueChange = { categoryTextField.value = it },
+                                    modifier = Modifier
+                                        //.border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp))
+                                        .padding(5.dp),
 
-                            )
+                                    placeholder = {
+                                                  Text(text = "Enter category name.....", style = TextStyle(
+                                                      fontSize = 12.sp,
+                                                  ))
+                                    },
+
+                                    colors = OutlinedTextFieldDefaults.colors(
+                                        cursorColor = Color.Black,
+                                        unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                        focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                        // focusedBorderColor = Color(0xFF4B6DA3),
+                                        //unfocusedBorderColor = Color(0xFF4B6DA3),
+                                        unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                        focusedTextColor = MaterialTheme.colorScheme.onPrimary
+                                    ),
+                                    shape = RoundedCornerShape(10.dp)
+                                )
+
+
+                                OutlinedTextField(
+                                    value = descriptionTextField.value,
+                                    onValueChange = { descriptionTextField.value = it },
+                                    modifier = Modifier
+
+                                        //.border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp))
+                                        .padding(5.dp),
+
+                                    placeholder = {
+                                        Text(text = "Description...", style = TextStyle(
+                                            fontSize = 12.sp,
+
+                                            ))
+                                    },
+
+                                    colors = OutlinedTextFieldDefaults.colors(
+                                        cursorColor = Color.Black,
+                                        unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                        focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                        // focusedBorderColor = Color(0xFF4B6DA3),
+                                        //unfocusedBorderColor = Color(0xFF4B6DA3),
+                                        unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                        focusedTextColor = MaterialTheme.colorScheme.onPrimary
+
+                                    ),
+                                    shape = RoundedCornerShape(10.dp)
+
+                                )
+
+                            }
+
+
                         },
                         confirmButton = {
-                            Button(onClick = { showAlert.value = false
-                                itemList.add(textFieldValue.value)
+                            Button(onClick = {
+                                isshowAlertDialog.value = false
 
-                                textFieldValue.value = ""
+                                var cateogry = Category(
+                                    categoryName = categoryTextField.value,
+                                    categoryDescription = descriptionTextField.value
+                                )
+
+                                categorylist.add( cateogry )
+
+                                categoryTextField.value = ""
+                                descriptionTextField.value = ""
+
 
                             },
                                 colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
@@ -419,6 +491,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                 Column (
                     modifier = Modifier
                         .fillMaxWidth()
+                        .fillMaxHeight(0.3f)
                     ,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
@@ -443,7 +516,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                 ){
                     Log.d (">>>","${itemList.size}")
 
-                    for (item in itemList){
+                   /* for (item in itemList){
 
                         Card (
                             modifier = Modifier
@@ -503,6 +576,101 @@ fun HomeAdminScreen ( navController: NavController ) {
 
                         }
 
+                    }
+*/
+                    LazyColumn{
+
+                        items( categorylist ) {item ->
+
+                            Card (
+                                modifier = Modifier
+                                    .fillMaxWidth()
+
+                                    .padding(vertical = 10.dp, horizontal = 20.dp),
+                                shape = RoundedCornerShape(30.dp),
+                                elevation = CardDefaults.cardElevation(5.dp)
+                            ){
+
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                        .background(
+                                            Brush.linearGradient(
+                                                colors = listOf(
+
+                                                    MaterialTheme.colorScheme.primary,
+
+                                                    MaterialTheme.colorScheme.primary,
+
+                                                    ),
+                                                start = Offset.Zero, // Starting point of the gradient
+                                                end = Offset.Infinite, // Ending point of the gradient
+                                                tileMode = TileMode.Clamp // Tile mode for extending the gradient
+                                            )
+                                        )
+                                ){
+                                    Column {
+
+                                        Text(text = "${item.categoryName}", style = TextStyle(
+                                            color = MaterialTheme.colorScheme.onPrimary,
+                                            fontSize = 16.sp,
+                                            lineHeight = 25.sp,
+                                            fontWeight = FontWeight.Bold
+                                        ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, end = 20.dp ))
+
+                                        Text(text = "${item.categoryDescription}",
+                                            style = TextStyle(
+                                                fontSize = 12.sp,
+                                                lineHeight = 20.sp,
+                                                color = Color(0xFF6B7C97),
+
+                                                ), maxLines = if (isExpanded) 4 else 2 , overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
+                                            modifier = Modifier
+                                                .padding(
+                                                    top = 5.dp,
+                                                    bottom = 10.dp,
+                                                    start = 30.dp,
+                                                    end = 30.dp
+                                                )
+                                                .clickable {
+                                                    isExpanded = !isExpanded
+                                                })
+
+                                        Row (
+                                            modifier = Modifier.fillMaxWidth()
+                                                .padding( end = 20.dp ),
+                                            horizontalArrangement = Arrangement.End
+                                        ){
+
+                                            TextButton(onClick = {
+                                                navController.navigate("CourseListAdminScreen")
+
+                                            },
+                                                modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, start = 20.dp,),
+                                                colors = ButtonDefaults.buttonColors(
+                                                    containerColor = MaterialTheme.colorScheme.secondary
+                                                )
+                                            ) {
+                                                Text(text = "View" , color = MaterialTheme.colorScheme.onPrimary,
+                                                    style = TextStyle(
+                                                        fontSize = 12.sp,
+                                                        fontWeight = FontWeight.Bold
+                                                    )
+                                                )
+                                            }
+
+                                        }
+
+
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
                     }
                     /* LazyColumn{
                          items( itemList ) {item ->

@@ -184,7 +184,10 @@ fun card(text:String , navController: NavController){
                        )
                    )
 
-                   IconButton(onClick = { }) {
+                   IconButton(onClick = {
+
+                       navController.navigate("CourseContent")
+                   }) {
                        Icon(imageVector = Icons.Outlined.ArrowCircleRight, contentDescription = "right")
                    }
 
