@@ -217,7 +217,7 @@ private fun GradientButton(
                     brush = Brush.linearGradient(colors = gradientColors),
                     shape = RoundedCornerShape(cornerRadius)
                 )*/
-                .padding(horizontal = 16.dp, vertical = 15.dp),
+                .padding(horizontal = 16.dp, vertical = 18.dp),
             contentAlignment = Alignment.Center
         ) {
             androidx.compose.material3.Text(

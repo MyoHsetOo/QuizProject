@@ -102,7 +102,7 @@ fun LoginPage(navController: NavController) {
                     text = "Sign In",
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .padding(top = 130.dp)
+                        .padding(top = 130.dp,bottom = 20.dp)
                         .fillMaxWidth(),
                     style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.onPrimary,
@@ -233,7 +233,7 @@ private fun GradientButton(
                     brush = Brush.linearGradient(colors = gradientColors),
                     shape = RoundedCornerShape(cornerRadius)
                 )*/
-                .padding(horizontal = 16.dp, vertical = 15.dp),
+                .padding(horizontal = 16.dp, vertical = 18.dp),
             contentAlignment = Alignment.Center
         ) {
             androidx.compose.material3.Text(
