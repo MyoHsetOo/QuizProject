@@ -57,9 +57,8 @@ fun QuestionList(navController: NavController) {
             .fillMaxSize(),
         color = MaterialTheme.colorScheme.secondary
     ) {
-        Column (
-
-        ){
+        Column (modifier=Modifier.background(MaterialTheme.colorScheme.secondary))
+        {
             Row (
                 modifier = Modifier.height(56.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -83,7 +82,7 @@ fun QuestionList(navController: NavController) {
                 )
 
             }
-           // Spacer(modifier = Modifier.height(20.dp))
+
             Column(modifier=Modifier
                 .fillMaxWidth()
                 .padding( top = 10.dp )
@@ -97,7 +96,8 @@ fun QuestionList(navController: NavController) {
                             onClick = { navController.navigate("QuestionScreen")},
                             modifier = Modifier
                                 .fillMaxWidth(0.85f)
-                                .fillMaxHeight(),
+                                .height(80.dp)
+                                .padding(15.dp),
                             shape = RoundedCornerShape(20.dp),
                             elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
                             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
@@ -109,7 +109,7 @@ fun QuestionList(navController: NavController) {
                                 )
                             )
                         }
-                        Spacer(modifier = Modifier.height(20.dp))
+                       // Spacer(modifier = Modifier.height(20.dp))
                     }
                 }
             }
