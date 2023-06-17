@@ -47,6 +47,7 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -60,10 +61,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -88,6 +92,10 @@ fun HomeScreen ( navController: NavController ) {
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bulb ))
     var isPlaying by remember { mutableStateOf(true) }
+
+    var isExpanded by remember {
+         mutableStateOf(false)
+    }
 
     val progress by animateLottieCompositionAsState(
         composition = composition,
@@ -239,7 +247,8 @@ fun HomeScreen ( navController: NavController ) {
                     ){
 
                         Row (
-                            modifier = Modifier.padding( vertical = 15.dp ,)
+                            modifier = Modifier
+                                .padding(vertical = 15.dp,)
                                 .clickable {
                                     navController.navigate("LoginPage")
                                 }
@@ -251,7 +260,6 @@ fun HomeScreen ( navController: NavController ) {
                                 color = MaterialTheme.colorScheme.onPrimary
                             ), modifier = Modifier.padding( start = 10.dp )
                             )
-
                         }
 
                     }
@@ -320,10 +328,9 @@ fun HomeScreen ( navController: NavController ) {
                         .padding( top = 20.dp)
                 ){
 
-                    Card (
+                    /*Card (
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(230.dp)
                             .padding(vertical = 10.dp, horizontal = 20.dp),
                         shape = RoundedCornerShape(30.dp),
                         elevation = CardDefaults.cardElevation(5.dp)
@@ -355,22 +362,139 @@ fun HomeScreen ( navController: NavController ) {
                                     fontSize = 16.sp,
                                     lineHeight = 25.sp,
                                     fontWeight = FontWeight.Bold
-                                ), modifier = Modifier.padding( top = 30.dp, bottom = 20.dp, start = 20.dp, ))
+                                ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, ))
+                                
+                                Row (
+                                    modifier = Modifier.fillMaxWidth()
+                                        ,
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
 
-                                Button(onClick = {
-                                    navController.navigate("CourseListScreen")
+                                ){
 
-                                },
-                                    modifier = Modifier.padding( top = 40.dp, bottom = 10.dp, start = 20.dp,),
-                                    colors = ButtonDefaults.buttonColors(
-                                        containerColor = MaterialTheme.colorScheme.secondary
+                                    Image(
+                                        modifier = Modifier
+                                            .size(50.dp)
+                                            .padding(bottom = 5.dp, start = 20.dp)
+                                        ,
+                                        bitmap = ImageBitmap.imageResource(id = R.drawable.homearrow2),
+                                        contentDescription = "book_card"
                                     )
-                                ) {
-                                    Text(text = "View" , style = TextStyle(
-                                        color = MaterialTheme.colorScheme.onPrimary,
-                                        fontSize = 14.sp,
-                                    ))
+
+                                    Box(){
+
+
+                                        TextButton(onClick = {
+                                            navController.navigate("CourseListScreen")
+
+                                        },
+                                            modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, end = 20.dp,)
+                                            ,
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.secondary
+                                            )
+                                        ) {
+                                            Text(text = "View" , style = TextStyle(
+                                                color = MaterialTheme.colorScheme.onPrimary,
+                                                fontSize = 12.sp,
+                                                fontWeight = FontWeight.Bold,
+                                            ), modifier = Modifier.padding(vertical = 2.dp , horizontal = 10.dp))
+                                        }
+                                        
+                                    }
+
+
                                 }
+
+                                
+
+                            }
+
+                        }
+
+                    }*/
+
+                    Card (
+                        modifier = Modifier
+                            .fillMaxWidth()
+
+                            .padding(vertical = 10.dp, horizontal = 20.dp),
+                        shape = RoundedCornerShape(30.dp),
+                        elevation = CardDefaults.cardElevation(5.dp)
+                    ){
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight()
+                                .background(
+                                    Brush.linearGradient(
+                                        colors = listOf(
+
+                                            MaterialTheme.colorScheme.primary,
+
+                                            MaterialTheme.colorScheme.primary,
+
+                                            ),
+                                        start = Offset.Zero, // Starting point of the gradient
+                                        end = Offset.Infinite, // Ending point of the gradient
+                                        tileMode = TileMode.Clamp // Tile mode for extending the gradient
+                                    )
+                                )
+                        ){
+                            Column {
+
+                                Text(text = "Information Technology Professionals Examination Council ( ITPEC )", style = TextStyle(
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    fontSize = 16.sp,
+                                    lineHeight = 25.sp,
+                                    fontWeight = FontWeight.Bold
+                                ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, ))
+                                
+                                Text(text = "Information Technology Professionals Examination Council ( ITPEC ), Information Technology Professionals Examination Council ( ITPEC )",
+                                    style = TextStyle(
+                                        fontSize = 12.sp,
+                                        lineHeight = 20.sp,
+                                        color = Color(0xFF6B7C97),
+
+                                    ), maxLines = if (isExpanded) 4 else 2 , overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
+                                    modifier = Modifier
+                                        .padding(
+                                            top = 5.dp,
+                                            bottom = 10.dp,
+                                            start = 30.dp,
+                                            end = 30.dp
+                                        )
+                                        .clickable {
+                                            isExpanded = !isExpanded
+                                        })
+
+                                Row (
+                                    modifier = Modifier.fillMaxWidth()
+                                        .padding( end = 20.dp ),
+                                    horizontalArrangement = Arrangement.End
+                                ){
+
+                                    TextButton(onClick = {
+                                        navController.navigate("CourseListScreen")
+
+                                    },
+                                        modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, start = 20.dp,),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.secondary
+                                        )
+                                    ) {
+                                        Text(text = "View" , color = MaterialTheme.colorScheme.onPrimary,
+                                            style = TextStyle(
+                                                fontSize = 12.sp,
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                        )
+                                    }
+
+                                }
+
+
 
                             }
 
@@ -381,7 +505,7 @@ fun HomeScreen ( navController: NavController ) {
                     Card (
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(230.dp)
+
                             .padding(vertical = 10.dp, horizontal = 20.dp),
                         shape = RoundedCornerShape(30.dp),
                         elevation = CardDefaults.cardElevation(5.dp)
@@ -413,19 +537,52 @@ fun HomeScreen ( navController: NavController ) {
                                     fontSize = 16.sp,
                                     lineHeight = 25.sp,
                                     fontWeight = FontWeight.Bold
-                                ), modifier = Modifier.padding( top = 30.dp, bottom = 20.dp, start = 20.dp, ))
+                                ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, ))
 
-                                Button(onClick = {
-                                    //navController.navigate("CourseListScreen")
+                                Text(text = "Information Technology Professionals Examination Council ( ITPEC ), Information Technology Professionals Examination Council ( ITPEC )",
+                                    style = TextStyle(
+                                        fontSize = 12.sp,
+                                        lineHeight = 20.sp,
+                                        color = Color(0xFF6B7C97),
 
-                                },
-                                    modifier = Modifier.padding( top = 40.dp, bottom = 10.dp, start = 20.dp,),
-                                    colors = ButtonDefaults.buttonColors(
-                                        containerColor = MaterialTheme.colorScheme.secondary
-                                    )
-                                ) {
-                                    Text(text = "View" , color = MaterialTheme.colorScheme.onPrimary )
+                                        ), maxLines = if (isExpanded) 4 else 2 , overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
+                                    modifier = Modifier
+                                        .padding(
+                                            top = 5.dp,
+                                            bottom = 10.dp,
+                                            start = 30.dp,
+                                            end = 30.dp
+                                        )
+                                        .clickable {
+                                            isExpanded = !isExpanded
+                                        })
+
+                                Row (
+                                    modifier = Modifier.fillMaxWidth()
+                                        .padding( end = 20.dp ),
+                                    horizontalArrangement = Arrangement.End
+                                ){
+
+                                    TextButton(onClick = {
+                                        navController.navigate("CourseListScreen")
+
+                                    },
+                                        modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, start = 20.dp,),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.secondary
+                                        )
+                                    ) {
+                                        Text(text = "View" , color = MaterialTheme.colorScheme.onPrimary,
+                                            style = TextStyle(
+                                                fontSize = 12.sp,
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                        )
+                                    }
+
                                 }
+
+
 
                             }
 
