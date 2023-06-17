@@ -207,7 +207,7 @@ fun CourseListAdminScreen( navController: NavController ) {
 
             Spacer(modifier = Modifier.height(30.dp))
             for (item in itemList){
-                card(text = item, navController = navController)
+                cardAdmin(text = item, navController = navController)
                 Spacer(modifier = Modifier.height(30.dp))
             }
         }
@@ -279,7 +279,7 @@ fun CourseListAdminScreen( navController: NavController ) {
 }
 
 @Composable
-fun card(text:String , navController: NavController){
+fun cardAdmin(text:String , navController: NavController){
     Column(
         modifier = Modifier
             .height(130.dp)

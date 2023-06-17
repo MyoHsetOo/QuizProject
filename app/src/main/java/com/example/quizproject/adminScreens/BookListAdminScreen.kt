@@ -266,7 +266,6 @@ private fun BookCard(
     bookName : String
 ) {
 
-    val composition2 by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.openbook))
 
 
     Card(
@@ -281,34 +280,36 @@ private fun BookCard(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
 
             Image(
-                modifier = Modifier.size(80.dp),
-                bitmap = ImageBitmap.imageResource(id = R.drawable.openbook),
+                modifier = Modifier.size(50.dp)
+                    .padding(bottom = 5.dp),
+                bitmap = ImageBitmap.imageResource(id = R.drawable.booksicon),
                 contentDescription = "book_card"
             )
 
-            Box(modifier = Modifier.padding( 20.dp)) {
-                Column( modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Bottom,
-                    horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = bookName,
-                        style = TextStyle(
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold
+            Column( modifier = Modifier
+                .fillMaxWidth(0.85f)
+                .padding(10.dp),
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = bookName,
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
 
-                        )
                     )
+                )
 
-                }
+            }
             }
         }
     }
-}
+
