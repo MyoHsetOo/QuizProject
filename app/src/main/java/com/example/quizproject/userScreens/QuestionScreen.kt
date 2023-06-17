@@ -39,6 +39,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 
@@ -60,6 +61,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -115,7 +117,8 @@ fun QuestionScreen(navController: NavController) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.secondary)
             ) {
 
@@ -138,15 +141,17 @@ fun QuestionScreen(navController: NavController) {
                 }
                 Row(
                     modifier = Modifier
-                    .padding(10.dp)
-                    .clickable { },
+                        .padding(10.dp)
+                        .clickable { },
                     horizontalArrangement = Arrangement.End,
                 ) {
 
-                    IconButton(onClick = {  }) {
+                    /*IconButton(onClick = {  }) {
 
                         Icon(imageVector = Icons.Default.Favorite, contentDescription = "back", tint = MaterialTheme.colorScheme.onPrimary)
-                    }
+                    }*/
+
+                    FavoriteButton()
 
                 }
             }
@@ -287,6 +292,39 @@ fun QuestionScreen(navController: NavController) {
             }
         }
     }
+}
+
+
+
+@Composable
+fun FavoriteButton(
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.onPrimary
+) {
+
+    var isFavorite by remember { mutableStateOf(false) }
+
+    IconToggleButton(
+        checked = isFavorite,
+        onCheckedChange = {
+            isFavorite = !isFavorite
+        }
+    ) {
+        Icon(
+            tint = color,
+            modifier = modifier.graphicsLayer {
+                scaleX = 1.3f
+                scaleY = 1.3f
+            },
+            imageVector = if (isFavorite) {
+                Icons.Filled.Favorite
+            } else {
+                Icons.Default.FavoriteBorder
+            },
+            contentDescription = null
+        )
+    }
+
 }
 
 
