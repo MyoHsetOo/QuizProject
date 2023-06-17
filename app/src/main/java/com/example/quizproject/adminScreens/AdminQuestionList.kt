@@ -109,7 +109,9 @@ fun AdminQuestionList(navController: NavController){
                     onClick = {
                               navController.navigate("QuestionEntryForm")
                     },
-                    modifier = Modifier.fillMaxWidth(0.85f),
+                    modifier = Modifier.fillMaxWidth(0.85f)
+                        .height(80.dp)
+                        .padding(15.dp),
                     shape = RoundedCornerShape(20.dp),
                     elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
                     colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
@@ -132,7 +134,7 @@ fun AdminQuestionList(navController: NavController){
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+           // Spacer(modifier = Modifier.height(20.dp))
 
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -148,7 +150,8 @@ fun AdminQuestionList(navController: NavController){
                             },
                             modifier = Modifier
                                 .fillMaxWidth(0.85f)
-                                .fillMaxHeight(),
+                                .height(80.dp)
+                                .padding(15.dp),
                             shape = RoundedCornerShape(20.dp),
                             elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
                             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
@@ -160,7 +163,7 @@ fun AdminQuestionList(navController: NavController){
                                 )
                             )
                         }
-                        Spacer(modifier = Modifier.height(20.dp))
+                       // Spacer(modifier = Modifier.height(20.dp))
                     }
                 }
             }
