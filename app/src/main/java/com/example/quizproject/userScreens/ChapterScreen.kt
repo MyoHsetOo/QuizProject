@@ -140,7 +140,7 @@ fun ChapterScreen( navController: NavController) {
 
                                    ) {
                                    Text(
-                                       text = "fg",
+                                       text = "1",
                                        modifier = Modifier.padding(15.dp),
                                        color = MaterialTheme.colorScheme.onPrimary
                                    )

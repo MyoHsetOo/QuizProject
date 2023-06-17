@@ -484,10 +484,11 @@ fun HomeScreen ( navController: NavController ) {
                                             containerColor = MaterialTheme.colorScheme.secondary
                                         )
                                     ) {
-                                        Text(text = "View" , color = MaterialTheme.colorScheme.onPrimary,
+                                        Text(text = "Start Learning" , color = MaterialTheme.colorScheme.onPrimary,
                                             style = TextStyle(
                                                 fontSize = 12.sp,
-                                                fontWeight = FontWeight.Bold
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.onPrimary
                                             )
                                         )
                                     }
@@ -572,10 +573,11 @@ fun HomeScreen ( navController: NavController ) {
                                             containerColor = MaterialTheme.colorScheme.secondary
                                         )
                                     ) {
-                                        Text(text = "View" , color = MaterialTheme.colorScheme.onPrimary,
+                                        Text(text = "Start Learning" , color = MaterialTheme.colorScheme.onPrimary,
                                             style = TextStyle(
                                                 fontSize = 12.sp,
-                                                fontWeight = FontWeight.Bold
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.onPrimary
                                             )
                                         )
                                     }
