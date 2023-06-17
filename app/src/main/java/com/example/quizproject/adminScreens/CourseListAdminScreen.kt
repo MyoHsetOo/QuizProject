@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -83,8 +84,9 @@ fun CourseListAdminScreen( navController: NavController ) {
 
 //////
     Column(
-        modifier = Modifier.fillMaxSize()
-            .background( MaterialTheme.colorScheme.secondary )
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.secondary)
     ) {
         Row(modifier = Modifier
             .fillMaxWidth()
@@ -136,83 +138,74 @@ fun CourseListAdminScreen( navController: NavController ) {
             verticalArrangement = Arrangement.Top
         ) {
 
-
-            Column(
-                modifier = Modifier
-                    .height(130.dp)
-                    .fillMaxWidth(0.75f)
-                    .fillMaxHeight(),
-
-            ) {
-                Card(
-                modifier = Modifier
-                    .fillMaxSize(),
+            Card(modifier= Modifier
+                .fillMaxWidth(0.8f)
+                .height(130.dp)
+                .padding(top = 10.dp)
+                .clickable {
+                    navController.navigate("CourseContentAdminScreen")
+                },
                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
-                elevation = CardDefaults.cardElevation(10.dp),
-                shape = RoundedCornerShape(
-                    topStart = 0.dp,
-                    topEnd = 10.dp,
-                    bottomEnd = 0.dp,
-                    bottomStart = 10.dp
-                )
-            ) {
-                Card(
-                    modifier = Modifier
+                elevation = CardDefaults.cardElevation(5.dp)) {
+
+                Row(
+                    modifier = Modifier.fillMaxSize()
                         .fillMaxWidth()
-                        .height(40.dp),
-                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
-                    shape = RoundedCornerShape(
-                        topStart = 0.dp,
-                        topEnd = 0.dp,
-                        bottomEnd = 0.dp,
-                        bottomStart = 0.dp
-                    )
+                        .clickable { showAlert.value = true },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
                 ) {
-                    /*Image(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .offset(0.dp, (-30).dp),
-                        painter = painterResource(id = R.drawable.bg_main),
-                        contentDescription = "Header Background",
-                        contentScale = ContentScale.FillWidth
-                    )*/
-                }
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(10.dp)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { showAlert.value = true },
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start,
 
+                    Card(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .width(100.dp),
+                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+                        shape = RoundedCornerShape(
+                            topStart = 0.dp,
+                            topEnd = 0.dp,
+                            bottomStart = 0.dp,
+                            bottomEnd = 0.dp
+                        )
                     ) {
-
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
                             Icon(
                                 Icons.Default.Add, contentDescription = "back",
-                                tint = MaterialTheme.colorScheme.onPrimary,
-                                modifier = Modifier.padding(5.dp)
+                                tint = MaterialTheme.colorScheme.onPrimary
                             )
 
 
-                            Text(
-                                text = "Add Course",
-                                style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
+                        }
+                    }
+
+                    Column(horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(20.dp)) {
+                        Text(
+                            text = "Add Course",
+                            style = TextStyle(
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                lineHeight = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 14.sp
                             )
+                        )
                     }
                 }
             }
-        }
+
 
             Spacer(modifier = Modifier.height(30.dp))
             for (item in itemList){
-                cardAdmin(text = item, navController = navController)
+
+                AdminFinalCard(text = item, navController = navController)
+
                 Spacer(modifier = Modifier.height(30.dp))
             }
         }
@@ -335,3 +328,81 @@ fun cardAdmin(text:String , navController: NavController){
         }
     }
 }
+
+
+@Composable
+fun AdminFinalCard(text:String , navController: NavController){
+    Spacer(modifier = Modifier.height(30.dp))
+    Card(modifier= Modifier
+        .fillMaxWidth(0.8f)
+        .height(130.dp)
+        .padding(top = 10.dp)
+        .clickable {
+            navController.navigate("CourseContentAdminScreen")
+        },
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
+        elevation = CardDefaults.cardElevation(5.dp)) {
+
+        Row(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+
+            Card(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(100.dp),
+                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+                shape = RoundedCornerShape(
+                    topStart = 0.dp,
+                    topEnd = 0.dp,
+                    bottomStart = 0.dp,
+                    bottomEnd = 0.dp
+                )
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+
+                    Text(
+                        text = "1",
+                        style = TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        )
+                    )
+
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "Course",
+                        style = TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
+                        )
+                    )
+                }
+            }
+
+            Column(horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp)) {
+                Text(
+                    text = text,
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        lineHeight = 30.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp
+                    )
+                )
+            }
+        }
+    }
+}
+
+
