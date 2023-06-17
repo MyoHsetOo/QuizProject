@@ -266,6 +266,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                         Row (
                             modifier = Modifier.padding( vertical = 15.dp ,)
                                 .clickable {
+                                    navController.navigate("LoginPage")
 
                                 }
                         ){

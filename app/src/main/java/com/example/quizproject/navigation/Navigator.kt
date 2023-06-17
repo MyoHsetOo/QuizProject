@@ -42,12 +42,6 @@ fun Nav() {
 
         }
 
-        //AdminUserConnectedScreen
-        composable(route = "AdminUserConnectedScreen" ) {
-
-            AdminUserConnectedScreen(navController)
-
-        }
 
         //CourseListScreen
         composable(route = "CourseListScreen" ) {

@@ -53,6 +53,8 @@ fun QuestionList(navController: NavController) {
     )
 
     Surface(
+        modifier = Modifier
+            .fillMaxSize(),
         color = MaterialTheme.colorScheme.secondary
     ) {
         Column (
@@ -84,7 +86,8 @@ fun QuestionList(navController: NavController) {
            // Spacer(modifier = Modifier.height(20.dp))
             Column(modifier=Modifier
                 .fillMaxWidth()
-                .padding( top = 10.dp ),
+                .padding( top = 10.dp )
+                .background(MaterialTheme.colorScheme.secondary),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

@@ -202,33 +202,23 @@ private fun BookCard(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
 
-            Image(
-                modifier = Modifier.size(80.dp),
-                bitmap = ImageBitmap.imageResource(id = R.drawable.openbook),
-                contentDescription = "book_card"
-            )
 
+                Image(
+                    modifier = Modifier.size(50.dp)
+                        .padding(bottom = 5.dp),
+                    bitmap = ImageBitmap.imageResource(id = R.drawable.booksicon),
+                    contentDescription = "book_card"
+                )
 
-            /* Box(
-             ) {
-                 LottieAnimation(
-                     modifier = Modifier
-                         .size(200.dp),
-                     iterations = 100,
-                     composition = composition2
-                 )
-
-             }*/
-
-
-            Box(modifier = Modifier.padding( 20.dp)) {
-                Column( modifier = Modifier.fillMaxSize(),
+                Column( modifier = Modifier
+                    .fillMaxWidth(0.85f)
+                    .padding(10.dp),
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
@@ -242,7 +232,7 @@ private fun BookCard(
                     )
 
                 }
-            }
+
         }
     }
 }
