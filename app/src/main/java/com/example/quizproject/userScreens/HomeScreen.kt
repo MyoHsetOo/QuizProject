@@ -1,7 +1,7 @@
 package com.example.quizproject.userScreens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.BorderStroke
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,18 +16,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.PersonOutline
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Logout
 import androidx.compose.material.icons.outlined.SaveAlt
@@ -36,6 +33,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DismissValue
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -48,6 +46,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDismissState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -71,12 +70,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 
 
@@ -101,6 +102,20 @@ fun HomeScreen ( navController: NavController ) {
         composition = composition,
         isPlaying = isPlaying
     )
+
+    val viewModel: HomeViewModel = hiltViewModel()
+
+    var categoryData by viewModel._categoryData
+
+    var categoryName by viewModel._categoryName
+
+    var categoryDescription by viewModel._categoryDescription
+
+    var categoryId by viewModel._categoryId
+
+
+
+
 
     LaunchedEffect(key1 = progress){
         if( progress == 0f){
@@ -270,498 +285,176 @@ fun HomeScreen ( navController: NavController ) {
         Scaffold(
 
         ) { contentPadding ->
-            Column (
+            LazyColumn (
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding)
                     .background(MaterialTheme.colorScheme.secondary)
-                    .verticalScroll(rememberScrollState()),
+
 
                 ){
+                item {
+                    Row (
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        IconButton(onClick = {
+                            //navController.popBackStack()
 
-                Row (
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                    IconButton(onClick = {
-                        //navController.popBackStack()
-
-                        scope.launch {
-                            drawerState.apply {
-                                if (isClosed) open() else close()
+                            scope.launch {
+                                drawerState.apply {
+                                    if (isClosed) open() else close()
+                                }
                             }
+                        }){
+                            Icon(imageVector = Icons.Default.Menu,
+                                contentDescription = "back",
+                                tint = MaterialTheme.colorScheme.onPrimary)
                         }
-                    }){
-                        Icon(imageVector = Icons.Default.Menu,
-                            contentDescription = "back",
-                            tint = MaterialTheme.colorScheme.onPrimary)
+                        Text(text = "Quiz", style = TextStyle(
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                        ))
                     }
-                    Text(text = "Quiz", style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                    ))
-                }
-                Column (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                    ,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Top
-                ){
-
-                    LottieAnimation(
-                        modifier = Modifier
-
-                            .fillMaxHeight()
-                            .height(200.dp),
-                        iterations = 100,
-                        composition = composition
-                    )
-
-                }
-
-                Spacer(modifier = Modifier.height(40.dp))
-
-                Column (
-                    modifier = Modifier
-                        .padding( top = 20.dp)
-                ){
-
-                    /*Card (
+                    Column (
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 10.dp, horizontal = 20.dp),
-                        shape = RoundedCornerShape(30.dp),
-                        elevation = CardDefaults.cardElevation(5.dp)
+                        ,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Top
                     ){
 
-                        Box(
+                        LottieAnimation(
                             modifier = Modifier
-                                .fillMaxWidth()
+
                                 .fillMaxHeight()
-                                .background(
-                                    Brush.linearGradient(
-                                        colors = listOf(
+                                .height(200.dp),
+                            iterations = 100,
+                            composition = composition
+                        )
 
-                                            MaterialTheme.colorScheme.primary,
+                    }
 
-                                            MaterialTheme.colorScheme.primary,
+                    Spacer(modifier = Modifier.height(40.dp))
 
-                                            ),
-                                        start = Offset.Zero, // Starting point of the gradient
-                                        end = Offset.Infinite, // Ending point of the gradient
-                                        tileMode = TileMode.Clamp // Tile mode for extending the gradient
-                                    )
-                                )
-                        ){
-                            Column {
+                }
 
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC )", style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    fontSize = 16.sp,
-                                    lineHeight = 25.sp,
-                                    fontWeight = FontWeight.Bold
-                                ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, ))
-                                
-                                Row (
-                                    modifier = Modifier.fillMaxWidth()
-                                        ,
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween
-
-                                ){
-
-                                    Image(
-                                        modifier = Modifier
-                                            .size(50.dp)
-                                            .padding(bottom = 5.dp, start = 20.dp)
-                                        ,
-                                        bitmap = ImageBitmap.imageResource(id = R.drawable.homearrow2),
-                                        contentDescription = "book_card"
-                                    )
-
-                                    Box(){
+                        items( categoryData ) {item ->
 
 
-                                        TextButton(onClick = {
-                                            navController.navigate("CourseListScreen")
 
-                                        },
-                                            modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, end = 20.dp,)
-                                            ,
-                                            colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.secondary
+                            Log.d(">>>>>","${categoryData.size}")
+
+                            Card (
+                                modifier = Modifier
+                                    .fillMaxWidth()
+
+                                    .padding(vertical = 10.dp, horizontal = 20.dp),
+                                shape = RoundedCornerShape(30.dp),
+                                elevation = CardDefaults.cardElevation(5.dp)
+                            ){
+
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                        .background(
+                                            Brush.linearGradient(
+                                                colors = listOf(
+
+                                                    MaterialTheme.colorScheme.primary,
+
+                                                    MaterialTheme.colorScheme.primary,
+
+                                                    ),
+                                                start = Offset.Zero, // Starting point of the gradient
+                                                end = Offset.Infinite, // Ending point of the gradient
+                                                tileMode = TileMode.Clamp // Tile mode for extending the gradient
                                             )
-                                        ) {
-                                            Text(text = "View" , style = TextStyle(
-                                                color = MaterialTheme.colorScheme.onPrimary,
+                                        )
+                                ){
+                                    Column {
+
+                                        Text(text = "${item.categoryName}", style = TextStyle(
+                                            color = MaterialTheme.colorScheme.onPrimary,
+                                            fontSize = 16.sp,
+                                            lineHeight = 25.sp,
+                                            fontWeight = FontWeight.Bold
+                                        ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, end = 20.dp ))
+
+                                        Text(text = "${item.categoryDescription}",
+                                            style = TextStyle(
                                                 fontSize = 12.sp,
-                                                fontWeight = FontWeight.Bold,
-                                            ), modifier = Modifier.padding(vertical = 2.dp , horizontal = 10.dp))
+                                                lineHeight = 20.sp,
+                                                color = Color(0xFF6B7C97),
+
+                                                ), maxLines = if (isExpanded) 4 else 2 , overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
+                                            modifier = Modifier
+                                                .padding(
+                                                    top = 5.dp,
+                                                    bottom = 10.dp,
+                                                    start = 30.dp,
+                                                    end = 30.dp
+                                                )
+                                                .clickable {
+                                                    isExpanded = !isExpanded
+                                                })
+
+                                        Row (
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(end = 20.dp),
+                                            horizontalArrangement = Arrangement.End,
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ){
+                                            Log.d(">>>Row","this is before click")
+
+                                            IconButton(onClick = {
+                                                Log.d(">>>dataId","${item.categoryId}")
+
+                                                 categoryId = item.categoryId.toHexString()
+                                                Log.d(">>>dataId","$categoryId")
+                                                viewModel.deleteCategory()
+                                            }){
+                                                Icon(imageVector = Icons.Default.Delete, contentDescription = "delete", tint = MaterialTheme.colorScheme.onPrimary)
+                                            }
+
+
+                                            TextButton(onClick = {
+                                                navController.navigate("CourseListScreen")
+
+                                            },
+                                                modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, start = 20.dp,),
+                                                colors = ButtonDefaults.buttonColors(
+                                                    containerColor = MaterialTheme.colorScheme.secondary
+                                                )
+                                            ) {
+                                                Text(text = "Start Learning" , color = MaterialTheme.colorScheme.onPrimary,
+                                                    style = TextStyle(
+                                                        fontSize = 12.sp,
+                                                        fontWeight = FontWeight.Bold
+                                                    )
+                                                )
+                                            }
+
                                         }
-                                        
-                                    }
 
-
-                                }
-
-                                
-
-                            }
-
-                        }
-
-                    }*/
-
-                    Card (
-                        modifier = Modifier
-                            .fillMaxWidth()
-
-                            .padding(vertical = 10.dp, horizontal = 20.dp),
-                        shape = RoundedCornerShape(30.dp),
-                        elevation = CardDefaults.cardElevation(5.dp)
-                    ){
-
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .background(
-                                    Brush.linearGradient(
-                                        colors = listOf(
-
-                                            MaterialTheme.colorScheme.primary,
-
-                                            MaterialTheme.colorScheme.primary,
-
-                                            ),
-                                        start = Offset.Zero, // Starting point of the gradient
-                                        end = Offset.Infinite, // Ending point of the gradient
-                                        tileMode = TileMode.Clamp // Tile mode for extending the gradient
-                                    )
-                                )
-                        ){
-                            Column {
-
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC )", style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    fontSize = 16.sp,
-                                    lineHeight = 25.sp,
-                                    fontWeight = FontWeight.Bold
-                                ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, ))
-                                
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC ), Information Technology Professionals Examination Council ( ITPEC )",
-                                    style = TextStyle(
-                                        fontSize = 12.sp,
-                                        lineHeight = 20.sp,
-                                        color = Color(0xFF6B7C97),
-
-                                    ), maxLines = if (isExpanded) 4 else 2 , overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
-                                    modifier = Modifier
-                                        .padding(
-                                            top = 5.dp,
-                                            bottom = 10.dp,
-                                            start = 30.dp,
-                                            end = 30.dp
-                                        )
-                                        .clickable {
-                                            isExpanded = !isExpanded
-                                        })
-
-                                Row (
-                                    modifier = Modifier.fillMaxWidth()
-                                        .padding( end = 20.dp ),
-                                    horizontalArrangement = Arrangement.End
-                                ){
-
-                                    TextButton(onClick = {
-                                        navController.navigate("CourseListScreen")
-
-                                    },
-                                        modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, start = 20.dp,),
-                                        colors = ButtonDefaults.buttonColors(
-                                            containerColor = MaterialTheme.colorScheme.secondary
-                                        )
-                                    ) {
-                                        Text(text = "Start Learning" , color = MaterialTheme.colorScheme.onPrimary,
-                                            style = TextStyle(
-                                                fontSize = 12.sp,
-                                                fontWeight = FontWeight.Bold,
-                                                color = MaterialTheme.colorScheme.onPrimary
-                                            )
-                                        )
                                     }
 
                                 }
 
-
-
                             }
 
                         }
-
                     }
 
-                    Card (
-                        modifier = Modifier
-                            .fillMaxWidth()
-
-                            .padding(vertical = 10.dp, horizontal = 20.dp),
-                        shape = RoundedCornerShape(30.dp),
-                        elevation = CardDefaults.cardElevation(5.dp)
-                    ){
-
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .background(
-                                    Brush.linearGradient(
-                                        colors = listOf(
-
-                                            MaterialTheme.colorScheme.primary,
-
-                                            MaterialTheme.colorScheme.primary,
-
-                                            ),
-                                        start = Offset.Zero, // Starting point of the gradient
-                                        end = Offset.Infinite, // Ending point of the gradient
-                                        tileMode = TileMode.Clamp // Tile mode for extending the gradient
-                                    )
-                                )
-                        ){
-                            Column {
-
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC )", style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    fontSize = 16.sp,
-                                    lineHeight = 25.sp,
-                                    fontWeight = FontWeight.Bold
-                                ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, ))
-
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC ), Information Technology Professionals Examination Council ( ITPEC )",
-                                    style = TextStyle(
-                                        fontSize = 12.sp,
-                                        lineHeight = 20.sp,
-                                        color = Color(0xFF6B7C97),
-
-                                        ), maxLines = if (isExpanded) 4 else 2 , overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
-                                    modifier = Modifier
-                                        .padding(
-                                            top = 5.dp,
-                                            bottom = 10.dp,
-                                            start = 30.dp,
-                                            end = 30.dp
-                                        )
-                                        .clickable {
-                                            isExpanded = !isExpanded
-                                        })
-
-                                Row (
-                                    modifier = Modifier.fillMaxWidth()
-                                        .padding( end = 20.dp ),
-                                    horizontalArrangement = Arrangement.End
-                                ){
-
-                                    TextButton(onClick = {
-                                        navController.navigate("CourseListScreen")
-
-                                    },
-                                        modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, start = 20.dp,),
-                                        colors = ButtonDefaults.buttonColors(
-                                            containerColor = MaterialTheme.colorScheme.secondary
-                                        )
-                                    ) {
-                                        Text(text = "Start Learning" , color = MaterialTheme.colorScheme.onPrimary,
-                                            style = TextStyle(
-                                                fontSize = 12.sp,
-                                                fontWeight = FontWeight.Bold,
-                                                color = MaterialTheme.colorScheme.onPrimary
-                                            )
-                                        )
-                                    }
-
-                                }
-
-
-
-                            }
-
-                        }
-
-                    }
 
                 }
 
             }
-        }
-    }
+
 }
 
 
-/*
-Scaffold (
-containerColor = MaterialTheme.colorScheme.secondary,
-topBar = {
 
-    Row (
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ){
-        IconButton(onClick = {
-            navController.popBackStack()
-        }){
-            Icon(imageVector = Icons.Default.ArrowBack,
-                contentDescription = "back",
-                tint = Color.Black)
-        }
-        Text(text = "Quiz", style = TextStyle(
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        ))
-    }
-
-},
-content = {
-    Column (
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
-
-        ){
-        Column(
-            modifier = Modifier.fillMaxHeight(1f),
-            verticalArrangement = Arrangement.Bottom,
-
-            ){
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.85f),
-                shape = RoundedCornerShape( topStart = 60.dp, topEnd = 60.dp ),
-                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
-
-            ){
-                Column(
-
-                ){
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            //.background(Color.LightGray)
-                            //.padding(vertical = 20.dp)
-                            .fillMaxWidth()
-                            .fillMaxHeight(0.4f),
-                    ){
-                        Box(
-                            modifier = Modifier
-                                //.background(Color.Yellow)
-                                .padding(horizontal = 10.dp, vertical = 30.dp)
-                                .fillMaxWidth(0.3f)
-                                .height(300.dp),
-                            contentAlignment = Alignment.BottomStart
-
-                        ){
-                            Text(text = "Choose your Category", style = TextStyle(
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = Color.Black
-                            ), modifier = Modifier.padding( start = 15.dp))
-                        }
-                        Box(
-                            modifier = Modifier.height(700.dp),
-                            contentAlignment = Alignment.BottomEnd
-
-                        ){
-                            Box(
-                                contentAlignment = Alignment.BottomEnd
-                            ){
-                                LottieAnimation(
-                                    modifier = Modifier
-                                        .size(600.dp),
-                                    iterations = 100,
-                                    composition = composition
-                                )
-
-                            }
-
-                        }
-                    }
-
-                    Column(
-                        modifier = Modifier.padding(top = 40.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-
-                    ){
-                        Button(
-                            onClick = {
-                                navController.navigate("CourseListScreen")
-                            },
-                            modifier = Modifier
-                                .padding(
-                                    horizontal = 20.dp,
-                                    vertical = 20.dp
-                                )
-                                .fillMaxWidth()
-                                .height(60.dp),
-                            shape = RoundedCornerShape(20.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.secondary
-                            ),
-                            elevation = ButtonDefaults.buttonElevation(10.dp),
-
-                            ) {
-
-                            Row (
-                                modifier = Modifier.padding(5.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ){
-
-                                Text(text = "ITPEC" , style = TextStyle(
-                                    fontSize = 14.sp,
-                                    color = Color.Black
-                                ), modifier = Modifier.padding(end = 5.dp)
-                                )
-                            }
-                        }
-                        // //Spacer( modifier = Modifier.height(3.dp))
-                        Button(
-                            onClick = {
-                                navController.navigate("CourseListScreen")
-                            },
-                            modifier = Modifier
-                                .padding(
-                                    horizontal = 20.dp,
-                                    vertical = 20.dp
-                                )
-                                .fillMaxWidth()
-                                .height(60.dp),
-                            shape = RoundedCornerShape(20.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.secondary
-                            ),
-                            elevation = ButtonDefaults.buttonElevation(10.dp),
-
-                            ) {
-
-                            Row (
-                                modifier = Modifier.padding(5.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ){
-
-                                Text(text = "Japanese" , style = TextStyle(
-                                    fontSize = 14.sp,
-                                    color = Color.Black
-                                ), modifier = Modifier.padding(end = 5.dp)
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-)*/
