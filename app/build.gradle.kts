@@ -1,6 +1,13 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    id("io.realm.kotlin")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -30,11 +37,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -51,7 +58,6 @@ android {
 
 dependencies {
 
-//
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -88,8 +94,22 @@ dependencies {
     //AppCompact
     implementation("androidx.appcompat:appcompat:1.6.1")
 
+    //Realm DB
+    implementation("io.realm.kotlin:library-base:1.8.0") // Add to use local realm (no sync)
+    implementation("io.realm.kotlin:library-sync:1.8.0")// Add to use Device Sync
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4") // Add to use coroutines with the SDK
+
+    // Dagger Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    //Desugar JDK
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
 
-
-
+}
+kapt {
+    correctErrorTypes = true
 }

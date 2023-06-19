@@ -78,6 +78,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -86,6 +89,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
 import com.example.quizproject.dataModel.Answer
 import com.example.quizproject.dataModel.Category
+import com.example.quizproject.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 
 //////
@@ -94,7 +98,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun HomeAdminScreen ( navController: NavController ) {
+fun HomeAdminScreen ( navController: NavController )  {
 /////
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bulb))
 
@@ -141,6 +145,16 @@ fun HomeAdminScreen ( navController: NavController ) {
     var isExpanded by remember {
         mutableStateOf(false)
     }
+
+
+    val viewModel: HomeViewModel = hiltViewModel()
+
+    var categoryData by viewModel._categoryData
+
+    var categoryName by viewModel._categoryName
+
+    var categoryDescription by viewModel._categoryDescription
+
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -397,7 +411,8 @@ fun HomeAdminScreen ( navController: NavController ) {
                         text = {
 
                             Column(
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier
+                                    .fillMaxWidth()
 
                                     .padding(5.dp),
                                 verticalArrangement = Arrangement.Center
@@ -405,8 +420,8 @@ fun HomeAdminScreen ( navController: NavController ) {
                             ) {
 
                                 OutlinedTextField(
-                                    value = categoryTextField.value,
-                                    onValueChange = { categoryTextField.value = it },
+                                    value = categoryName,
+                                    onValueChange = { categoryName = it },
                                     modifier = Modifier
                                         //.border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp))
                                         .padding(5.dp),
@@ -431,8 +446,8 @@ fun HomeAdminScreen ( navController: NavController ) {
 
 
                                 OutlinedTextField(
-                                    value = descriptionTextField.value,
-                                    onValueChange = { descriptionTextField.value = it },
+                                    value = categoryDescription,
+                                    onValueChange = { categoryDescription = it },
                                     modifier = Modifier
 
                                         //.border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp))
@@ -467,12 +482,21 @@ fun HomeAdminScreen ( navController: NavController ) {
                             Button(onClick = {
                                 isshowAlertDialog.value = false
 
-                                var cateogry = Category(
+                                viewModel.insertCategory()
+
+                                /*var cateogry = Category(
                                     categoryName = categoryTextField.value,
                                     categoryDescription = descriptionTextField.value
-                                )
+                                )*/
 
-                                categorylist.add( cateogry )
+                                /*cateName = categoryTextField
+                                 cateDescripiton = descriptionTextField
+
+                                Log.d("CateName>>>","$cateName")
+
+                                Log.d("CateName>>>","$cateDescripiton")*/
+
+                               // categorylist.add( cateogry )
 
                                 categoryTextField.value = ""
                                 descriptionTextField.value = ""
@@ -580,7 +604,9 @@ fun HomeAdminScreen ( navController: NavController ) {
 */
                     LazyColumn{
 
-                        items( categorylist ) {item ->
+                        items( categoryData ) {item ->
+
+                            Log.d(">>>>>","${categoryData.size}")
 
                             Card (
                                 modifier = Modifier
@@ -638,8 +664,9 @@ fun HomeAdminScreen ( navController: NavController ) {
                                                 })
 
                                         Row (
-                                            modifier = Modifier.fillMaxWidth()
-                                                .padding( end = 20.dp ),
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(end = 20.dp),
                                             horizontalArrangement = Arrangement.End
                                         ){
 
@@ -652,7 +679,7 @@ fun HomeAdminScreen ( navController: NavController ) {
                                                     containerColor = MaterialTheme.colorScheme.secondary
                                                 )
                                             ) {
-                                                Text(text = "View" , color = MaterialTheme.colorScheme.onPrimary,
+                                                Text(text = "Start Learning" , color = MaterialTheme.colorScheme.onPrimary,
                                                     style = TextStyle(
                                                         fontSize = 12.sp,
                                                         fontWeight = FontWeight.Bold

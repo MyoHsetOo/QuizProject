@@ -1,7 +1,18 @@
 package com.example.quizproject.dataModel
 
 import android.net.Uri
-//
+import io.realm.kotlin.types.RealmObject
+import io.realm.kotlin.types.annotations.PrimaryKey
+import org.mongodb.kbson.ObjectId
+
+
+class Category : RealmObject {
+
+    @PrimaryKey
+    var categoryId : ObjectId = ObjectId.invoke()
+    var categoryName : String = ""
+    var categoryDescription : String = ""
+}
 class Answer (
 
 var answerType : Char,
@@ -17,10 +28,10 @@ class Chapter (
 )
 
 
-class  Category (
+/*class  Category (
     var categoryName : String,
     var categoryDescription : String,
-)
+)*/
 
 //////
 
