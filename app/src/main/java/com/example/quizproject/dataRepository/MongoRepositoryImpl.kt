@@ -14,8 +14,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.mongodb.kbson.ObjectId
 
-class MongoRepositoryImpl () : MongoRepository {
+ class MongoRepositoryImpl () : MongoRepository {
 
     private val realm: Realm
     private val config: SyncConfiguration
@@ -28,7 +29,7 @@ class MongoRepositoryImpl () : MongoRepository {
                 // Subscribe to the active subscriptionType - first time defaults to MINE
                 add(
                     realm.query<Category>(
-                        "categoryName == ",
+                       /* "categoryName == ",*/
 
                     ),
                     "subscription name"
@@ -54,5 +55,7 @@ class MongoRepositoryImpl () : MongoRepository {
     override suspend fun insertCategory( category: Category) {
         realm.write { copyToRealm(category) }
     }
+
+
 
 }

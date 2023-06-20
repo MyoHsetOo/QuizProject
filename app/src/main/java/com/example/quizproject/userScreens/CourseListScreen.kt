@@ -136,7 +136,7 @@ fun FinalCard(text:String , navController: NavController){
         .height(130.dp)
         .padding(top = 10.dp)
         .clickable {
-            navController.navigate("CourseContentAdminScreen")
+            navController.navigate("CourseContent")
         },
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
         elevation = CardDefaults.cardElevation(5.dp)) {

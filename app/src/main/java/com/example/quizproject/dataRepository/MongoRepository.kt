@@ -15,9 +15,5 @@ interface MongoRepository {
 
     suspend fun insertCategory ( category: Category )
 
-    suspend fun deleteCategory(id: ObjectId)
-
-
-
 
 }

@@ -67,7 +67,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
-import com.example.quizproject.userScreens.card
+
 
 //
 //

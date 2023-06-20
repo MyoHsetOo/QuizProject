@@ -109,7 +109,7 @@ fun AdminQuestionList(navController: NavController){
                     onClick = {
                               navController.navigate("QuestionEntryForm")
                     },
-                    modifier = Modifier.fillMaxWidth(0.85f)
+                    modifier = Modifier.fillMaxWidth(0.95f)
                         .height(80.dp)
                         .padding(15.dp),
                     shape = RoundedCornerShape(20.dp),

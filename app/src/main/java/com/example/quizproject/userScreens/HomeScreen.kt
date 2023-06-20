@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -77,6 +79,8 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 
 
@@ -92,6 +96,13 @@ fun HomeScreen ( navController: NavController ) {
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bulb ))
     var isPlaying by remember { mutableStateOf(true) }
+
+
+    var repository = MongoRepositoryImpl()
+
+    var viewModel : HomeViewModel = HomeViewModel( repository)
+
+    var categoryData by viewModel._categoryData
 
     var isExpanded by remember {
          mutableStateOf(false)
@@ -270,149 +281,64 @@ fun HomeScreen ( navController: NavController ) {
         Scaffold(
 
         ) { contentPadding ->
-            Column (
+            LazyColumn (
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding)
-                    .background(MaterialTheme.colorScheme.secondary)
-                    .verticalScroll(rememberScrollState()),
+                    .background(MaterialTheme.colorScheme.secondary),
 
                 ){
 
-                Row (
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                    IconButton(onClick = {
-                        //navController.popBackStack()
+                item {
 
-                        scope.launch {
-                            drawerState.apply {
-                                if (isClosed) open() else close()
+                    Row (
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        IconButton(onClick = {
+                            //navController.popBackStack()
+
+                            scope.launch {
+                                drawerState.apply {
+                                    if (isClosed) open() else close()
+                                }
                             }
+                        }){
+                            Icon(imageVector = Icons.Default.Menu,
+                                contentDescription = "back",
+                                tint = MaterialTheme.colorScheme.onPrimary)
                         }
-                    }){
-                        Icon(imageVector = Icons.Default.Menu,
-                            contentDescription = "back",
-                            tint = MaterialTheme.colorScheme.onPrimary)
+                        Text(text = "Quiz", style = TextStyle(
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                        ))
                     }
-                    Text(text = "Quiz", style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                    ))
-                }
-                Column (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                    ,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Top
-                ){
-
-                    LottieAnimation(
-                        modifier = Modifier
-
-                            .fillMaxHeight()
-                            .height(200.dp),
-                        iterations = 100,
-                        composition = composition
-                    )
-
-                }
-
-                Spacer(modifier = Modifier.height(40.dp))
-
-                Column (
-                    modifier = Modifier
-                        .padding( top = 20.dp)
-                ){
-
-                    /*Card (
+                    Column (
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 10.dp, horizontal = 20.dp),
-                        shape = RoundedCornerShape(30.dp),
-                        elevation = CardDefaults.cardElevation(5.dp)
+                        ,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Top
                     ){
 
-                        Box(
+                        LottieAnimation(
                             modifier = Modifier
-                                .fillMaxWidth()
+
                                 .fillMaxHeight()
-                                .background(
-                                    Brush.linearGradient(
-                                        colors = listOf(
+                                .height(200.dp),
+                            iterations = 100,
+                            composition = composition
+                        )
 
-                                            MaterialTheme.colorScheme.primary,
+                    }
 
-                                            MaterialTheme.colorScheme.primary,
-
-                                            ),
-                                        start = Offset.Zero, // Starting point of the gradient
-                                        end = Offset.Infinite, // Ending point of the gradient
-                                        tileMode = TileMode.Clamp // Tile mode for extending the gradient
-                                    )
-                                )
-                        ){
-                            Column {
-
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC )", style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    fontSize = 16.sp,
-                                    lineHeight = 25.sp,
-                                    fontWeight = FontWeight.Bold
-                                ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, ))
-                                
-                                Row (
-                                    modifier = Modifier.fillMaxWidth()
-                                        ,
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween
-
-                                ){
-
-                                    Image(
-                                        modifier = Modifier
-                                            .size(50.dp)
-                                            .padding(bottom = 5.dp, start = 20.dp)
-                                        ,
-                                        bitmap = ImageBitmap.imageResource(id = R.drawable.homearrow2),
-                                        contentDescription = "book_card"
-                                    )
-
-                                    Box(){
+                    Spacer(modifier = Modifier.height(40.dp))
+                }
 
 
-                                        TextButton(onClick = {
-                                            navController.navigate("CourseListScreen")
 
-                                        },
-                                            modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, end = 20.dp,)
-                                            ,
-                                            colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.secondary
-                                            )
-                                        ) {
-                                            Text(text = "View" , style = TextStyle(
-                                                color = MaterialTheme.colorScheme.onPrimary,
-                                                fontSize = 12.sp,
-                                                fontWeight = FontWeight.Bold,
-                                            ), modifier = Modifier.padding(vertical = 2.dp , horizontal = 10.dp))
-                                        }
-                                        
-                                    }
-
-
-                                }
-
-                                
-
-                            }
-
-                        }
-
-                    }*/
+                items ( categoryData ){item ->
 
                     Card (
                         modifier = Modifier
@@ -444,103 +370,14 @@ fun HomeScreen ( navController: NavController ) {
                         ){
                             Column {
 
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC )", style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    fontSize = 16.sp,
-                                    lineHeight = 25.sp,
-                                    fontWeight = FontWeight.Bold
-                                ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, ))
-                                
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC ), Information Technology Professionals Examination Council ( ITPEC )",
-                                    style = TextStyle(
-                                        fontSize = 12.sp,
-                                        lineHeight = 20.sp,
-                                        color = Color(0xFF6B7C97),
-
-                                    ), maxLines = if (isExpanded) 4 else 2 , overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
-                                    modifier = Modifier
-                                        .padding(
-                                            top = 5.dp,
-                                            bottom = 10.dp,
-                                            start = 30.dp,
-                                            end = 30.dp
-                                        )
-                                        .clickable {
-                                            isExpanded = !isExpanded
-                                        })
-
-                                Row (
-                                    modifier = Modifier.fillMaxWidth()
-                                        .padding( end = 20.dp ),
-                                    horizontalArrangement = Arrangement.End
-                                ){
-
-                                    TextButton(onClick = {
-                                        navController.navigate("CourseListScreen")
-
-                                    },
-                                        modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, start = 20.dp,),
-                                        colors = ButtonDefaults.buttonColors(
-                                            containerColor = MaterialTheme.colorScheme.secondary
-                                        )
-                                    ) {
-                                        Text(text = "Start Learning" , color = MaterialTheme.colorScheme.onPrimary,
-                                            style = TextStyle(
-                                                fontSize = 12.sp,
-                                                fontWeight = FontWeight.Bold,
-                                                color = MaterialTheme.colorScheme.onPrimary
-                                            )
-                                        )
-                                    }
-
-                                }
-
-
-
-                            }
-
-                        }
-
-                    }
-
-                    Card (
-                        modifier = Modifier
-                            .fillMaxWidth()
-
-                            .padding(vertical = 10.dp, horizontal = 20.dp),
-                        shape = RoundedCornerShape(30.dp),
-                        elevation = CardDefaults.cardElevation(5.dp)
-                    ){
-
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .background(
-                                    Brush.linearGradient(
-                                        colors = listOf(
-
-                                            MaterialTheme.colorScheme.primary,
-
-                                            MaterialTheme.colorScheme.primary,
-
-                                            ),
-                                        start = Offset.Zero, // Starting point of the gradient
-                                        end = Offset.Infinite, // Ending point of the gradient
-                                        tileMode = TileMode.Clamp // Tile mode for extending the gradient
-                                    )
-                                )
-                        ){
-                            Column {
-
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC )", style = TextStyle(
+                                Text(text = "${item.categoryName}", style = TextStyle(
                                     color = MaterialTheme.colorScheme.onPrimary,
                                     fontSize = 16.sp,
                                     lineHeight = 25.sp,
                                     fontWeight = FontWeight.Bold
                                 ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, ))
 
-                                Text(text = "Information Technology Professionals Examination Council ( ITPEC ), Information Technology Professionals Examination Council ( ITPEC )",
+                                Text(text = "${item.categoryDescription}",
                                     style = TextStyle(
                                         fontSize = 12.sp,
                                         lineHeight = 20.sp,
@@ -593,6 +430,14 @@ fun HomeScreen ( navController: NavController ) {
                     }
 
                 }
+
+
+
+
+
+
+
+
 
             }
         }
