@@ -67,9 +67,6 @@ import com.example.quizproject.R
 @Composable
 fun CourseListScreen (navController: NavController) {
 
-
-
-
     Column() {
             Row(modifier = Modifier
                 .fillMaxWidth()
@@ -95,7 +92,6 @@ fun CourseListScreen (navController: NavController) {
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
-
                     Text(
                         text = "Course List",
                         style = androidx.compose.ui.text.TextStyle(
@@ -105,29 +101,24 @@ fun CourseListScreen (navController: NavController) {
                         )
                     )
                 }
-
-
-        }
+            }
         }
         
-        Spacer(modifier = Modifier.height(30.dp))
+
 
     Column(
-                modifier = Modifier
+        modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.secondary)
-                    .verticalScroll(rememberScrollState()),
+                    .background(MaterialTheme.colorScheme.secondary),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                card(
+                FinalCard(
                     text = "Information Technology Vol.1",
                     navController
                 )
 
-                Spacer(modifier = Modifier.height(30.dp))
-
-                card(
+                FinalCard(
                     text="Strategy and Management Vol.2"
                 ,navController
                 )
@@ -138,61 +129,75 @@ fun CourseListScreen (navController: NavController) {
 
 
 @Composable
-fun card(text:String , navController: NavController){
-    Column(
-        modifier = Modifier
-            .height(130.dp)
-            .fillMaxWidth(0.75f)
-            .clickable {
+fun FinalCard(text:String , navController: NavController){
+    Spacer(modifier = Modifier.height(30.dp))
+    Card(modifier= Modifier
+        .fillMaxWidth(0.8f)
+        .height(130.dp)
+        .padding(top = 10.dp)
+        .clickable {
+            navController.navigate("CourseContentAdminScreen")
+        },
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
+        elevation = CardDefaults.cardElevation(5.dp)) {
 
-                navController.navigate("CourseContent")
-            },
-         //   .padding(60.dp)
-           ) {
-        Card(
-            modifier = Modifier
-                .fillMaxSize(),
-            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
-            elevation = CardDefaults.cardElevation(10.dp),
-            shape = RoundedCornerShape(topStart = 0.dp, topEnd = 10.dp, bottomEnd = 0.dp, bottomStart = 10.dp)
+        Row(
+            modifier = Modifier.fillMaxSize(),
         ) {
-            Card(modifier = Modifier
-                .fillMaxWidth()
-                .height(40.dp),
+
+            Card(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(100.dp),
                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
-                shape = RoundedCornerShape( topStart = 0.dp, topEnd = 0.dp, bottomEnd = 0.dp, bottomStart = 0.dp)
+                shape = RoundedCornerShape(
+                    topStart = 0.dp,
+                    topEnd = 0.dp,
+                    bottomStart = 0.dp,
+                    bottomEnd = 0.dp
+                )
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
-                /*Image(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(0.dp, (-30).dp),
-                    painter = painterResource(id = R.drawable.bg_main),
-                    contentDescription = "Header Background",
-                    contentScale = ContentScale.FillWidth
-                )*/
+
+                    Text(
+                        text = "1",
+                        style = TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        )
+                    )
+
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "Course",
+                        style = TextStyle(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
+                        )
+                    )
+                }
             }
-            Column(verticalArrangement = Arrangement.Center,
+
+            Column(horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(10.dp)) {
-               Row(modifier = Modifier.fillMaxWidth(),
-                   verticalAlignment = Alignment.CenterVertically,
-                   horizontalArrangement = Arrangement.SpaceBetween) {
-                   Text(text = text,
-                       style = TextStyle(
-                           color=MaterialTheme.colorScheme.onPrimary
-                       )
-                   )
-
-                   IconButton(onClick = {
-
-                       navController.navigate("CourseContent")
-                   }) {
-                       Icon(imageVector = Icons.Outlined.ArrowCircleRight, contentDescription = "right")
-                   }
-
-               }
-
+                    .padding(20.dp)) {
+                Text(
+                    text = text,
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        lineHeight = 30.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp
+                    )
+                )
             }
         }
     }

@@ -12,7 +12,18 @@ class Category : RealmObject {
     var _id : ObjectId = ObjectId()
     var categoryName : String = ""
     var categoryDescription : String = ""
+
+
 }
+
+
+class Couse
+
+
+
+
+
+
 class Answer (
 
 var answerType : Char,
