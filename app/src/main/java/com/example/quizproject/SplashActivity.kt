@@ -54,12 +54,7 @@ class SplashActivity : AppCompatActivity() {
         setContent {
             QuizProjectThem {
                 loadUi()
-
             }
-
-
-
-
         }
     }
 

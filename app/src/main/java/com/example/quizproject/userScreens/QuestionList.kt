@@ -95,7 +95,7 @@ fun QuestionList(navController: NavController) {
                         Button(
                             onClick = { navController.navigate("QuestionScreen")},
                             modifier = Modifier
-                                .fillMaxWidth(0.85f)
+                                .fillMaxWidth(0.95f)
                                 .height(80.dp)
                                 .padding(15.dp),
                             shape = RoundedCornerShape(20.dp),

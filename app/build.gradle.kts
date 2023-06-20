@@ -7,7 +7,7 @@ plugins {
 
     id("io.realm.kotlin")
     kotlin("kapt")
-    id("com.google.dagger.hilt.android")
+    //id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -76,6 +76,13 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("androidx.activity:activity-ktx:1.6.1")
+
+    implementation("androidx.activity:activity-compose:1.5.0")
+
+
     //Icons
     implementation("androidx.compose.material:material-icons-extended-android:1.5.0-beta01")
 
@@ -100,9 +107,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4") // Add to use coroutines with the SDK
 
     // Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
+    /*implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")*/
 
     //Desugar JDK
 

@@ -84,13 +84,12 @@ import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.CourseListScreen
 import com.example.quizproject.userScreens.FavoriteScreen
 import com.example.quizproject.userScreens.HomeScreen
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 //
 
-@AndroidEntryPoint
+
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

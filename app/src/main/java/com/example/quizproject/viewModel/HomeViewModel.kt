@@ -1,18 +1,18 @@
 package com.example.quizproject.viewModel
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizproject.dataModel.Category
 import com.example.quizproject.dataRepository.MongoRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.mongodb.kbson.BsonObjectId
 
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel (
 
     private val repository: MongoRepository
 
@@ -28,8 +28,15 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+//            repository.insertCategory(category = Category().apply {
+//                _id = org.mongodb.kbson.ObjectId()
+//                categoryName = "aa"
+//                categoryDescription = "ss"
+//            })
             repository.getCategoryData().collect {
                 _categoryData.value = it
+                Log.d(">>>>","$it")
+
             }
         }
     }
@@ -37,9 +44,15 @@ class HomeViewModel @Inject constructor(
     fun insertCategory() {
         viewModelScope.launch(Dispatchers.IO) {
             if (_categoryName.value.isNotEmpty()) {
+
+                /*Log.d(">>>",_categoryName.value)
+                Log.d(">>>",_categoryDescription.value)*/
                 repository.insertCategory(category = Category().apply {
+
+
                     categoryName = this@HomeViewModel._categoryName.value
                     categoryDescription = this@HomeViewModel._categoryDescription.value
+
                 })
             }
         }

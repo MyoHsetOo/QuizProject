@@ -9,7 +9,7 @@ import org.mongodb.kbson.ObjectId
 class Category : RealmObject {
 
     @PrimaryKey
-    var categoryId : ObjectId = ObjectId.invoke()
+    var _id : ObjectId = ObjectId()
     var categoryName : String = ""
     var categoryDescription : String = ""
 }
