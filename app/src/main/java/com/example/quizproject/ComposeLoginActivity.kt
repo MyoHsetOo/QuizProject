@@ -10,7 +10,7 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import com.example.quizproject.navigation.Nav
+
 import com.example.quizproject.ui.theme.QuizProjectThem
 import com.example.quizproject.userScreens.LoginScaffold
 import com.example.quizproject.viewModel.EventSeverity
@@ -27,8 +27,8 @@ class ComposeLoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         // Fast-track task list screen if we are logged in
-        if (app.currentUser == null) {
-            startActivity(Intent(this, MainActivity::class.java))
+        if (app.currentUser != null) {
+            startActivity(Intent(this, HomeScreenActivity::class.java))
             finish()
             return
         }
@@ -41,9 +41,21 @@ class ComposeLoginActivity : ComponentActivity() {
                         is LoginEvent.GoToTasks -> {
                             event.process()
 
-                            val intent = Intent(this@ComposeLoginActivity, MainActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                            if ( loginViewModel.state.value.email.equals("b@gmail.com") && loginViewModel.state.value.password.equals("123mho") ){
+
+                                val intent = Intent(this@ComposeLoginActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+
+                            }else{
+
+                                val intent = Intent(this@ComposeLoginActivity, HomeScreenActivity::class.java)
+                                startActivity(intent)
+                                finish()
+
+                            }
+
+
                         }
                         is LoginEvent.ShowMessage -> event.process()
                     }

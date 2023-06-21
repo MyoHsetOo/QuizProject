@@ -26,6 +26,9 @@ import com.example.quizproject.userScreens.SplashScreen
 //
 //
 //
+
+
+
 @Composable
 fun Nav() {
 
@@ -38,11 +41,11 @@ fun Nav() {
         //UserScreen
 
         //HomeScreen
-        composable(route = "HomeScreen" ) {
+        /*composable(route = "HomeScreen" ) {
 
             HomeScreen(navController)
 
-        }
+        }*/
 
 
         //CourseListScreen

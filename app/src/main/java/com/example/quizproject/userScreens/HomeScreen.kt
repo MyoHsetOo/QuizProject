@@ -1,6 +1,8 @@
 package com.example.quizproject.userScreens
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -73,14 +75,20 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.app
 import com.example.quizproject.dataRepository.MongoRepositoryImpl
 import com.example.quizproject.viewModel.HomeViewModel
+import com.example.quizproject.viewModel.ToolbarEvent
+import com.example.quizproject.viewModel.ToolbarViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 //
@@ -102,7 +110,12 @@ fun HomeScreen ( navController: NavController ) {
 
     var viewModel : HomeViewModel = HomeViewModel( repository)
 
+    //var viewModelTab = ToolbarViewModel()
+
     var categoryData by viewModel._categoryData
+
+
+
 
     var isExpanded by remember {
          mutableStateOf(false)
@@ -259,9 +272,26 @@ fun HomeScreen ( navController: NavController ) {
 
                         Row (
                             modifier = Modifier
+                                .fillMaxWidth()
                                 .padding(vertical = 15.dp,)
                                 .clickable {
-                                    navController.navigate("LoginPage")
+
+                                    /*Log.d(">>>CLick", "${viewModelTab.logOut()}")
+
+                                   *//* Log.d("CurrentUser<<<<<","${app.currentUser}")*//*
+
+
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        runCatching {
+                                            app.currentUser?.logOut()
+                                        }.onSuccess {
+                                            viewModelTab.logOut()
+                                        }.onFailure {
+                                            viewModelTab.error(ToolbarEvent.Error("Log out failed", it))
+                                        }
+                                    }*/
+
+
                                 }
                         ){
                             Icon(imageVector = Icons.Outlined.Logout, contentDescription = "logout", tint = MaterialTheme.colorScheme.onPrimary)
