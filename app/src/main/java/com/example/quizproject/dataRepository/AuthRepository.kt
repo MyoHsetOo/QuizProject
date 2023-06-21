@@ -2,6 +2,7 @@ package com.example.quizproject.dataRepository
 
 import com.example.quizproject.app
 import io.realm.kotlin.mongodb.Credentials
+//
 
 /**
  * Repository allowing users to create accounts or log in to the app with an existing account.

@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.AppConfiguration
-
+//
 lateinit var app: App
 
 // global Kotlin extension that resolves to the short version
