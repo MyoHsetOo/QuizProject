@@ -43,7 +43,7 @@ class ComposeLoginActivity : ComponentActivity() {
 
                             if ( loginViewModel.state.value.email.equals("b@gmail.com") && loginViewModel.state.value.password.equals("123mho") ){
 
-                                val intent = Intent(this@ComposeLoginActivity, MainActivity::class.java)
+                                val intent = Intent(this@ComposeLoginActivity, HomeScreenAdminActivity::class.java)
                                 startActivity(intent)
                                 finish()
 

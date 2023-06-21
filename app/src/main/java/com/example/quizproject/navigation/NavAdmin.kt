@@ -14,91 +14,24 @@ import com.example.quizproject.adminScreens.HomeAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.login.LoginPage
 import com.example.quizproject.login.RegisterPage
-import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
 import com.example.quizproject.userScreens.CourseContent
 import com.example.quizproject.userScreens.CourseListScreen
-import com.example.quizproject.userScreens.HomeScreen
 import com.example.quizproject.userScreens.QuestionList
 import com.example.quizproject.userScreens.QuestionScreen
-import com.example.quizproject.userScreens.SplashScreen
-//
-//
-//
-
-
 
 @Composable
-fun Nav() {
+fun NavAdmin() {
 
     val navController = rememberNavController()
 
 
     NavHost(navController,
-        startDestination = "CourseListScreen") {
-
-        //UserScreen
-
-        //HomeScreen
-        /*composable(route = "HomeScreen" ) {
-
-            HomeScreen(navController)
-
-        }*/
-
-
-        //CourseListScreen
-        composable(route = "CourseListScreen" ) {
-
-            CourseListScreen(navController)
-
-        }
-
-
-        //BookListScreen
-        composable(route = "BookListScreen" ) {
-
-            BookListScreen(navController)
-
-        }
-
-        //ChapterScreen
-        composable(route = "ChapterScreen" ) {
-
-            ChapterScreen(navController)
-
-        }
-
-
-
-        //QuestionList
-        composable(route = "QuestionList" ) {
-
-            QuestionList(navController)
-
-        }
-
-        composable(route = "QuestionScreen" ) {
-
-            QuestionScreen(navController)
-
-        }
-
-        //CourseContent
-        composable(route = "CourseContent" ) {
-
-            CourseContent(navController)
-
-        }
-
+        startDestination = "CourseListAdminScreen") {
 
         //Admin Screen
 
-        //HomeAdminScreen
-        composable(route = "HomeAdminScreen") {
-            HomeAdminScreen(navController)
-        }
 
         //CourseListAdminScreen
         composable(route = "CourseListAdminScreen") {
@@ -133,15 +66,6 @@ fun Nav() {
             AdminQuestionScreen(navController)
         }
 
-        //login
-        composable(route = "LoginPage") {
-            LoginPage(navController)
-        }
-
-        //register
-        composable(route = "RegisterPage") {
-            RegisterPage(navController)
-        }
 
 
     }
