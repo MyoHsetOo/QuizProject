@@ -102,7 +102,7 @@ fun LoginScaffold(loginViewModel: LoginViewModel) {
                             color = MaterialTheme.colorScheme.onPrimary,
                             shape = RoundedCornerShape(25.dp, 5.dp, 25.dp, 5.dp)
                         )*/
-                        .align(Alignment.BottomCenter),
+                        .align(Alignment.Center),
                 ) {
 
                     Image(
@@ -320,10 +320,9 @@ fun LoginScaffold(loginViewModel: LoginViewModel) {
                                 text = actionText,
                                 modifier = Modifier.fillMaxWidth(USABLE_WIDTH),
                                 textAlign = TextAlign.Center,
-                                color = Blue
+                                color = MaterialTheme.colorScheme.onPrimary
                             )
                         }
-
 
                         Spacer(modifier = Modifier.padding(5.dp))
 

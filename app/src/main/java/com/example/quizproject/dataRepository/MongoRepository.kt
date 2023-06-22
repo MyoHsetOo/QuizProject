@@ -20,7 +20,7 @@ interface MongoRepository {
 
     fun getCourseData() : kotlinx.coroutines.flow.Flow<List<CourseModel>>
 
-    suspend fun insertCourse (course : CourseModel)
+    suspend fun insertCourse ( courseModel : CourseModel)
 
 
 

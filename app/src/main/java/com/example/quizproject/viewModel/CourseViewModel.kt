@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizproject.dataModel.Category
+import com.example.quizproject.dataModel.CourseModel
 //import com.example.quizproject.dataModel.CourseModel
 import com.example.quizproject.dataRepository.MongoRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,7 @@ class CourseViewModel(
 
 ): ViewModel() {
 
-    //var _courseData = mutableStateOf(emptyList<CourseModel>())
+    var _courseData = mutableStateOf(emptyList<CourseModel>())
 
     var _courseName = mutableStateOf("")
 
@@ -28,27 +29,24 @@ class CourseViewModel(
 //                categoryName = "aa"
 //                categoryDescription = "ss"
 //            })
-            repository.getCategoryData().collect {
-                //_courseData.value = it
+            repository.getCourseData().collect {
+                _courseData.value = it
                 Log.d(">>>>","$it")
 
             }
         }
     }
 
-    /*fun insertCategory() {
+    fun insertCourse() {
         viewModelScope.launch(Dispatchers.IO) {
             if (_courseName.value.isNotEmpty()) {
 
-                *//*Log.d(">>>",_categoryName.value)
-                Log.d(">>>",_categoryDescription.value)*//*
-                repository.insertCategory(category = Category().apply {
+                Log.d(">>>",_courseName.value)
 
-                  //  courseName = this@CourseViewModel._courseName.value
-
-
+                repository.insertCourse( courseModel = CourseModel().apply {
+                    courseName = this@CourseViewModel._courseName.value
                 })
             }
         }
-    }*/
+    }
 }

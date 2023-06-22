@@ -1,6 +1,7 @@
 package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -67,6 +68,9 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.CourseViewModel
+import com.example.quizproject.viewModel.HomeViewModel
 
 
 //
@@ -83,7 +87,16 @@ fun CourseListAdminScreen( navController: NavController ) {
     val itemList = remember { mutableStateListOf<String>() }
 
 
-//////
+    var repository = MongoRepositoryImpl()
+
+    var viewModel : CourseViewModel = CourseViewModel( repository )
+
+    var courseData by viewModel._courseData
+
+    var courseName by viewModel._courseName
+
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -130,147 +143,164 @@ fun CourseListAdminScreen( navController: NavController ) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.secondary)
-                .verticalScroll(rememberScrollState()),
+            ,
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
 
-            Card(modifier= Modifier
-                .fillMaxWidth(0.8f)
-                .height(130.dp)
-                .padding(top = 10.dp)
-                .clickable {
-                    navController.navigate("CourseContentAdminScreen")
-                },
-                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
-                elevation = CardDefaults.cardElevation(5.dp)) {
+            item{
 
-                Row(
-                    modifier = Modifier.fillMaxSize()
-                        .fillMaxWidth()
-                        .clickable { showAlert.value = true },
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start,
-                ) {
+                Card(
+                    modifier= Modifier
+                        .fillMaxWidth(0.8f)
+                        .height(130.dp)
+                        .padding(top = 10.dp)
+                        .clickable {
+                            navController.navigate("CourseContentAdminScreen")
+                        },
+                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
+                    elevation = CardDefaults.cardElevation(5.dp))
+                {
 
-                    Card(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .width(100.dp),
-                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
-                        shape = RoundedCornerShape(
-                            topStart = 0.dp,
-                            topEnd = 0.dp,
-                            bottomStart = 0.dp,
-                            bottomEnd = 0.dp
-                        )
+                    Row(
+                        modifier = Modifier.fillMaxSize()
+                            .fillMaxWidth()
+                            .clickable { showAlert.value = true },
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start,
                     ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                Icons.Default.Add, contentDescription = "back",
-                                tint = MaterialTheme.colorScheme.onPrimary
+
+                        Card(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .width(100.dp),
+                            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+                            shape = RoundedCornerShape(
+                                topStart = 0.dp,
+                                topEnd = 0.dp,
+                                bottomStart = 0.dp,
+                                bottomEnd = 0.dp
                             )
+                        ) {
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Icon(
+                                    Icons.Default.Add, contentDescription = "back",
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
 
 
+                            }
+                        }
+
+
+
+                        Column(horizontalAlignment = Alignment.Start,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(20.dp)) {
+                            Text(
+                                text = "Add Course",
+                                style = TextStyle(
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    lineHeight = 30.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 14.sp
+                                )
+                            )
                         }
                     }
+                    Spacer(modifier = Modifier.height(30.dp))
+                }
 
-                    Column(horizontalAlignment = Alignment.Start,
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(20.dp)) {
-                        Text(
-                            text = "Add Course",
-                            style = TextStyle(
-                                color = MaterialTheme.colorScheme.onPrimary,
-                                lineHeight = 30.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 14.sp
+                if (showAlert.value) {
+                    AlertDialog(
+                        onDismissRequest = { showAlert.value = false },
+                        title = {
+                            Text(
+                                text = "Enter Course Name",
+                                style = TextStyle(
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    fontSize = 16.sp
+                                )
                             )
-                        )
-                    }
-                }
-            }
+                        },
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                        icon = {
+                            Icon(imageVector = Icons.Default.MenuBook,
+                                contentDescription = "Edit",
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                modifier = Modifier.size(30.dp)
+                            )
+                        },
+                        text = {
 
+                            OutlinedTextField(
+                                value = courseName,
+                                onValueChange = { courseName = it },
+                                modifier = Modifier
+                                    .border(
+                                        1.dp,
+                                        MaterialTheme.colorScheme.onPrimary,
+                                        shape = RoundedCornerShape(10.dp)
+                                    ),
 
-            Spacer(modifier = Modifier.height(30.dp))
-            for (item in itemList){
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    cursorColor = Color.Black,
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                                    // focusedBorderColor = Color(0xFF4B6DA3),
+                                    //unfocusedBorderColor = Color(0xFF4B6DA3),
+                                    unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    focusedTextColor = MaterialTheme.colorScheme.onPrimary
 
-                AdminFinalCard(text = item, navController = navController)
-
-                Spacer(modifier = Modifier.height(30.dp))
-            }
-        }
-        if (showAlert.value) {
-            AlertDialog(
-                onDismissRequest = { showAlert.value = false },
-                title = {
-                    Text(
-                        text = "Enter Course Name",
-                        style = TextStyle(
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 16.sp
-                        )
-                    )
-                },
-                containerColor = MaterialTheme.colorScheme.secondary,
-                icon = {
-                    Icon(imageVector = Icons.Default.MenuBook,
-                        contentDescription = "Edit",
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.size(30.dp)
-                    )
-                },
-                text = {
-
-                    OutlinedTextField(
-                        value = textFieldValue.value,
-                        onValueChange = { textFieldValue.value = it },
-                        modifier = Modifier
-                            .border(
-                                1.dp,
-                                MaterialTheme.colorScheme.onPrimary,
+                                ),
                                 shape = RoundedCornerShape(10.dp)
-                            ),
 
-                        colors = OutlinedTextFieldDefaults.colors(
-                            cursorColor = Color.Black,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                            // focusedBorderColor = Color(0xFF4B6DA3),
-                            //unfocusedBorderColor = Color(0xFF4B6DA3),
-                            unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
-                            focusedTextColor = MaterialTheme.colorScheme.onPrimary
+                            )
+                        },
+                        confirmButton = {
+                            Button(
+                                onClick = {
 
-                        ),
-                        shape = RoundedCornerShape(10.dp)
+                                    Log.d("Size>>>>","${courseData.size}")
+                                    Log.d("TextField>>>>","${courseName}")
 
+                                    viewModel.insertCourse()
+
+
+                                    /*itemList.add(textFieldValue.value)
+                                    textFieldValue.value = ""*/
+
+                                    showAlert.value = false
+                                },
+                                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
+                            ) {
+                                Text(text = "Submit", color = MaterialTheme.colorScheme.secondary)
+                            }
+                        }
                     )
-                },
-                confirmButton = {
-                    Button(
-                        onClick = {
-                            showAlert.value = false
-                            itemList.add(textFieldValue.value)
-                            textFieldValue.value = ""
-                                  },
-                        colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
-                    ) {
-                        Text(text = "Submit", color = MaterialTheme.colorScheme.secondary)
-                    }
                 }
-            )
+            }
+            items( courseData ){item ->
+
+                AdminFinalCard(text = item.courseName, navController = navController)
+
+              //  Spacer(modifier = Modifier.height(30.dp))
+
+            }
+
         }
+
 
     }
 }
