@@ -1,3 +1,4 @@
+/*
 package com.example.quizproject.dataRepository
 
 import com.example.quizproject.app
@@ -23,60 +24,82 @@ import kotlin.time.Duration.Companion.seconds
 
 interface SyncRepository {
 
-    /**
+    */
+/**
      * Returns a flow with the tasks for the current subscription.
-     */
+     *//*
+
     fun getTaskList(): Flow<ResultsChange<Item>>
 
-    /**
+    */
+/**
      * Update the `isComplete` flag for a specific [Item].
-     */
+     *//*
+
     suspend fun toggleIsComplete(task: Item)
 
-    /**
+    */
+/**
      * Adds a task that belongs to the current user using the specified [taskSummary].
-     */
+     *//*
+
     suspend fun addTask(taskSummary: String)
 
-    /**
+    */
+/**
      * Updates the Sync subscriptions based on the specified [SubscriptionType].
-     */
+     *//*
+
     suspend fun updateSubscriptions(subscriptionType: SubscriptionType)
 
-    /**
+    */
+/**
      * Deletes a given task.
-     */
+     *//*
+
     suspend fun deleteTask(task: Item)
 
-    /**
+    */
+/**
      * Returns the active [SubscriptionType].
-     */
+     *//*
+
     fun getActiveSubscriptionType(realm: Realm? = null): SubscriptionType
 
-    /**
+    */
+/**
      * Pauses synchronization with MongoDB. This is used to emulate a scenario of no connectivity.
-     */
+     *//*
+
     fun pauseSync()
 
-    /**
+    */
+/**
      * Resumes synchronization with MongoDB.
-     */
+     *//*
+
     fun resumeSync()
 
-    /**
+    */
+/**
      * Whether the given [task] belongs to the current user logged in to the app.
-     */
+     *//*
+
     fun isTaskMine(task: Item): Boolean
 
-    /**
+    */
+/**
      * Closes the realm instance held by this repository.
-     */
+     *//*
+
     fun close()
 }
 
+*/
 /**
  * Repo implementation used in runtime.
- */
+ *//*
+
 class RealmSyncRepository(
     onSyncError: (session: SyncSession, error: SyncException) -> Unit
 ) : SyncRepository {
@@ -179,9 +202,11 @@ class RealmSyncRepository(
         }
 }
 
+*/
 /**
  * Mock repo for generating the Compose layout preview.
- */
+ *//*
+
 class MockRepository : SyncRepository {
     override fun getTaskList(): Flow<ResultsChange<Item>> = flowOf()
     override suspend fun toggleIsComplete(task: Item) = Unit
@@ -213,9 +238,11 @@ class MockRepository : SyncRepository {
     }
 }
 
+*/
 /**
  * The two types of subscriptions according to item owner.
- */
+ *//*
+
 enum class SubscriptionType {
     MINE, ALL
-}
+}*/

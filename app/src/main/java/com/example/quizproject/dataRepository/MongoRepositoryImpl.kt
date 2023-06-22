@@ -2,6 +2,9 @@ package com.example.quizproject.dataRepository
 
 import com.example.quizproject.app
 import com.example.quizproject.dataModel.Category
+import com.example.quizproject.dataModel.CourseModel
+//import com.example.quizproject.dataModel.CourseModel
+//import com.example.quizproject.dataModel.CourseModel
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.mongodb.User
@@ -24,7 +27,7 @@ import org.mongodb.kbson.ObjectId
         get() = app.currentUser!!
 
     init {
-        config = SyncConfiguration.Builder(currentUser, setOf(Category::class))
+        config = SyncConfiguration.Builder(currentUser, setOf( Category::class , CourseModel::class ))
             .initialSubscriptions { realm ->
                 // Subscribe to the active subscriptionType - first time defaults to MINE
                 add(
@@ -32,8 +35,18 @@ import org.mongodb.kbson.ObjectId
                        /* "categoryName == ",*/
 
                     ),
+
+                    "subscription name"
+
+                )
+                add(
+                    realm.query<CourseModel>(
+                        /* "categoryName == ",*/
+
+                    ),
                     "subscription name"
                 )
+
             }
 
             .waitForInitialRemoteData()
@@ -54,6 +67,15 @@ import org.mongodb.kbson.ObjectId
 
     override suspend fun insertCategory( category: Category) {
         realm.write { copyToRealm(category) }
+    }
+
+
+    override fun getCourseData(): Flow<List<CourseModel>> {
+        return realm.query<CourseModel>().asFlow().map { it.list }
+    }
+
+    override suspend fun insertCourse(course: CourseModel) {
+        realm.write { copyToRealm( course) }
     }
 
 

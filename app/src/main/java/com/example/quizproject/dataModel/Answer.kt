@@ -14,14 +14,15 @@ class Category : RealmObject {
     var categoryName : String = ""
     var categoryDescription : String = ""
 
-
 }
 
 
-class Couse
+class  CourseModel() : RealmObject {
 
-
-
+    @PrimaryKey
+    var _id : ObjectId = ObjectId()
+    var courseName : String = ""
+}
 
 
 

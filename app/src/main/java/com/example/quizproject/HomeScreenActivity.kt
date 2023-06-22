@@ -73,8 +73,8 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.dataRepository.MongoRepositoryImpl
-import com.example.quizproject.dataRepository.RealmSyncRepository
-import com.example.quizproject.dataRepository.SyncRepository
+//import com.example.quizproject.dataRepository.RealmSyncRepository
+//import com.example.quizproject.dataRepository.SyncRepository
 
 
 //import com.example.quizproject.navigation.NavActivity
@@ -88,18 +88,7 @@ import kotlinx.coroutines.launch
 
 class HomeScreenActivity : ComponentActivity() {
 
-    private val repository = RealmSyncRepository { _, error ->
-        // Sync errors come from a background thread so route the Toast through the UI thread
-        lifecycleScope.launch {
-            // Catch write permission errors and notify user. This is just a 2nd line of defense
-            // since we prevent users from modifying someone else's tasks
-            // TODO the SDK does not have an enum for this type of error yet so make sure to update this once it has been added
-            if (error.message?.contains("CompensatingWrite") == true) {
-                Toast.makeText(this@HomeScreenActivity, getString(R.string.permissions_error), Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-    }
+
 
 
 
