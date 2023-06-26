@@ -1,6 +1,7 @@
 package com.example.quizproject.adminScreens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -66,17 +67,41 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.quizproject.R@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+import com.example.quizproject.R
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.BookViewModel
+import com.example.quizproject.viewModel.CourseViewModel
+import org.mongodb.kbson.BsonObjectId
+import org.mongodb.kbson.ObjectId
+import java.nio.file.WatchEvent
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 //
 //
 //
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookListAdminScreen (navController: NavController) {
+fun BookListAdminScreen (navController: NavController , id : String? ) {
 
     val itemList = remember { mutableStateListOf<String>() }
+
     val textFieldValue = remember { mutableStateOf("") }
+
     val showAlert = remember { mutableStateOf(false) }
+
+    var repository = MongoRepositoryImpl()
+
+    var viewModelBook : BookViewModel = BookViewModel( repository )
+
+    var bookName = viewModelBook._bookName
+
+    var bookData = viewModelBook._bookData
+
+    var obj : BsonObjectId? = id?.let { BsonObjectId(it) }
+
+    var viewModelCourse : CourseViewModel = CourseViewModel(repository)
+
+    var courseData = viewModelCourse._courseData
 
     val context = LocalContext.current
 
@@ -116,6 +141,8 @@ fun BookListAdminScreen (navController: NavController) {
                     IconButton(onClick = { navController.popBackStack() }){
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = MaterialTheme.colorScheme.onPrimary)
                     }
+                    
+                    Text(text = "$id")
                 }
 
         },
@@ -169,8 +196,8 @@ fun BookListAdminScreen (navController: NavController) {
                         text = {
 
                             OutlinedTextField(
-                                value = textFieldValue.value,
-                                onValueChange = { textFieldValue.value = it },
+                                value = bookName.value,
+                                onValueChange = { bookName.value = it },
                                 modifier = Modifier
                                     .border(1.dp, MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(10.dp)),
 
@@ -189,10 +216,15 @@ fun BookListAdminScreen (navController: NavController) {
                             )
                         },
                         confirmButton = {
-                            Button(onClick = { showAlert.value = false
-                                itemList.add(textFieldValue.value)
 
-                                textFieldValue.value = ""
+                            Button(onClick = {
+
+                                viewModelCourse.updateCourse( obj!!, bookName.value )
+
+                                showAlert.value = false
+
+
+                                bookName.value = ""
 
                             },
                                 colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
@@ -201,8 +233,6 @@ fun BookListAdminScreen (navController: NavController) {
                             }
                         }
                     )
-
-
                 }
 
                 Column(modifier = Modifier
@@ -247,12 +277,21 @@ fun BookListAdminScreen (navController: NavController) {
 
                     LazyRow( ) {
 
-                        items(itemList) {item ->
+                        for ( item in courseData.value ){
 
-                            BookCard(navController,item )
+                            if ( item._id.equals(obj) ){
 
+                                items( item.books ) {item ->
+
+                                    BookCard(navController,item.bookName, item._id )
+
+
+                                }
+
+                            }
 
                         }
+
                     }
                 }
             }
@@ -264,10 +303,9 @@ fun BookListAdminScreen (navController: NavController) {
 @Composable
 private fun BookCard(
     navController: NavController,
-    bookName : String
+    bookName : String,
+    bookId : ObjectId
 ) {
-
-
 
     Card(
         shape = RoundedCornerShape(14.dp),
@@ -277,28 +315,34 @@ private fun BookCard(
             .padding(15.dp)
             .width(150.dp)
             .height(200.dp)
-            .clickable { navController.navigate("ChapterAdminScreen") }
+            .clickable {
+
+                navController.navigate("ChapterAdminScreen/${bookId.toHexString()}/${bookName}")
+
+
+            }
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(10.dp),
+                .padding( vertical = 20.dp , horizontal = 15.dp ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
 
             Image(
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier
+                    .size(50.dp)
                     .padding(bottom = 5.dp),
                 bitmap = ImageBitmap.imageResource(id = R.drawable.booksicon),
                 contentDescription = "book_card"
             )
 
-            Column( modifier = Modifier
+            /*Column( modifier = Modifier
                 .fillMaxWidth(0.85f)
                 .padding(10.dp),
                 verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally) {
+                horizontalAlignment = Alignment.CenterHorizontally) {*/
                 Text(
                     text = bookName,
                     style = TextStyle(
@@ -306,11 +350,12 @@ private fun BookCard(
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
 
-                    )
+                    ),
+                    modifier = Modifier.padding( top = 10.dp )
                 )
 
             }
-            }
+            //}
         }
     }
 

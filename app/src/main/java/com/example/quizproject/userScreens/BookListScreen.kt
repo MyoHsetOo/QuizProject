@@ -66,16 +66,34 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.BookViewModel
+import com.example.quizproject.viewModel.CourseViewModel
+import org.mongodb.kbson.BsonObjectId
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BookListScreen (navController: NavController) {
+fun BookListScreen (navController: NavController , id : String? ) {
 
     val itemList = remember { mutableStateListOf<String>() }
     val textFieldValue = remember { mutableStateOf("") }
     val showAlert = remember { mutableStateOf(false) }
 
     val context = LocalContext.current
+
+    var repository = MongoRepositoryImpl()
+
+    var viewModelBook : BookViewModel = BookViewModel( repository )
+
+    var bookName = viewModelBook._bookName
+
+    var bookData = viewModelBook._bookData
+
+    var obj : BsonObjectId? = id?.let { BsonObjectId(it) }
+
+    var viewModelCourse : CourseViewModel = CourseViewModel(repository)
+
+    var courseData = viewModelCourse._courseData
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.b))
 
@@ -113,6 +131,8 @@ fun BookListScreen (navController: NavController) {
                 IconButton(onClick = { navController.popBackStack() }){
                     Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = Color.Black)
                 }
+                
+                Text(text = "$id")
             }
         },
 
@@ -137,9 +157,7 @@ fun BookListScreen (navController: NavController) {
                             iterations = 100,
                             composition = composition
                         )
-
                     }
-
                 }
 
 
@@ -164,15 +182,19 @@ fun BookListScreen (navController: NavController) {
 
                     LazyRow( ) {
 
-                        item {
-                            BookCard(navController = navController, bookName = "Information Technology vol - 1 ")
-                            BookCard(navController = navController, bookName = "Strategy and Management vol - 2 ")
-                            BookCard(navController = navController, bookName = "Strategy and Management vol - 3 ")
+                        for ( item in courseData.value ){
+
+                            if ( item._id.equals(obj) ){
+
+                                items( item.books ) {item ->
+
+                                    BookCard(
+                                        navController,
+                                        item.bookName
+                                    )
+                                }
+                            }
                         }
-
-
-
-
                     }
                 }
             }
@@ -211,7 +233,8 @@ private fun BookCard(
 
 
                 Image(
-                    modifier = Modifier.size(50.dp)
+                    modifier = Modifier
+                        .size(50.dp)
                         .padding(bottom = 5.dp),
                     bitmap = ImageBitmap.imageResource(id = R.drawable.booksicon),
                     contentDescription = "book_card"
@@ -233,7 +256,6 @@ private fun BookCard(
                     )
 
                 }
-
         }
     }
 }

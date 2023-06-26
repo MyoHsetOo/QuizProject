@@ -3,6 +3,7 @@ package com.example.quizproject
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -30,8 +31,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MenuBook
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PersonOutline
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Logout
@@ -44,6 +48,9 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -55,6 +62,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -70,6 +78,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -81,9 +90,11 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.dataModel.Category
 import com.example.quizproject.dataRepository.MongoRepositoryImpl
 import com.example.quizproject.navigation.Nav
+import com.example.quizproject.navigation.NavAdmin
 import com.example.quizproject.ui.theme.QuizProjectThem
 import com.example.quizproject.viewModel.HomeViewModel
 import com.example.quizproject.viewModel.ToolbarEvent
@@ -540,6 +551,9 @@ class HomeScreenAdminActivity : ComponentActivity() {
                                             isshowAlertDialog.value = false
 
                                             viewModel.insertCategory()
+                                           /* Log.d("CateName>>>","$cateName")
+
+                                            Log.d("CateName>>>","$cateDescripiton")*/
 
                                             /*var cateogry = Category(
                                                 categoryName = categoryTextField.value,
@@ -555,8 +569,8 @@ class HomeScreenAdminActivity : ComponentActivity() {
 
                                             // categorylist.add( cateogry )
 
-                                            categoryTextField.value = ""
-                                            descriptionTextField.value = ""
+                                            categoryName = ""
+                                            categoryDescription = ""
 
 
                                         },
@@ -600,7 +614,7 @@ class HomeScreenAdminActivity : ComponentActivity() {
                                 LazyColumn{
 
                                     items( categoryData ) {item ->
-
+                                        Log.d(">>>>>","${item._id.toHexString()}")
                                         Log.d(">>>>>","${categoryData.size}")
 
                                         Card (
@@ -616,19 +630,27 @@ class HomeScreenAdminActivity : ComponentActivity() {
                                                 modifier = Modifier
                                                     .fillMaxWidth()
                                                     .fillMaxHeight()
-                                                    .indication(interactionSource, LocalIndication.current)
+                                                    .indication(
+                                                        interactionSource,
+                                                        LocalIndication.current
+                                                    )
                                                     .pointerInput(true) {
                                                         detectTapGestures(
                                                             onLongPress = {
                                                                 isContextMenuVisible = true
-                                                                pressOffset = DpOffset(it.x.toDp(), it.y.toDp())
+                                                                pressOffset = DpOffset(
+                                                                    it.x.toDp(),
+                                                                    it.y.toDp()
+                                                                )
                                                             },
                                                             onPress = {
-                                                                val press = PressInteraction.Press(it)
+                                                                val press =
+                                                                    PressInteraction.Press(it)
                                                                 interactionSource.emit(press)
                                                                 tryAwaitRelease()
                                                                 interactionSource.emit(
-                                                                    PressInteraction.Release(press))
+                                                                    PressInteraction.Release(press)
+                                                                )
                                                             }
                                                         )
                                                     }
@@ -649,14 +671,59 @@ class HomeScreenAdminActivity : ComponentActivity() {
                                             ){
                                                 Column {
 
-                                                    Text(text = "${item.categoryName}", style = TextStyle(
-                                                        color = MaterialTheme.colorScheme.onPrimary,
-                                                        fontSize = 16.sp,
-                                                        lineHeight = 25.sp,
-                                                        fontWeight = FontWeight.Bold
-                                                    ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, end = 20.dp ))
+                                                    Row(
+                                                        modifier = Modifier.fillMaxWidth()
+                                                            ,
+                                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                                        verticalAlignment = Alignment.CenterVertically
+                                                    ) {
+
+                                                        Box( ) {
+
+                                                            Text(text = "${item.categoryName}", style = TextStyle(
+                                                                color = MaterialTheme.colorScheme.onPrimary,
+                                                                fontSize = 16.sp,
+                                                                lineHeight = 25.sp,
+                                                                fontWeight = FontWeight.Bold
+                                                            ), modifier = Modifier.padding( top = 30.dp, bottom = 10.dp, start = 20.dp, end = 20.dp ))
+
+
+                                                        }
+
+                                                        Box (
+                                                            modifier = Modifier.padding( top = 20.dp)
+                                                        ){
+
+                                                            OptionMenu()
+
+                                                        }
+
+
+
+
+
+                                                    }
+
 
                                                     Text(text = "${item.categoryDescription}",
+                                                        style = TextStyle(
+                                                            fontSize = 12.sp,
+                                                            lineHeight = 20.sp,
+                                                            color = Color(0xFF6B7C97),
+
+                                                            ), maxLines = if (isExpanded) 4 else 2 , overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
+                                                        modifier = Modifier
+                                                            .padding(
+                                                                top = 5.dp,
+                                                                bottom = 10.dp,
+                                                                start = 30.dp,
+                                                                end = 30.dp
+                                                            )
+                                                            .clickable {
+                                                                isExpanded = !isExpanded
+                                                            })
+
+                                                    Text(text = "${item.courses}",
                                                         style = TextStyle(
                                                             fontSize = 12.sp,
                                                             lineHeight = 20.sp,
@@ -682,8 +749,12 @@ class HomeScreenAdminActivity : ComponentActivity() {
                                                     ){
 
                                                         TextButton(onClick = {
+                                                            var  data = item._id.toHexString()
                                                             /*navController.navigate("CourseListAdminScreen")*/
                                                             val intent = Intent( this@HomeScreenAdminActivity, NavAdminActivity::class.java)
+
+                                                            intent.putExtra("id",data)
+
                                                             startActivity(intent)
 
                                                         },
@@ -710,123 +781,7 @@ class HomeScreenAdminActivity : ComponentActivity() {
 
                                     }
                                 }
-                                /* LazyColumn{
-                                     items( itemList ) {item ->
 
-                                         Card (
-                                             modifier = Modifier
-                                                 .fillMaxWidth()
-                                                 .height(230.dp)
-                                                 .padding(vertical = 10.dp, horizontal = 20.dp),
-                                             shape = RoundedCornerShape(30.dp),
-                                             elevation = CardDefaults.cardElevation(5.dp)
-                                         ){
-
-                                             Box(
-                                                 modifier = Modifier
-                                                     .fillMaxWidth()
-                                                     .fillMaxHeight()
-                                                     .background(
-                                                         Brush.linearGradient(
-                                                             colors = listOf(
-
-                                                                 MaterialTheme.colorScheme.primary,
-
-                                                                 MaterialTheme.colorScheme.primary,
-
-                                                                 ),
-                                                             start = Offset.Zero, // Starting point of the gradient
-                                                             end = Offset.Infinite, // Ending point of the gradient
-                                                             tileMode = TileMode.Clamp // Tile mode for extending the gradient
-                                                         )
-                                                     )
-                                             ){
-                                                 Column {
-
-                                                     Text(text = "decfsderf", style = TextStyle(
-                                                         color = MaterialTheme.colorScheme.onPrimary,
-                                                         fontSize = 16.sp,
-                                                         lineHeight = 25.sp,
-                                                         fontWeight = FontWeight.Bold
-                                                     ), modifier = Modifier.padding( top = 30.dp, bottom = 20.dp, start = 20.dp, ))
-
-                                                     Button(onClick = {
-                                                         navController.navigate("CourseListAdminScreen")
-
-                                                     },
-                                                         modifier = Modifier.padding( top = 40.dp, bottom = 10.dp, start = 20.dp,),
-                                                         colors = ButtonDefaults.buttonColors(
-                                                             containerColor = MaterialTheme.colorScheme.secondary
-                                                         )
-                                                     ) {
-                                                         Text(text = "View" , )
-                                                     }
-
-                                                 }
-
-                                             }
-
-                                         }
-
-                                     }
-                                 }*/
-
-
-
-                                /* Card (
-                                     modifier = Modifier
-                                         .fillMaxWidth()
-                                         .height(230.dp)
-                                         .padding(vertical = 10.dp, horizontal = 20.dp),
-                                     shape = RoundedCornerShape(30.dp),
-                                     elevation = CardDefaults.cardElevation(5.dp)
-                                 ){
-
-                                     Box(
-                                         modifier = Modifier
-                                             .fillMaxWidth()
-                                             .fillMaxHeight()
-                                             .background(
-                                                 Brush.linearGradient(
-                                                     colors = listOf(
-
-                                                         MaterialTheme.colorScheme.primary,
-
-                                                         MaterialTheme.colorScheme.primary,
-
-                                                         ),
-                                                     start = Offset.Zero, // Starting point of the gradient
-                                                     end = Offset.Infinite, // Ending point of the gradient
-                                                     tileMode = TileMode.Clamp // Tile mode for extending the gradient
-                                                 )
-                                             )
-                                     ){
-                                         Column {
-
-                                             Text(text = "Information Technology Professionals Examination Council ( ITPEC )", style = TextStyle(
-                                                 color = MaterialTheme.colorScheme.onPrimary,
-                                                 fontSize = 16.sp,
-                                                 lineHeight = 25.sp,
-                                                 fontWeight = FontWeight.Bold
-                                             ), modifier = Modifier.padding( top = 30.dp, bottom = 20.dp, start = 20.dp, ))
-
-                                             Button(onClick = {
-                                                 navController.navigate("CourseListScreen")
-
-                                             },
-                                                 modifier = Modifier.padding( top = 40.dp, bottom = 10.dp, start = 20.dp,),
-                                                 colors = ButtonDefaults.buttonColors(
-                                                     containerColor = MaterialTheme.colorScheme.secondary
-                                                 )
-                                             ) {
-                                                 Text(text = "View" , )
-                                             }
-
-                                         }
-
-                                     }
-
-                                 }*/
 
                             }
 
@@ -840,4 +795,72 @@ class HomeScreenAdminActivity : ComponentActivity() {
             }
         }
     }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun OptionMenu(){
+
+    var showMenu by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
+
+    IconButton(onClick = { showMenu = !showMenu }) {
+        Icon(Icons.Default.MoreVert, "", tint = MaterialTheme.colorScheme.onPrimary)
+    }
+
+    DropdownMenu(
+        expanded = showMenu,
+        onDismissRequest = { showMenu = false },
+        modifier = Modifier.background(MaterialTheme.colorScheme.secondary)
+            .padding(end = 15.dp),
+
+    ) {
+
+
+        DropdownMenuItem(
+            text = {
+                   Row {
+                       Icon(imageVector = Icons.Default.Edit, contentDescription = "edit",
+                           tint = MaterialTheme.colorScheme.onPrimary,
+                           modifier = Modifier
+                               .padding(start = 10.dp, end = 15.dp)
+                               .size(20.dp)
+                       )
+
+                       Text(text = "Edit" , style = TextStyle(
+                           color = MaterialTheme.colorScheme.onPrimary,
+                           fontSize = 14.sp
+                       )
+                       )
+
+                   }
+                   }
+            , onClick = { Toast.makeText(context,"Update",Toast.LENGTH_SHORT).show() })
+
+        DropdownMenuItem(text = {
+
+            Row {
+                Icon(imageVector = Icons.Default.Delete, contentDescription = "delete",
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.padding( start = 10.dp, end = 15.dp)
+                        .size(20.dp)
+                )
+
+                Text(text = "Delete", style = TextStyle(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = 14.sp
+                ))
+
+            }
+              }, onClick = { Toast.makeText(context,"Delete",Toast.LENGTH_SHORT).show() })
+
+    }
+}
+
+@Composable
+fun text (text : String) {
+    Text(text = text, color = Color.Black)
+
 }

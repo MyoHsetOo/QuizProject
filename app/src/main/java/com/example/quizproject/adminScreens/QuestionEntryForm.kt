@@ -1,19 +1,13 @@
 package com.example.quizproject.adminScreens
 
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
 import android.util.Log
-import android.widget.Space
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,26 +19,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.TextSelectionColors
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Architecture
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.AttachFile
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonDefaults.outlinedButtonColors
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -53,15 +39,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
-import androidx.compose.material3.MenuItemColors
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -71,9 +52,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -81,8 +60,11 @@ import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.quizproject.dataModel.Answer
-import java.util.function.IntConsumer
+import com.example.quizproject.dataModel.AnswerModel
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.AnswerViewModel
+import com.example.quizproject.viewModel.QuestionSetViewModel
+
 //
 //
 //
@@ -218,12 +200,50 @@ fun QuestionEntryForm ( navController: NavController ) {
 
     var selectedSolutionText by remember { mutableStateOf(optionsSolution[0]) }
 
-    var answerlist = remember {
-        mutableStateListOf<Answer>()
+    var repository = MongoRepositoryImpl()
+
+
+    var viewModelAnswer : AnswerViewModel = AnswerViewModel( repository )
+
+    var answerType = viewModelAnswer._answerType
+
+    var answerText = viewModelAnswer._answerText
+
+    var answerImage = viewModelAnswer._answerImage
+
+    var answerOption = viewModelAnswer._answerOption
+
+    var answerData = viewModelAnswer._answerData
+
+    var viewModelQuestionSet : QuestionSetViewModel = QuestionSetViewModel( repository )
+
+    var questionSetData = viewModelQuestionSet._questionSetData
+
+    var questionNo = viewModelQuestionSet._questionNo
+
+    var questionSetType = viewModelQuestionSet._questionType
+
+    var questionSetText = viewModelQuestionSet._questionText
+
+    var questionSetImage = viewModelQuestionSet._questionImage
+
+    var correctQuestionType = viewModelQuestionSet._correctAnswer
+
+    var solutionType = viewModelQuestionSet._solutionType
+
+    var solutionText = viewModelQuestionSet._solutionText
+
+    var solutionImage = viewModelQuestionSet._solutionImage
+
+    var answerListData = remember {
+        mutableStateListOf<AnswerModel>()
     }
 
+
+
     Column (
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .background(MaterialTheme.colorScheme.secondary)
     ){
 
@@ -267,9 +287,9 @@ fun QuestionEntryForm ( navController: NavController ) {
                         ), modifier = Modifier.padding(horizontal = 15.dp)
                     )
                     OutlinedTextField(
-                        value = dateTextField.value,
+                        value = questionNo.value,
                         enabled = true,
-                        onValueChange = { dateTextField.value = it },
+                        onValueChange = { questionNo.value = it },
                         modifier = Modifier
                             .padding(vertical = 10.dp)
                             .fillMaxWidth(),
@@ -313,7 +333,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                 .menuAnchor()
                                 .fillMaxWidth(),
                             readOnly = true,
-                            value = selectedQuestionText,
+                            value = questionSetType.value,
                             onValueChange = {},
                             shape = RoundedCornerShape(20.dp),
                             textStyle = TextStyle(
@@ -347,7 +367,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                 DropdownMenuItem(
                                     text = { Text(selectionOption) },
                                     onClick = {
-                                        selectedQuestionText = selectionOption
+                                        questionSetType.value = selectionOption
                                         expandedQuestion = false
                                     },
                                     modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
@@ -360,12 +380,12 @@ fun QuestionEntryForm ( navController: NavController ) {
                         }
                     }
 
-                    if (selectedQuestionText.equals("Text Only")) {
+                    if (questionSetType.equals("Text Only")) {
 
                         OutlinedTextField(
-                            value = questionField.value,
+                            value = questionSetText.value,
                             enabled = true,
-                            onValueChange = { questionField.value = it },
+                            onValueChange = { questionSetText.value = it },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 10.dp),
@@ -384,9 +404,9 @@ fun QuestionEntryForm ( navController: NavController ) {
 
                     } else {
                         OutlinedTextField(
-                            value = questionField.value,
+                            value = questionSetText.value,
                             enabled = true,
-                            onValueChange = { questionField.value = it },
+                            onValueChange = { questionSetText.value = it },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 10.dp),
@@ -448,6 +468,9 @@ fun QuestionEntryForm ( navController: NavController ) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 10.dp)
+                            .clickable {
+
+                            }
                     ) {
                         OutlinedTextField(
                             // The `menuAnchor` modifier must be passed to the text field for correctness.
@@ -455,7 +478,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                 .menuAnchor()
                                 .fillMaxWidth(),
                             readOnly = true,
-                            value = selectedAnswerText,
+                            value = answerType.value,
                             onValueChange = {},
                             shape = RoundedCornerShape(20.dp),
                             textStyle = TextStyle(
@@ -486,7 +509,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                 DropdownMenuItem(
                                     text = { Text(selectionOption) },
                                     onClick = {
-                                        selectedAnswerText = selectionOption
+                                        answerType.value = selectionOption
                                         expandedAnswer = false
                                     },
                                     modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
@@ -506,14 +529,16 @@ fun QuestionEntryForm ( navController: NavController ) {
                         verticalAlignment = Alignment.CenterVertically
 
                     ) {
-                        Text(text = "$alphabet")
 
-                        if (selectedAnswerText.equals("Text Only")) {
+                        Text(text = "${alphabet}")
+
+
+                        if (answerType.equals("Text Only")) {
 
                             OutlinedTextField(
-                                value = answerTextField.value,
+                                value = answerText.value,
                                 enabled = true,
-                                onValueChange = { answerTextField.value = it },
+                                onValueChange = { answerText.value = it },
                                 modifier = Modifier
                                     .padding(8.dp)
                                     .fillMaxWidth(),
@@ -533,15 +558,16 @@ fun QuestionEntryForm ( navController: NavController ) {
                         } else {
 
                             OutlinedTextField(
-                                value = answerTextField.value,
+                                value = answerText.value,
                                 enabled = true,
-                                onValueChange = { answerTextField.value = it },
+                                onValueChange = { answerText.value = it },
                                 modifier = Modifier
                                     .padding(8.dp)
                                     .fillMaxWidth(),
                                 shape = RoundedCornerShape(20.dp),
                                 trailingIcon = {
-                                    Icon(imageVector = Icons.Default.AttachFile,
+                                    Icon(
+                                        imageVector = Icons.Default.AttachFile,
                                         contentDescription = "Attached",
                                         tint = MaterialTheme.colorScheme.onPrimary,
                                         modifier = Modifier.clickable {
@@ -583,7 +609,29 @@ fun QuestionEntryForm ( navController: NavController ) {
                     Button(
                         onClick = {
 
-                            var ans = Answer(
+                           answerOption.value++
+
+                            viewModelAnswer.insertAnswer()
+
+
+                            var ans = AnswerModel(
+
+                                answerType = answerType.value,
+                                answerText = answerText.value,
+                                answerImage = answerImage.value,
+                            )
+
+                            answerListData.add(ans)
+
+
+
+                            alphabet++
+
+
+
+
+
+                           /* var ans = Answer(
                                 answerType = alphabet,
                                 answerText = answerTextField.value,
                                 answerImage = uriAnswer.toString(),
@@ -595,18 +643,18 @@ fun QuestionEntryForm ( navController: NavController ) {
                             alphabet++
 
                             Log.d("Count>>>", "${addingCount}")
-                            Log.d("Alphabet>>>", "$alphabet")
-                            answerTextField.value = ""
+                            Log.d("Alphabet>>>", "$alphabet")*/
+                            //answerText.value = ""
                             uriAnswer = null
                         },
                         modifier = Modifier
                             .padding(vertical = 10.dp)
                             .fillMaxWidth()
                             .height(60.dp),
-                        border = BorderStroke(1.dp, Color.Black),
+                        //border = BorderStroke(1.dp, Color.Black),
                         shape = RoundedCornerShape(20.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.secondary
+                            containerColor = MaterialTheme.colorScheme.primary
                         )
                     ) {
                         Text(
@@ -621,7 +669,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                 }
 
             }
-            items(answerlist) { item ->
+            items( answerListData ) { item ->
 
                 Card(
                     modifier = Modifier
@@ -681,6 +729,36 @@ fun QuestionEntryForm ( navController: NavController ) {
                 Column {
 
                     Text(
+                        text = "Enter Correct Answer", style = TextStyle(
+                            fontSize = 12.sp,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        ), modifier = Modifier.padding(horizontal = 15.dp)
+                    )
+                    OutlinedTextField(
+                        value = correctQuestionType.value,
+                        enabled = true,
+                        onValueChange = { correctQuestionType.value = it },
+                        modifier = Modifier
+                            .padding(vertical = 10.dp)
+                            .fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp),
+
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                            focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                            cursorColor = MaterialTheme.colorScheme.onPrimary,
+                        )
+
+
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+
+
+                    Text(
                         text = "Solution Type", style = TextStyle(
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onPrimary
@@ -700,7 +778,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                 .menuAnchor()
                                 .fillMaxWidth(),
                             readOnly = true,
-                            value = selectedSolutionText,
+                            value = solutionType.value,
                             onValueChange = {},
                             shape = RoundedCornerShape(20.dp),
                             textStyle = TextStyle(
@@ -732,7 +810,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                                 DropdownMenuItem(
                                     text = { Text(selectionOption ) },
                                     onClick = {
-                                        selectedSolutionText = selectionOption
+                                        solutionType.value = selectionOption
                                         expandedSolution = false
                                     },
                                     modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
@@ -746,12 +824,12 @@ fun QuestionEntryForm ( navController: NavController ) {
                         }
                     }
 
-                    if (selectedSolutionText.equals("Text Only")) {
+                    if (solutionType.equals("Text Only")) {
 
                         OutlinedTextField(
-                            value = solutionTextField.value,
+                            value = solutionText.value,
                             enabled = true,
-                            onValueChange = { solutionTextField.value = it },
+                            onValueChange = { solutionText.value = it },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 10.dp),
@@ -770,9 +848,9 @@ fun QuestionEntryForm ( navController: NavController ) {
 
                     } else {
                         OutlinedTextField(
-                            value = solutionTextField.value,
+                            value = solutionText.value,
                             enabled = true,
-                            onValueChange = { solutionTextField.value = it },
+                            onValueChange = { solutionText.value = it },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 10.dp),
@@ -821,7 +899,12 @@ fun QuestionEntryForm ( navController: NavController ) {
 
 
                         Button(
-                            onClick = {  },
+                            onClick = {
+
+
+                                viewModelQuestionSet.insertQuestionSet(  )
+                                Log.d("QuestionSetList>>>>>>","${questionSetData.value.size}")
+                            },
                             modifier = Modifier.padding(horizontal = 10.dp)
                         ) {
                             Text(
@@ -841,6 +924,7 @@ fun QuestionEntryForm ( navController: NavController ) {
     }
 
 }
+
 
 
 

@@ -46,14 +46,28 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.dataModel.CourseModel
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
 import com.example.quizproject.userScreens.CustomCard
+import com.example.quizproject.viewModel.CourseViewModel
+import org.mongodb.kbson.BsonObjectId
+
 //
 //
 //
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CourseContentAdminScreen(navController: NavController) {
+fun CourseContentAdminScreen(navController: NavController, id : String? , name : String? ) {
+
+    var repository = MongoRepositoryImpl()
+
+    var viewModelCourse : CourseViewModel = CourseViewModel( repository )
+
+    var courseData = viewModelCourse._courseData
+
+    var obj : BsonObjectId? = id?.let { BsonObjectId(it) }
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
@@ -70,10 +84,12 @@ fun CourseContentAdminScreen(navController: NavController) {
                          Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" , tint = MaterialTheme.colorScheme.onPrimary )
                      }
 
-                     Text(text = "FE Class", style = TextStyle(
+                     Text(text = "$name", style = TextStyle(
                          fontSize = 16.sp,
                          color = MaterialTheme.colorScheme.onPrimary,
                      ), modifier = Modifier.padding( start = 5.dp))
+
+
 
                  }
         },
@@ -125,7 +141,18 @@ fun CourseContentAdminScreen(navController: NavController) {
                                 modifier = Modifier
                                     .size(150.dp)
                                     .clickable {
-                                        navController.navigate("BookListAdminScreen")
+
+                                        for (item in courseData.value) {
+                                            if (item._id.equals(obj)) {
+                                                Log.d(
+                                                    "CourseContentName>>>>>",
+                                                    "${item.courseName}"
+                                                )
+                                            }
+                                        }
+
+
+                                        navController.navigate("BookListAdminScreen/${id}")
                                         Log.d("Click>>>>>>", "click")
                                     },
                                 text = "Teach",

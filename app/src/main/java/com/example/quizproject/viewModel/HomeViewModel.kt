@@ -5,11 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizproject.dataModel.Category
+import com.example.quizproject.dataModel.CourseModel
 import com.example.quizproject.dataRepository.MongoRepository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mongodb.kbson.BsonObjectId
+import org.mongodb.kbson.ObjectId
 
 
 class HomeViewModel (
@@ -26,6 +28,8 @@ class HomeViewModel (
 
     var _categoryId = mutableStateOf("")
 
+    var _isClickCategory  : Category? = null
+
     init {
         viewModelScope.launch {
 //            repository.insertCategory(category = Category().apply {
@@ -39,6 +43,30 @@ class HomeViewModel (
 
             }
         }
+
+        /*for ( item in _categoryData.value){
+            if ( item.isClickedCategory == true){
+                _isClickCategory= item
+            }
+        }*/
+    }
+
+
+    fun updateCategory( id : ObjectId ,courseName : String ) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+                repository.updateCategory( category = Category().apply {
+                    _id = id
+
+                    Log.d("IMPL id >>>>>","$_id")
+                        /*CourseModel(
+                           courseId,
+                             courseName
+                        )*/
+                    //name = this@HomeViewModel.name.value
+                } ,courseName)
+
+        }
     }
 
     fun insertCategory() {
@@ -48,8 +76,6 @@ class HomeViewModel (
                 /*Log.d(">>>",_categoryName.value)
                 Log.d(">>>",_categoryDescription.value)*/
                 repository.insertCategory(category = Category().apply {
-
-
                     categoryName = this@HomeViewModel._categoryName.value
                     categoryDescription = this@HomeViewModel._categoryDescription.value
 

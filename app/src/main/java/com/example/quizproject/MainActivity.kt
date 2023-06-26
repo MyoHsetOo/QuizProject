@@ -1,6 +1,7 @@
 package com.example.quizproject
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -84,7 +85,7 @@ import com.example.quizproject.ui.theme.QuizProjectThem
 import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.CourseListScreen
 import com.example.quizproject.userScreens.FavoriteScreen
-import com.example.quizproject.userScreens.HomeScreen
+//import com.example.quizproject.userScreens.HomeScreen
 import kotlinx.coroutines.launch
 
 
@@ -96,10 +97,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
+            val string: String? = intent.getStringExtra("id")
+            Log.d("AAA","id ${string}")
+
             QuizProjectThem {
                 // A surface container using the 'background' color from the theme
 
-                Nav()
+
+
+                Nav( string!! )
             }
         }
     }

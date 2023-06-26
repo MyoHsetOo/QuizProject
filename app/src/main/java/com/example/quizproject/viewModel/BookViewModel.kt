@@ -4,23 +4,23 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.quizproject.dataModel.Category
+import com.example.quizproject.dataModel.BookModel
 import com.example.quizproject.dataModel.CourseModel
-//import com.example.quizproject.dataModel.CourseModel
 import com.example.quizproject.dataRepository.MongoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mongodb.kbson.ObjectId
 
-class CourseViewModel(
+class BookViewModel(
 
     private val repository: MongoRepository
 
-): ViewModel() {
+) : ViewModel() {
 
-    var _courseData = mutableStateOf(emptyList<CourseModel>())
 
-    var _courseName = mutableStateOf("")
+    var _bookData = mutableStateOf(emptyList<BookModel>())
+
+    var _bookName = mutableStateOf("")
 
 
 
@@ -31,8 +31,8 @@ class CourseViewModel(
 //                categoryName = "aa"
 //                categoryDescription = "ss"
 //            })
-            repository.getCourseData().collect {
-                _courseData.value = it
+            repository.getBookData().collect {
+                _bookData.value = it
                 Log.d(">>>>","$it")
 
 
@@ -42,10 +42,10 @@ class CourseViewModel(
     }
 
 
-    fun updateCourse( id : ObjectId ,bookName : String ) {
+    fun updateBook( id : ObjectId ,chapterName : String ) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            repository.updateCourse( courseModel = CourseModel().apply {
+            repository.updateBook( bookModel = BookModel().apply {
                 _id = id
 
                 Log.d("IMPL id >>>>>","$_id")
@@ -54,23 +54,27 @@ class CourseViewModel(
                      courseName
                 )*/
                 //name = this@HomeViewModel.name.value
-            } , bookName )
+            } , chapterName )
 
         }
     }
 
 
 
-    fun insertCourse() {
+    fun insertBook( id: String ) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (_courseName.value.isNotEmpty()) {
+            if (_bookName.value.isNotEmpty()) {
 
-                Log.d(">>>",_courseName.value)
+                Log.d("BOokName>>>",_bookName.value)
 
-                repository.insertCourse( courseModel = CourseModel().apply {
-                    courseName = this@CourseViewModel._courseName.value
+                repository.insertBook( bookModel = BookModel().apply {
+                    bookCourseId = id
+
+                    bookName = this@BookViewModel._bookName.value
                 })
             }
         }
     }
+
+
 }

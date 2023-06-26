@@ -2,7 +2,7 @@
 
     <!---->
     <string name="app_name">QuizProject</string>
-    <string name="realm_app_id">quizzz-sputt</string>
+    <string name="realm_app_id">quizapp-vmggl</string>
     <string name="realm_base_url">https://realm.mongodb.com</string>
 
     <string name="prompt_email">Email</string>

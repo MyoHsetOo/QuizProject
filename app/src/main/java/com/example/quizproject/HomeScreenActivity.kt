@@ -475,7 +475,12 @@ class HomeScreenActivity : ComponentActivity() {
 
                                                 TextButton(onClick = {
 
+                                                    var  data = item._id.toHexString()
+
                                                    val intent = Intent( this@HomeScreenActivity , MainActivity::class.java )
+
+                                                    intent.putExtra("id",data)
+
                                                     startActivity(intent)
                                                 },
                                                     modifier = Modifier.padding( top = 10.dp, bottom = 10.dp, start = 20.dp,),

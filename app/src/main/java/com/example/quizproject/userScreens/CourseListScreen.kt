@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -61,12 +62,27 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.adminScreens.AdminFinalCard
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.CourseViewModel
+import com.example.quizproject.viewModel.HomeViewModel
+import org.mongodb.kbson.BsonObjectId
+import org.mongodb.kbson.ObjectId
 
 //
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CourseListScreen (navController: NavController) {
+fun CourseListScreen (navController: NavController , id : String? ) {
+
+    var repository = MongoRepositoryImpl( )
+
+
+    var viewModelHome : HomeViewModel = HomeViewModel( repository )
+
+    var categoryData = viewModelHome._categoryData
+
+    var obj : BsonObjectId? = id?.let { BsonObjectId(it) }
 
     Column() {
             Row(modifier = Modifier
@@ -107,37 +123,51 @@ fun CourseListScreen (navController: NavController) {
         
 
 
-    Column(
+    LazyColumn(
         modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.secondary),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                FinalCard(
-                    text = "Information Technology Vol.1",
-                    navController
-                )
 
-                FinalCard(
-                    text="Strategy and Management Vol.2"
-                ,navController
-                )
+
+        for ( itemCourse in categoryData.value){
+
+            if ( itemCourse._id.equals(obj )){
+
+                items(itemCourse.courses.size){index: Int ->
+
+                    var item = itemCourse.courses[index]
+
+                    FinalCard( count= (index+1).toString(),text = item.courseName,id= item._id, navController = navController,)
+
+                }
+
             }
+
         }
+
+
+
+
+        }
+
+    }
+
 }
 
 
 
 @Composable
-fun FinalCard(text:String , navController: NavController){
+fun FinalCard( count: String, text:String , id : ObjectId , navController: NavController){
     Spacer(modifier = Modifier.height(30.dp))
     Card(modifier= Modifier
         .fillMaxWidth(0.8f)
         .height(130.dp)
         .padding(top = 10.dp)
         .clickable {
-            navController.navigate("CourseContent")
+            navController.navigate("CourseContent/${id.toHexString()}/${text}")
         },
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
         elevation = CardDefaults.cardElevation(5.dp)) {
@@ -165,7 +195,7 @@ fun FinalCard(text:String , navController: NavController){
                 ) {
 
                     Text(
-                        text = "1",
+                        text = count,
                         style = TextStyle(
                             color = MaterialTheme.colorScheme.onPrimary,
                             fontWeight = FontWeight.Bold,

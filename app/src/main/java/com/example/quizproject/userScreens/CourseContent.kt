@@ -73,6 +73,9 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizproject.R
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.CourseViewModel
+import org.mongodb.kbson.BsonObjectId
 import java.time.format.TextStyle
 import kotlin.random.Random
 
@@ -82,7 +85,18 @@ import kotlin.random.Random
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "NewApi")
 @Composable
-fun CourseContent(navController: NavController){
+fun CourseContent(navController: NavController , id : String? ,name : String?){
+
+
+    var repository = MongoRepositoryImpl()
+
+    var viewModelCourse : CourseViewModel = CourseViewModel( repository )
+
+    var courseData = viewModelCourse._courseData
+
+    var obj : BsonObjectId? = id?.let { BsonObjectId(it) }
+
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.secondary,
         topBar = {
@@ -98,7 +112,7 @@ fun CourseContent(navController: NavController){
                     Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back" , tint = MaterialTheme.colorScheme.onPrimary )
                 }
 
-                Text(text = "FE Class", style = androidx.compose.ui.text.TextStyle(
+                Text(text = "$name", style = androidx.compose.ui.text.TextStyle(
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.onPrimary,
                 ), modifier = Modifier.padding( start = 5.dp))
@@ -143,9 +157,13 @@ fun CourseContent(navController: NavController){
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
-                                modifier = Modifier.clickable { navController.navigate("BookListScreen")},
+                                modifier = Modifier.clickable {
+
+                                    navController.navigate("BookListScreen/${id}")
+
+                               },
                                 icon= R.drawable.ffbook,
-                                text = "FE"
+                                text = "Learn"
                             )
                             Spacer(modifier = Modifier.width(20.dp))
 
