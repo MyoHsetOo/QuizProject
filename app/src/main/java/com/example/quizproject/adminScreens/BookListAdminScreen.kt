@@ -165,7 +165,7 @@ fun BookListAdminScreen (navController: NavController , id : String? ) {
                         LottieAnimation(
                             modifier = Modifier
                                 .size(330.dp),
-                            iterations = 100,
+                            iterations = 2,
                             composition = composition
                         )
 
