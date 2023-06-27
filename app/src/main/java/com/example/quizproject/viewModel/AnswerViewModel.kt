@@ -1,5 +1,6 @@
 package com.example.quizproject.viewModel
 
+import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -25,7 +26,7 @@ class AnswerViewModel (
 
     var _answerOption = mutableStateOf('@')
 
-
+    var _uriAnswer = mutableStateOf<Uri?>(null)
 
     init {
         viewModelScope.launch {
@@ -53,7 +54,7 @@ class AnswerViewModel (
                     answerType = this@AnswerViewModel._answerType.value
                     answerText = this@AnswerViewModel._answerText.value
                     answerOption =this@AnswerViewModel._answerOption.value
-                    answerImage = this@AnswerViewModel._answerImage.value
+                    answerImage = this@AnswerViewModel._uriAnswer.value.toString()
                 })
             }
         }

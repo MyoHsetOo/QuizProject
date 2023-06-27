@@ -79,8 +79,6 @@ fun NavAdmin( id : String ) {
         ) {backStackEntry ->
             val bookId = backStackEntry.arguments?.getString("bookId")
             val bookName = backStackEntry.arguments?.getString("bookName")
-
-
             ChapterAdminScreen(navController, bookId , bookName)
         }
 
@@ -94,8 +92,21 @@ fun NavAdmin( id : String ) {
         }
 
 
-        composable(route = "AdminQuestionScreen") {
-            AdminQuestionScreen(navController)
+        composable(route = "AdminQuestionScreen/{questionId}"
+              ,
+
+            arguments = listOf(
+
+                navArgument("questionId") { type = NavType.StringType }
+
+            )
+
+            ) {backStackEntry ->
+
+            val questionId = backStackEntry.arguments?.getString("questionId")
+
+            AdminQuestionScreen(navController,questionId)
+
         }
 
 

@@ -105,7 +105,7 @@ fun CourseContentAdminScreen(navController: NavController, id : String? , name :
                 ) {
                     LottieAnimation(
                         //  modifier = Modifier.fillMaxSize(),
-                        iterations = 1000, composition = composition
+                        iterations = 2, composition = composition
                     )
                 }
                 Column(

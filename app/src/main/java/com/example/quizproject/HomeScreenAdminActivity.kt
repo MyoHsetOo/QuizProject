@@ -597,7 +597,7 @@ class HomeScreenAdminActivity : ComponentActivity() {
 
                                         .fillMaxHeight()
                                         .height(200.dp),
-                                    iterations = 100,
+                                    iterations = 2,
                                     composition = composition
                                 )
 

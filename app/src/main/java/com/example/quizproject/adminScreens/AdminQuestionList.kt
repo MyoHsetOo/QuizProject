@@ -1,5 +1,6 @@
 package com.example.quizproject.adminScreens
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -47,7 +48,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
 import com.example.quizproject.userScreens.Question
+import com.example.quizproject.viewModel.QuestionSetViewModel
+
 //
 //
 //
@@ -58,14 +62,22 @@ fun AdminQuestionList(navController: NavController){
     val textFieldValue = remember { mutableStateOf("") }
     val showAlert = remember { mutableStateOf(false) }
 
-    val context = LocalContext.current
-    val list = listOf(
-        Question("Question", 1),
-        Question("Question", 1),
-        Question("Question", 1),
+    var repository = MongoRepositoryImpl()
+
+    var viewModelQuestionSet : QuestionSetViewModel = QuestionSetViewModel(repository)
+
+    var questionSetData = viewModelQuestionSet._questionSetData
 
 
-    )
+
+//    val context = LocalContext.current
+//    val list = listOf(
+//        Question("Question", 1),
+//        Question("Question", 1),
+//        Question("Question", 1),
+//
+//
+//    )
 
     Surface(modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.secondary) {
@@ -144,10 +156,13 @@ fun AdminQuestionList(navController: NavController){
             ) {
 
                 LazyColumn {
-                    items(list) { item ->
+                    items(questionSetData.value) { item ->
                         Button(
                             onClick = {
-                                 navController.navigate("AdminQuestionScreen")
+                                 navController.navigate("AdminQuestionScreen/${item._id.toHexString()}" )
+
+                                Log.d(">>>questionData" , "${item.questionNo}")
+
                             },
                             modifier = Modifier
                                 .fillMaxWidth(0.95f)
@@ -159,7 +174,7 @@ fun AdminQuestionList(navController: NavController){
 
                             ) {
                             Text(
-                                text = item.question + " - " + item.number, style = TextStyle(
+                                text = item.questionNo, style = TextStyle(
                                     color = MaterialTheme.colorScheme.onPrimary,
                                 )
                             )

@@ -152,35 +152,11 @@ fun QuestionEntryForm ( navController: NavController ) {
         mutableStateOf(false)
     }
 
-    var uriQuestion by remember {
-        mutableStateOf<Uri?>(null)
-    }
 
-    val questionPhotoPick = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = {
-            uriQuestion = it }
-    )
 
-    var uriAnswer by remember {
-        mutableStateOf<Uri?>(null)
-    }
 
-    val answerPhotoPick = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = {
-            uriAnswer = it }
-    )
 
-    var uriSolution by remember {
-        mutableStateOf<Uri?>(null)
-    }
 
-    val solutionPhotoPick = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = {
-            uriSolution = it }
-    )
 
     val optionQuestion = listOf("Text Only", "Text and Image", "Image Only",)
 
@@ -235,9 +211,40 @@ fun QuestionEntryForm ( navController: NavController ) {
 
     var solutionImage = viewModelQuestionSet._solutionImage
 
+    var uriQuestion = viewModelQuestionSet._uriQuestion
+
+    var uriAnswer = viewModelAnswer._uriAnswer
+
+    var uriSolution = viewModelQuestionSet._uriSolution
+
+
+
+
     var answerListData = remember {
         mutableStateListOf<AnswerModel>()
     }
+
+    val questionPhotoPick = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = {
+            uriQuestion.value = it }
+    )
+
+
+
+    val answerPhotoPick = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = {
+            uriAnswer.value = it }
+    )
+
+
+
+    val solutionPhotoPick = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = {
+            uriSolution.value = it }
+    )
 
 
 
@@ -446,7 +453,7 @@ fun QuestionEntryForm ( navController: NavController ) {
 
                     ){
                         AsyncImage(
-                            model = uriQuestion,
+                            model = uriQuestion.value,
                             contentDescription = null,
                         )
                     }
@@ -615,10 +622,10 @@ fun QuestionEntryForm ( navController: NavController ) {
 
 
                             var ans = AnswerModel(
-
+                                answerOption = answerOption.value,
                                 answerType = answerType.value,
                                 answerText = answerText.value,
-                                answerImage = answerImage.value,
+                                answerImage = uriAnswer.value.toString(),
                             )
 
                             answerListData.add(ans)
@@ -645,7 +652,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                             Log.d("Count>>>", "${addingCount}")
                             Log.d("Alphabet>>>", "$alphabet")*/
                             //answerText.value = ""
-                            uriAnswer = null
+                          //  uriAnswer = null
                         },
                         modifier = Modifier
                             .padding(vertical = 10.dp)
@@ -687,7 +694,7 @@ fun QuestionEntryForm ( navController: NavController ) {
                     ) {
                         Box() {
                             Text(
-                                text = "${item.answerType}", style = TextStyle(
+                                text = "${item.answerOption}", style = TextStyle(
                                     fontSize = 16.sp,
                                     color = MaterialTheme.colorScheme.onPrimary
                                 )
@@ -886,7 +893,7 @@ fun QuestionEntryForm ( navController: NavController ) {
 
                     ){
                         AsyncImage(
-                            model = uriSolution,
+                            model = uriSolution.value,
                             contentDescription = null,
                         )
                     }
@@ -902,8 +909,9 @@ fun QuestionEntryForm ( navController: NavController ) {
                             onClick = {
 
 
-                                viewModelQuestionSet.insertQuestionSet(  )
+                                viewModelQuestionSet.insertQuestionSet( answerListData )
                                 Log.d("QuestionSetList>>>>>>","${questionSetData.value.size}")
+                                navController.navigate("AdminQuestionList")
                             },
                             modifier = Modifier.padding(horizontal = 10.dp)
                         ) {

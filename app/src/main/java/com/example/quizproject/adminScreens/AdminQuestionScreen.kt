@@ -38,6 +38,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,21 +53,52 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.quizproject.dataModel.QuestionSet
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.QuestionSetViewModel
+import org.mongodb.kbson.BsonObjectId
+
 //
 //
 //
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminQuestionScreen(navController: NavController) {
+fun AdminQuestionScreen(navController: NavController,
+                        questionId : String?,
+                        ) {
 
     val scaffoldState = rememberBottomSheetScaffoldState()
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
+    Log.d(">>>IdQuestion", "$questionId")
+
     var isOnClick by remember {
         mutableStateOf(false)
     }
+
+    var repository = MongoRepositoryImpl()
+
+
+    var viewModel : QuestionSetViewModel = QuestionSetViewModel( repository )
+
+
+    //var questionSetData by viewModel._questionSetData
+   // Log.d("QuestionDataSize>>>>" , "${questionSetData.size}")
+   // Log.d("QuestionDataViewModelSize>>>>" , "${viewModel._questionSetData.value.size}")
+
+
+
+    var obj : BsonObjectId? = questionId?.let { BsonObjectId(it) }
+    LaunchedEffect(key1 = Unit, block = {
+
+        viewModel.getDataItem(id = obj!!)
+    })
+
+
+
+
 
 
     BottomSheetScaffold(
@@ -97,6 +129,7 @@ fun AdminQuestionScreen(navController: NavController) {
         scaffoldState = scaffoldState,
         sheetPeekHeight = 80.dp,
         topBar = {
+            if(viewModel._questionSetData.value .isNotEmpty())
             Column {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -108,7 +141,8 @@ fun AdminQuestionScreen(navController: NavController) {
                 ) {
 
                     Row(
-                        modifier = Modifier.padding(10.dp)
+                        modifier = Modifier
+                            .padding(10.dp)
                             .fillMaxHeight(),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
@@ -124,7 +158,7 @@ fun AdminQuestionScreen(navController: NavController) {
                         Spacer(modifier = Modifier.width(10.dp))
 
                         Text(
-                            text = "2023 April ",
+                            text = viewModel.questionSet.questionNo,
                             style = TextStyle(
                                 color = MaterialTheme.colorScheme.onPrimary,
                                 fontWeight = FontWeight.Bold,
@@ -151,150 +185,159 @@ fun AdminQuestionScreen(navController: NavController) {
             }
         },
     ) { innerPadding ->
-
-        Column(
-
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxSize(),
-        ) {
-
-            Text(
-                text = "Q. Which of the following is the system configuration that has the highest availability? Here, when systems are connected in parallel, the systems are considered to be operational if at least one (1) of them is operating.",
-                style = TextStyle(
-                    color = MaterialTheme.colorScheme.onPrimary,
-                   lineHeight = 25.sp
-                ),
-                modifier = Modifier.padding(5.dp),
-
-            )
-            Card(
+        if(viewModel._questionSetData.value .isNotEmpty()){
+            Column(
 
                 modifier = Modifier
                     .padding(10.dp)
-                    .fillMaxWidth(),
-                onClick = {
-                    isOnClick = !isOnClick
-                    Log.d("CardColor>>>>", "$isOnClick")
-                },
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isOnClick) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
-                )
-
+                    .fillMaxSize(),
             ) {
-                Row {
 
-                    IconButton(onClick = {}) {
-                        Icon(
-                            Icons.Default.Check,
-                            contentDescription = "Localized description",
-                            tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier.size(20.dp)
+                Text(
+                    text = viewModel.questionSet.questionText,
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        lineHeight = 25.sp
+                    ),
+                    modifier = Modifier.padding(5.dp),
+
+                    )
+                if (viewModel.questionSet.answers.isNotEmpty())
+                for (item in viewModel.questionSet.answers) {
+
+                    Card(
+
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .fillMaxWidth(),
+                        onClick = {
+                            isOnClick = !isOnClick
+                            Log.d("CardColor>>>>", "$isOnClick")
+                        },
+                        colors = CardDefaults.cardColors(
+                            containerColor = if (isOnClick) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
                         )
+
+                    ) {
+                        Row {
+
+                            IconButton(onClick = {}) {
+                                Icon(
+                                    Icons.Default.Check,
+                                    contentDescription = "Localized description",
+                                    tint = MaterialTheme.colorScheme.onPrimary,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+
+
+                            Box(
+                                modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
+                            ) {
+                                Text(
+                                    text = item.answerText,
+                                    style = TextStyle(
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                        lineHeight = 25.sp)
+                                )
+
+                            }
+
+                        }
+
+
                     }
 
+                }
+else Text(text = "no data")
+                /* Card(
+                     modifier = Modifier.padding(15.dp),
+                     onClick = {},
+                     colors = CardDefaults.cardColors(
+                         containerColor = MaterialTheme.colorScheme.secondary
+                     )
+                 ) {
+                     Box(
+                         modifier = Modifier.padding(15.dp)
+                     ) {
 
-                    Box(
-                        modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
+                         Text(
+                             text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                             style = TextStyle(
+                                 color = MaterialTheme.colorScheme.onPrimary,
+                                 lineHeight = 25.sp)
+                         )
+
+                     }
+                 }*/
+
+                /* Card(
+
+                     modifier = Modifier.padding(10.dp),
+
+                     onClick = {},
+                     colors = CardDefaults.cardColors(
+                         containerColor = MaterialTheme.colorScheme.secondary
+                     )
+                 ) {
+                     Box(
+                         modifier = Modifier.padding(15.dp)
+                     ) {
+
+                         Text(
+                             text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                             style = TextStyle(
+                                 color = MaterialTheme.colorScheme.onPrimary ,
+                                 lineHeight = 25.sp
+                         )
+                         )
+
+                     }
+                 }
+
+                 Card(
+
+                     modifier = Modifier.padding(15.dp),
+                     onClick = {},
+                     colors = CardDefaults.cardColors(
+                         containerColor = MaterialTheme.colorScheme.secondary
+                     )
+
+                 ) {
+                     Box(
+                         modifier = Modifier.padding(15.dp)
+                     ) {
+
+                         Text(
+                             text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
+                             style = TextStyle(
+                                 color = MaterialTheme.colorScheme.onPrimary,
+                                 lineHeight = 25.sp)
+                         )
+
+                     }
+                 }
+     */
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+
+                    Button(
+                        modifier = Modifier.padding(top = 30.dp), onClick = { /*TODO*/ },
                     ) {
                         Text(
-                            text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                            style = TextStyle(
-                                color = MaterialTheme.colorScheme.onPrimary,
-                                lineHeight = 25.sp)
+                            text = "Submit",
+                            color = MaterialTheme.colorScheme.onPrimary ,
                         )
-
                     }
 
                 }
-
-
             }
-
-            Card(
-                modifier = Modifier.padding(15.dp),
-                onClick = {},
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                )
-            ) {
-                Box(
-                    modifier = Modifier.padding(15.dp)
-                ) {
-
-                    Text(
-                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            lineHeight = 25.sp)
-                    )
-
-                }
-            }
-
-            Card(
-
-                modifier = Modifier.padding(10.dp),
-
-                onClick = {},
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                )
-            ) {
-                Box(
-                    modifier = Modifier.padding(15.dp)
-                ) {
-
-                    Text(
-                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(
-                            color = MaterialTheme.colorScheme.onPrimary ,
-                            lineHeight = 25.sp
-                    )
-                    )
-
-                }
-            }
-
-            Card(
-
-                modifier = Modifier.padding(15.dp),
-                onClick = {},
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                )
-
-            ) {
-                Box(
-                    modifier = Modifier.padding(15.dp)
-                ) {
-
-                    Text(
-                        text = "(a) Three (3) identical systems, each with an availability of 80%, are connected in parallel.",
-                        style = TextStyle(
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            lineHeight = 25.sp)
-                    )
-
-                }
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-
-                Button(
-                    modifier = Modifier.padding(top = 30.dp), onClick = { /*TODO*/ },
-                ) {
-                    Text(
-                        text = "Submit",
-                        color = MaterialTheme.colorScheme.onPrimary ,
-                    )
-                }
-
-            }
+        }else{
+            Text(text = "No Data")
         }
+
     }
 }
 
