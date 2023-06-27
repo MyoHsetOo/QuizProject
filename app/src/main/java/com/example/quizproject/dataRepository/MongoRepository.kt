@@ -45,13 +45,24 @@ interface MongoRepository {
 
     suspend fun insertChapter ( chapterModel: ChapterModel )
 
+    suspend fun updateChapter ( chapterModel: ChapterModel,
+                                questionNo : String ,
+                                questionType: String,
+                                questionText : String,
+                                questionImage : String,
+                                answers : List<AnswerModel>,
+                                correctAnswer : String ,
+                                solutionType : String,
+                                solutionText : String ,
+                                solutionImage : String )
+
 
     fun getAnswerData() : kotlinx.coroutines.flow.Flow<List<AnswerModel>>
 
     suspend fun insertAnswer ( answerModel: AnswerModel)
 
 
-    fun getQuestionSetData() : kotlinx.coroutines.flow.Flow<List<QuestionSet>>
+     fun getQuestionSetData() : kotlinx.coroutines.flow.Flow<List<QuestionSet>>
 
     suspend fun insertQuestionSet ( questionSet: QuestionSet )
 

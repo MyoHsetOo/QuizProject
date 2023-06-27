@@ -54,6 +54,8 @@ class ChapterModel() : RealmObject {
     var _id : ObjectId = ObjectId()
     var chapterBookId : String = ""
     var chapterName : String = ""
+
+    var questions : RealmList<QuestionSet> = realmListOf()
 }
 
 
@@ -61,7 +63,7 @@ class QuestionSet() : RealmObject {
 
     @PrimaryKey
     var _id : ObjectId = ObjectId()
-
+    var questionChapterId : String = ""
     var questionNo : String = ""
     var questionType : String = ""
     var questionText : String = ""

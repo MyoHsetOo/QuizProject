@@ -63,14 +63,16 @@ import coil.compose.AsyncImage
 import com.example.quizproject.dataModel.AnswerModel
 import com.example.quizproject.dataRepository.MongoRepositoryImpl
 import com.example.quizproject.viewModel.AnswerViewModel
+import com.example.quizproject.viewModel.ChapterViewModel
 import com.example.quizproject.viewModel.QuestionSetViewModel
+import org.mongodb.kbson.BsonObjectId
 
 //
 //
 //
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuestionEntryForm ( navController: NavController ) {
+fun QuestionEntryForm ( navController: NavController, id : String? ) {
 
     var imageUriQuestion by remember {
         mutableStateOf<Uri?>(null)
@@ -178,6 +180,8 @@ fun QuestionEntryForm ( navController: NavController ) {
 
     var repository = MongoRepositoryImpl()
 
+    var obj : BsonObjectId? = id?.let { BsonObjectId(it) }
+
 
     var viewModelAnswer : AnswerViewModel = AnswerViewModel( repository )
 
@@ -190,6 +194,11 @@ fun QuestionEntryForm ( navController: NavController ) {
     var answerOption = viewModelAnswer._answerOption
 
     var answerData = viewModelAnswer._answerData
+
+    var viewModelChapter : ChapterViewModel = ChapterViewModel( repository )
+
+
+
 
     var viewModelQuestionSet : QuestionSetViewModel = QuestionSetViewModel( repository )
 
@@ -909,7 +918,23 @@ fun QuestionEntryForm ( navController: NavController ) {
                             onClick = {
 
 
-                                viewModelQuestionSet.insertQuestionSet( answerListData )
+                               // viewModelQuestionSet.insertQuestionSet( answerListData )
+
+
+                                viewModelChapter.updateChapter(
+                                    obj!! ,
+                                    questionNo.value,
+                                    questionSetType.value,
+                                    questionSetText.value ,
+                                    uriQuestion.value.toString(),
+                                    answerListData ,
+                                    correctQuestionType.value,
+                                    solutionType.value,
+                                    solutionText.value,
+                                    uriSolution.value.toString() )
+
+
+
                                 Log.d("QuestionSetList>>>>>>","${questionSetData.value.size}")
                                 navController.navigate("AdminQuestionList")
                             },

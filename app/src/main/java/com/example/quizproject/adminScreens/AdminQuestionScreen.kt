@@ -16,7 +16,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
@@ -55,6 +57,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quizproject.dataModel.QuestionSet
 import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.QuestionScreenViewModel
 import com.example.quizproject.viewModel.QuestionSetViewModel
 import org.mongodb.kbson.BsonObjectId
 
@@ -65,7 +68,7 @@ import org.mongodb.kbson.BsonObjectId
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdminQuestionScreen(navController: NavController,
-                        questionId : String?,
+                        questionId : String?, questionNo : String?
                         ) {
 
     val scaffoldState = rememberBottomSheetScaffoldState()
@@ -80,8 +83,14 @@ fun AdminQuestionScreen(navController: NavController,
 
     var repository = MongoRepositoryImpl()
 
+    var viewModelQuestionScreen : QuestionScreenViewModel = QuestionScreenViewModel(repository)
+
+    var questionScreenData = viewModelQuestionScreen._questionScreenData
+
 
     var viewModel : QuestionSetViewModel = QuestionSetViewModel( repository )
+
+    //var questionSetData = viewModel.getDataItem()
 
 
     //var questionSetData by viewModel._questionSetData
@@ -91,13 +100,10 @@ fun AdminQuestionScreen(navController: NavController,
 
 
     var obj : BsonObjectId? = questionId?.let { BsonObjectId(it) }
-    LaunchedEffect(key1 = Unit, block = {
-
-        viewModel.getDataItem(id = obj!!)
-    })
 
 
 
+    //LaunchedEffect(key1 = Unit, block = { viewModel.getDataItem(id = obj!!) })
 
 
 
@@ -129,7 +135,7 @@ fun AdminQuestionScreen(navController: NavController,
         scaffoldState = scaffoldState,
         sheetPeekHeight = 80.dp,
         topBar = {
-            if(viewModel._questionSetData.value .isNotEmpty())
+            //if(viewModel._questionSetData.value .isNotEmpty())
             Column {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -158,7 +164,7 @@ fun AdminQuestionScreen(navController: NavController,
                         Spacer(modifier = Modifier.width(10.dp))
 
                         Text(
-                            text = viewModel.questionSet.questionNo,
+                            text = questionNo!!,
                             style = TextStyle(
                                 color = MaterialTheme.colorScheme.onPrimary,
                                 fontWeight = FontWeight.Bold,
@@ -185,71 +191,97 @@ fun AdminQuestionScreen(navController: NavController,
             }
         },
     ) { innerPadding ->
-        if(viewModel._questionSetData.value .isNotEmpty()){
+
+
+
             Column(
 
                 modifier = Modifier
-                    .padding(10.dp)
-                    .fillMaxSize(),
+                    .padding(20.dp)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState()),
             ) {
 
-                Text(
-                    text = viewModel.questionSet.questionText,
-                    style = TextStyle(
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        lineHeight = 25.sp
-                    ),
-                    modifier = Modifier.padding(5.dp),
 
-                    )
-                if (viewModel.questionSet.answers.isNotEmpty())
-                for (item in viewModel.questionSet.answers) {
+                //if (viewModel.questionSet.answers.isNotEmpty())
 
-                    Card(
 
-                        modifier = Modifier
-                            .padding(10.dp)
-                            .fillMaxWidth(),
-                        onClick = {
-                            isOnClick = !isOnClick
-                            Log.d("CardColor>>>>", "$isOnClick")
-                        },
-                        colors = CardDefaults.cardColors(
-                            containerColor = if (isOnClick) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
-                        )
+                for (item in questionScreenData.value) {
 
-                    ) {
-                        Row {
+                    if (item._id == obj){
 
-                            IconButton(onClick = {}) {
-                                Icon(
-                                    Icons.Default.Check,
-                                    contentDescription = "Localized description",
-                                    tint = MaterialTheme.colorScheme.onPrimary,
-                                    modifier = Modifier.size(20.dp)
+                        Text(
+                            text = item.questionText,
+                            style = TextStyle(
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                lineHeight = 25.sp
+                            ),
+                            modifier = Modifier.padding(5.dp),
+
+                            )
+
+
+                        for (answerItem in item.answers){
+
+                            Card(
+
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .fillMaxWidth(),
+                                onClick = {
+                                    isOnClick = !isOnClick
+                                    Log.d("CardColor>>>>", "$isOnClick")
+                                },
+                                colors = CardDefaults.cardColors(
+                                    containerColor = if (isOnClick) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
                                 )
-                            }
 
-
-                            Box(
-                                modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
                             ) {
-                                Text(
-                                    text = item.answerText,
-                                    style = TextStyle(
-                                        color = MaterialTheme.colorScheme.onPrimary,
-                                        lineHeight = 25.sp)
-                                )
+                                Row (
+                                    modifier = Modifier.padding( start = 10.dp )
+                                ){
+
+                                    Box (
+                                        modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
+
+                                    ){
+                                        Text(
+                                            text = answerItem.answerOption.toString(),
+                                            style = TextStyle(
+                                                color = MaterialTheme.colorScheme.onPrimary,
+                                                lineHeight = 25.sp)
+                                        )
+                                    }
+
+
+
+                                    Box(
+                                        modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
+                                    ) {
+                                        Text(
+                                            text = answerItem.answerText,
+                                            style = TextStyle(
+                                                color = MaterialTheme.colorScheme.onPrimary,
+                                                lineHeight = 25.sp)
+                                        )
+
+                                    }
+
+                                }
+
 
                             }
 
                         }
 
 
+
                     }
 
+
+
                 }
-else Text(text = "no data")
+
                 /* Card(
                      modifier = Modifier.padding(15.dp),
                      onClick = {},
@@ -324,7 +356,10 @@ else Text(text = "no data")
                 ) {
 
                     Button(
-                        modifier = Modifier.padding(top = 30.dp), onClick = { /*TODO*/ },
+                        modifier = Modifier.padding(top = 30.dp),
+                        onClick = {
+                                  Log.d("<<<<<>>>>>","${questionScreenData.value.size}")
+                        },
                     ) {
                         Text(
                             text = "Submit",
@@ -334,9 +369,6 @@ else Text(text = "no data")
 
                 }
             }
-        }else{
-            Text(text = "No Data")
-        }
 
     }
 }

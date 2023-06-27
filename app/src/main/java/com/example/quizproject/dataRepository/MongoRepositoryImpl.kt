@@ -188,6 +188,55 @@ import org.mongodb.kbson.ObjectId
         realm.write { copyToRealm( chapterModel) }
     }
 
+    override suspend fun updateChapter( chapterModel: ChapterModel ,
+                                        question_No : String ,
+                                        question_Type: String,
+                                        question_Text : String,
+                                        question_Image : String,
+                                        answersSet : List<AnswerModel>,
+                                        correct_Answer : String ,
+                                        solution_Type : String,
+                                        solution_Text : String ,
+                                        solution_Image : String ) {
+
+        realm.write {
+            val queriedPerson =
+                query<ChapterModel>(query = "_id == $0", chapterModel._id)
+                    .first()
+                    .find()
+            if (queriedPerson != null) {
+
+                queriedPerson.questions.add( QuestionSet().apply {
+
+
+
+                    questionChapterId = chapterModel._id.toString()
+                    questionNo = question_No
+                    questionType = question_Type
+                    questionText = question_Text
+                    questionImage = question_Image
+                    for ( item in answersSet ){
+                        answers.add( item )
+                    }
+                    correctAnswerType = correct_Answer
+                    solutionType = solution_Type
+                    solutionText = solution_Text
+                    solutionImage = solution_Image
+
+                    Log.d("cHapter<<<<<","Success")
+
+
+                })
+
+                Log.d("cHapter<<<<<","${queriedPerson.questions.size}")
+
+            } else {
+                Log.d("MongoRepository", "Queried Person does not exist.")
+            }
+
+        }
+    }
+
 
     override suspend fun updateBook( bookModel: BookModel , name : String ) {
 
@@ -220,7 +269,7 @@ import org.mongodb.kbson.ObjectId
     }
 
 
-    override fun getQuestionSetData() : Flow<List<QuestionSet>> {
+    override  fun getQuestionSetData() : Flow<List<QuestionSet>> {
         return realm.query<QuestionSet>().asFlow().map { it.list }
     }
 

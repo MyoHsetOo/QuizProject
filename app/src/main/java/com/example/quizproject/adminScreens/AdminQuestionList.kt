@@ -50,13 +50,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quizproject.dataRepository.MongoRepositoryImpl
 import com.example.quizproject.userScreens.Question
+import com.example.quizproject.viewModel.ChapterViewModel
 import com.example.quizproject.viewModel.QuestionSetViewModel
+import org.mongodb.kbson.BsonObjectId
 
 //
 //
 //
+//
 @Composable
-fun AdminQuestionList(navController: NavController){
+fun AdminQuestionList(navController: NavController , id : String?){
 
     val itemList = remember { mutableStateListOf<String>() }
     val textFieldValue = remember { mutableStateOf("") }
@@ -67,6 +70,12 @@ fun AdminQuestionList(navController: NavController){
     var viewModelQuestionSet : QuestionSetViewModel = QuestionSetViewModel(repository)
 
     var questionSetData = viewModelQuestionSet._questionSetData
+
+    var obj : BsonObjectId? = id?.let { BsonObjectId(it) }
+
+    var viewModelChapter : ChapterViewModel = ChapterViewModel( repository )
+
+    var chapterData = viewModelChapter._chapterData
 
 
 
@@ -120,7 +129,7 @@ fun AdminQuestionList(navController: NavController){
 
                   Button(
                     onClick = {
-                              navController.navigate("QuestionEntryForm")
+                              navController.navigate("QuestionEntryForm/${id}")
                     },
                     modifier = Modifier.fillMaxWidth(0.95f)
                         .height(80.dp)
@@ -155,33 +164,42 @@ fun AdminQuestionList(navController: NavController){
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                LazyColumn {
-                    items(questionSetData.value) { item ->
-                        Button(
-                            onClick = {
-                                 navController.navigate("AdminQuestionScreen/${item._id.toHexString()}" )
 
-                                Log.d(">>>questionData" , "${item.questionNo}")
+                for( item in chapterData.value)
+                {
+                    if ( item._id == obj){
 
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth(0.95f)
-                                .height(80.dp)
-                                .padding(15.dp),
-                            shape = RoundedCornerShape(20.dp),
-                            elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
-                            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
+                        LazyColumn {
+                            items(questionSetData.value) { item ->
+                                Button(
+                                    onClick = {
+                                        navController.navigate("AdminQuestionScreen/${item._id.toHexString()}/${item.questionNo}" )
 
-                            ) {
-                            Text(
-                                text = item.questionNo, style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                )
-                            )
+                                        Log.d(">>>questionData" , "${item.questionNo}")
+
+                                    },
+                                    modifier = Modifier
+                                        .fillMaxWidth(0.95f)
+                                        .height(80.dp)
+                                        .padding(15.dp),
+                                    shape = RoundedCornerShape(20.dp),
+                                    elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
+                                    colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
+
+                                    ) {
+                                    Text(
+                                        text = item.questionNo, style = TextStyle(
+                                            color = MaterialTheme.colorScheme.onPrimary,
+                                        )
+                                    )
+                                }
+                                // Spacer(modifier = Modifier.height(20.dp))
+                            }
                         }
-                       // Spacer(modifier = Modifier.height(20.dp))
+
                     }
                 }
+
             }
             }
         }

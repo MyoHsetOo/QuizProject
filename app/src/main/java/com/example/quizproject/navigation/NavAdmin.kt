@@ -82,30 +82,44 @@ fun NavAdmin( id : String ) {
             ChapterAdminScreen(navController, bookId , bookName)
         }
 
-        composable(route = "AdminQuestionList") {
-            AdminQuestionList(navController)
+        composable(route = "AdminQuestionList/{chapterId}",
+            arguments = listOf(
+                navArgument( "chapterId" ){ type = NavType.StringType },
+            )
+            ) { backStackEntry ->
+            val chapterId = backStackEntry.arguments?.getString("chapterId")
+            AdminQuestionList(navController, chapterId)
         }
 
 
-        composable(route = "QuestionEntryForm") {
-            QuestionEntryForm(navController)
+        composable(route = "QuestionEntryForm/{chapterId}",
+            arguments = listOf(
+                navArgument( "chapterId" ){ type = NavType.StringType },
+            )
+            ) {backStackEntry ->
+
+            val chapterId = backStackEntry.arguments?.getString("chapterId")
+            QuestionEntryForm(navController,chapterId)
         }
 
 
-        composable(route = "AdminQuestionScreen/{questionId}"
+        composable(route = "AdminQuestionScreen/{questionId}/{questionNo}"
               ,
 
             arguments = listOf(
 
-                navArgument("questionId") { type = NavType.StringType }
+                navArgument("questionId") { type = NavType.StringType },
+                navArgument("questionNo") { type = NavType.StringType }
+
 
             )
 
             ) {backStackEntry ->
 
             val questionId = backStackEntry.arguments?.getString("questionId")
+            val questionNo = backStackEntry.arguments?.getString("questionNo")
 
-            AdminQuestionScreen(navController,questionId)
+            AdminQuestionScreen(navController,questionId,questionNo)
 
         }
 

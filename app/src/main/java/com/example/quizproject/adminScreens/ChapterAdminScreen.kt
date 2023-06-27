@@ -101,6 +101,8 @@ fun ChapterAdminScreen( navController: NavController , id : String? , name : Str
 
     var courseData = viewModelCourse._courseData
 
+    var chapterId =
+
     Surface (
         color = MaterialTheme.colorScheme.secondary,
         modifier = Modifier.fillMaxSize()
@@ -288,7 +290,7 @@ fun ChapterAdminScreen( navController: NavController , id : String? , name : Str
                                                 .fillMaxWidth()
                                                 .fillMaxHeight(0.1f),
                                             onClick = {
-                                                navController.navigate("AdminQuestionList")
+                                                navController.navigate("AdminQuestionList/${item._id.toHexString()}")
                                             },
                                             shape = RoundedCornerShape(20.dp),
                                             elevation = CardDefaults.cardElevation(5.dp),
