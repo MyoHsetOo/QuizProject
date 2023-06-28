@@ -170,7 +170,7 @@ fun AdminQuestionList(navController: NavController , id : String?){
                     if ( item._id == obj){
 
                         LazyColumn {
-                            items(questionSetData.value) { item ->
+                            items(item.questions) { item ->
                                 Button(
                                     onClick = {
                                         navController.navigate("AdminQuestionScreen/${item._id.toHexString()}/${item.questionNo}" )

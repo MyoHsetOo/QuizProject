@@ -47,13 +47,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quizproject.dataModel.Chapter
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.BookViewModel
+import com.example.quizproject.viewModel.ChapterViewModel
+import com.example.quizproject.viewModel.CourseViewModel
+import org.mongodb.kbson.BsonObjectId
+
 //
 //
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChapterScreen( navController: NavController) {
+fun ChapterScreen( navController: NavController , id : String? , name : String? ) {
 
     var addChapterField = remember {
         mutableStateOf("")
@@ -62,6 +68,21 @@ fun ChapterScreen( navController: NavController) {
     var isAddChapter by remember {
         mutableStateOf(false)
     }
+
+    var repository = MongoRepositoryImpl()
+
+    var viewModelChapter : ChapterViewModel = ChapterViewModel( repository )
+
+    var chapterName = viewModelChapter._chapterName
+
+    var chapterData = viewModelChapter._chapterData
+
+    var obj : BsonObjectId? = id?.let { BsonObjectId(it) }
+
+    var viewModelBook : BookViewModel = BookViewModel(repository)
+
+    var bookData = viewModelBook._bookData
+
 
     Surface (
         color = MaterialTheme.colorScheme.secondary,
@@ -84,7 +105,7 @@ fun ChapterScreen( navController: NavController) {
                         tint = Color.Black)
                 }
 
-                Text(text = "Information Technology",
+                Text(text = "$name",
                     modifier = Modifier.
                     padding( start = 5.dp),
                     style = TextStyle(
@@ -115,59 +136,68 @@ fun ChapterScreen( navController: NavController) {
            ) {
 
                LazyColumn(modifier = Modifier.padding(top = 25.dp)) {
-                   item {
 
-                       Row(
-                           horizontalArrangement = Arrangement.Center,
-                           verticalAlignment = Alignment.CenterVertically,
-                           modifier = Modifier.padding(vertical = 10.dp, horizontal = 15.dp)
+                   for (item in bookData.value)
+                   {
+                       if (item._id == obj)
+                       {
+                           items(item.chapters.size){ index : Int ->
+                               var item = item.chapters[index]
+                               Row(
+                                   horizontalArrangement = Arrangement.Center,
+                                   verticalAlignment = Alignment.CenterVertically,
+                                   modifier = Modifier.padding(vertical = 10.dp, horizontal = 15.dp)
 
-                       ) {
+                               ) {
 
-                           Card(
-                               modifier = Modifier
-                                   .fillMaxHeight(0.1f)
-                                   .fillMaxWidth(0.18f)
-                                   .padding(start = 10.dp),
-                               shape = RoundedCornerShape(20.dp),
-                               elevation = CardDefaults.cardElevation(5.dp),
-                               colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-                           ) {
-                               Box(
-                                   contentAlignment = Alignment.Center,
-                                   modifier = Modifier
-                                       .fillMaxWidth()
-                                       .fillMaxHeight(),
+                                   Card(
+                                       modifier = Modifier
+                                           .fillMaxHeight(0.1f)
+                                           .fillMaxWidth(0.18f)
+                                           .padding(start = 10.dp),
+                                       shape = RoundedCornerShape(20.dp),
+                                       elevation = CardDefaults.cardElevation(5.dp),
+                                       colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
+                                   ) {
+                                       Box(
+                                           contentAlignment = Alignment.Center,
+                                           modifier = Modifier
+                                               .fillMaxWidth()
+                                               .fillMaxHeight(),
+
+                                           ) {
+                                           Text(
+                                               text = (index+1).toString(),
+                                               modifier = Modifier.padding(15.dp),
+                                               color = MaterialTheme.colorScheme.onPrimary
+                                           )
+                                       }
+                                   }
+                                   Card(
+                                       modifier = Modifier
+                                           .padding(8.dp)
+                                           .fillMaxWidth()
+                                           .fillMaxHeight(0.1f),
+                                       onClick = {
+                                           navController.navigate("QuestionList/${item._id.toHexString()}/${item.chapterName}")
+                                       },
+                                       shape = RoundedCornerShape(20.dp),
+                                       elevation = CardDefaults.cardElevation(5.dp),
+                                       colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
 
                                    ) {
-                                   Text(
-                                       text = "1",
-                                       modifier = Modifier.padding(15.dp),
-                                       color = MaterialTheme.colorScheme.onPrimary
-                                   )
+                                       Text(
+                                           text = item.chapterName,
+                                           modifier = Modifier.padding(15.dp),
+                                           color = MaterialTheme.colorScheme.onPrimary
+                                       )
+                                   }
                                }
-                           }
-                           Card(
-                               modifier = Modifier
-                                   .padding(8.dp)
-                                   .fillMaxWidth()
-                                   .fillMaxHeight(0.1f),
-                               onClick = {
-                                   navController.navigate("QuestionList")
-                               },
-                               shape = RoundedCornerShape(20.dp),
-                               elevation = CardDefaults.cardElevation(5.dp),
-                               colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
-
-                           ) {
-                               Text(
-                                   text = "Hardware",
-                                   modifier = Modifier.padding(15.dp),
-                                   color = MaterialTheme.colorScheme.onPrimary
-                               )
                            }
                        }
                    }
+
+
                }
            }
 
