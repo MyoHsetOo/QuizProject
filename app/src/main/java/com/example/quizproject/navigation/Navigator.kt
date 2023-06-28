@@ -71,24 +71,49 @@ fun Nav( id : String ) {
 
 
         //ChapterScreen
-        composable(route = "ChapterScreen" ) {
+        composable(route = "ChapterScreen/{bookId}/{bookName}" ,
+            arguments = listOf(
+                navArgument( "bookId" ){ type = NavType.StringType },
+                navArgument( "bookName" ){ type = NavType.StringType },
 
-            ChapterScreen(navController)
+                )
+            ) { backStackEntry ->
+            val bookId = backStackEntry.arguments?.getString("bookId")
+            val bookName = backStackEntry.arguments?.getString("bookName")
+
+            ChapterScreen(navController , bookId , bookName )
 
         }
 
 
 
         //QuestionList
-        composable(route = "QuestionList" ) {
+        composable(route = "QuestionList/{chapterId}/{chapterName}" ,
+            arguments = listOf(
+                navArgument( "chapterId" ){ type = NavType.StringType },
+                navArgument( "chapterName" ){ type = NavType.StringType },
 
-            QuestionList(navController)
+                )
+
+            ) { backStackEntry ->
+            val chapterId = backStackEntry.arguments?.getString("chapterId")
+            val chapterName = backStackEntry.arguments?.getString("chapterName")
+
+            QuestionList(navController , chapterId , chapterName )
 
         }
 
-        composable(route = "QuestionScreen" ) {
+        composable(route = "QuestionScreen/{questionId}/{questionNo}",
+            arguments = listOf(
+                navArgument( "questionId" ){ type = NavType.StringType },
+                navArgument( "questionNo" ){ type = NavType.StringType },
 
-            QuestionScreen(navController)
+            )
+            ) { backStackEntry ->
+            val questionId = backStackEntry.arguments?.getString("questionId")
+            val questionNo = backStackEntry.arguments?.getString("questionNo")
+
+            QuestionScreen(navController , questionId , questionNo )
 
         }
 

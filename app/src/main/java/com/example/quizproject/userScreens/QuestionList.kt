@@ -41,17 +41,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.ui.unit.sp
+import com.example.quizproject.dataModel.QuestionSet
+import com.example.quizproject.dataRepository.MongoRepositoryImpl
+import com.example.quizproject.viewModel.BookViewModel
+import com.example.quizproject.viewModel.ChapterViewModel
+import com.example.quizproject.viewModel.QuestionSetViewModel
+import org.mongodb.kbson.BsonObjectId
+
 //
 //
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuestionList(navController: NavController) {
+fun QuestionList(navController: NavController , id : String? , name : String? ) {
     val list = listOf(
         Question("Question", 1),
         Question("Question", 2),
         Question("Question", 3)
     )
+
+    var repository = MongoRepositoryImpl()
+
+    var viewModelQuestionSet : QuestionSetViewModel = QuestionSetViewModel(repository)
+
+    var questionSetData = viewModelQuestionSet._questionSetData
+
+    var obj : BsonObjectId? = id?.let { BsonObjectId(it) }
+
+    var viewModelChapter : ChapterViewModel = ChapterViewModel( repository )
+
+    var chapterData = viewModelChapter._chapterData
+
 
     Surface(
         modifier = Modifier
@@ -73,7 +93,7 @@ fun QuestionList(navController: NavController) {
                     )
                 }
                 Text(
-                    text = "Hardware",
+                    text = "$name",
                     style = TextStyle(
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 18.sp,
@@ -91,28 +111,37 @@ fun QuestionList(navController: NavController) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                LazyColumn {
-                    items(list) { item ->
-                        Button(
-                            onClick = { navController.navigate("QuestionScreen")},
-                            modifier = Modifier
-                                .fillMaxWidth(0.95f)
-                                .height(80.dp)
-                                .padding(15.dp),
-                            shape = RoundedCornerShape(20.dp),
-                            elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
-                            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
+                for( item in chapterData.value) {
 
-                        ) {
-                            Text(text = item.question +" - "+ item.number
-                                , style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
-                            )
+                    if (item._id == obj) {
+
+                        LazyColumn {
+                            items(item.questions) { item ->
+                                Button(
+                                    onClick = { navController.navigate("QuestionScreen/${item._id.toHexString()}/${item.questionNo}")},
+                                    modifier = Modifier
+                                        .fillMaxWidth(0.95f)
+                                        .height(80.dp)
+                                        .padding(15.dp),
+                                    shape = RoundedCornerShape(20.dp),
+                                    elevation = ButtonDefaults.elevatedButtonElevation(10.dp),
+                                    colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
+
+                                    ) {
+                                    Text(text = item.questionNo
+                                        , style = TextStyle(
+                                            color = MaterialTheme.colorScheme.onPrimary
+                                        )
+                                    )
+                                }
+                                // Spacer(modifier = Modifier.height(20.dp))
+                            }
                         }
-                       // Spacer(modifier = Modifier.height(20.dp))
+
                     }
                 }
+
+
             }
         }
     }

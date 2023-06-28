@@ -190,7 +190,9 @@ fun BookListScreen (navController: NavController , id : String? ) {
 
                                     BookCard(
                                         navController,
+                                        item._id.toHexString() ,
                                         item.bookName
+
                                     )
                                 }
                             }
@@ -207,6 +209,7 @@ fun BookListScreen (navController: NavController , id : String? ) {
 @Composable
 private fun BookCard(
     navController: NavController,
+    bookId : String,
     bookName : String
 ) {
 
@@ -221,7 +224,7 @@ private fun BookCard(
             .padding(15.dp)
             .width(150.dp)
             .height(200.dp)
-            .clickable { navController.navigate("chapterScreen") }
+            .clickable { navController.navigate("chapterScreen/${bookId}/${bookName}") }
     ) {
         Column(
             modifier = Modifier
