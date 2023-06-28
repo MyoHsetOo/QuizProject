@@ -936,7 +936,7 @@ fun QuestionEntryForm ( navController: NavController, id : String? ) {
 
 
                                 Log.d("QuestionSetList>>>>>>","${questionSetData.value.size}")
-                                navController.navigate("AdminQuestionList")
+                                navController.navigate("AdminQuestionList/${id}")
                             },
                             modifier = Modifier.padding(horizontal = 10.dp)
                         ) {
