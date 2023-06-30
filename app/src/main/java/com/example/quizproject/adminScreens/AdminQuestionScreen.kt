@@ -104,7 +104,6 @@ fun AdminQuestionScreen(navController: NavController,
 
     var viewModelAnswer: AnswerViewModel = AnswerViewModel(repository)
 
-    var isAnswerClick = viewModelAnswer._isAnswerClick
 
     var viewModelQuestionScreen: QuestionScreenViewModel = QuestionScreenViewModel(repository)
 
