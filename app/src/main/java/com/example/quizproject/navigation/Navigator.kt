@@ -16,6 +16,7 @@ import com.example.quizproject.adminScreens.CourseListAdminScreen
 import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.login.LoginPage
 import com.example.quizproject.login.RegisterPage
+import com.example.quizproject.quizz.QuickChooseScreen
 import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
@@ -146,6 +147,18 @@ fun Nav( id : String ) {
 
         }
 
+
+        composable(route = "QuickChooseScreen/{courseId}",
+            arguments = listOf(
+                navArgument( "courseId" ){ type = NavType.StringType },
+
+                )
+            ) { backStackEntry ->
+            val courseId = backStackEntry.arguments?.getString("courseId")
+
+            QuickChooseScreen( navController,courseId)
+
+        }
 
 
 

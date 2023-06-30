@@ -24,6 +24,8 @@ class CourseViewModel(
 
 
 
+
+
     init {
         viewModelScope.launch {
 //            repository.insertCategory(category = Category().apply {
@@ -36,10 +38,12 @@ class CourseViewModel(
                 Log.d(">>>>","$it")
 
 
+
             }
 
         }
     }
+
 
 
     fun updateCourse( id : ObjectId ,bookName : String ) {

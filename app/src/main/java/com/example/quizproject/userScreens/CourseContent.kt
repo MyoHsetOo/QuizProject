@@ -181,7 +181,7 @@ fun CourseContent(navController: NavController , id : String? ,name : String?){
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
-                                modifier = Modifier.clickable { navController.navigate("QuizScreen")},
+                                modifier = Modifier.clickable { navController.navigate("QuickChooseScreen/${id}")},
                                 icon= R.drawable.fffquiz,
                                 text = "Quiz"
                             )
