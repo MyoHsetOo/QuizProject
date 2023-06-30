@@ -139,7 +139,6 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                             .background(MaterialTheme.colorScheme.primary),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
-
                         Column() {
                             Text(text = "Solution",
                                 style = TextStyle(
@@ -153,17 +152,11 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                                         fontSize = 12.sp,
                                         color = MaterialTheme.colorScheme.onPrimary
                                     ))
-
                             }
-
-
                         }
-
                     }
                 }
             }
-
-
         },
         scaffoldState = scaffoldState,
         sheetPeekHeight = 80.dp,

@@ -21,9 +21,11 @@ import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
 import com.example.quizproject.userScreens.CourseContent
 import com.example.quizproject.userScreens.CourseListScreen
+import com.example.quizproject.userScreens.FavoriteScreen
 //import com.example.quizproject.userScreens.HomeScreen
 import com.example.quizproject.userScreens.QuestionList
 import com.example.quizproject.userScreens.QuestionScreen
+import com.example.quizproject.userScreens.QuizScreen
 import com.example.quizproject.userScreens.SplashScreen
 //
 //
@@ -130,6 +132,18 @@ fun Nav( id : String ) {
 
 
             CourseContent(navController, courseId , courseName)
+        }
+
+        composable(route = "FavoriteScreen" ) {
+
+           FavoriteScreen( navController)
+
+        }
+
+        composable(route = "QuizScreen" ) {
+
+            QuizScreen( navController)
+
         }
 
 

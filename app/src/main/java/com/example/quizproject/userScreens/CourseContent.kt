@@ -168,7 +168,7 @@ fun CourseContent(navController: NavController , id : String? ,name : String?){
                             Spacer(modifier = Modifier.width(20.dp))
 
                             CustomCard(
-                                modifier = Modifier.clickable { navController.navigate("BookListScreen")},
+                                modifier = Modifier.clickable { navController.navigate("FavoriteScreen")},
                                 icon= R.drawable.fheart,
                                 text = "Favorite"
                             )
@@ -181,7 +181,7 @@ fun CourseContent(navController: NavController , id : String? ,name : String?){
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center) {
                             CustomCard(
-                                modifier = Modifier.clickable { navController.navigate("BookListScreen")},
+                                modifier = Modifier.clickable { navController.navigate("QuizScreen")},
                                 icon= R.drawable.fffquiz,
                                 text = "Quiz"
                             )
