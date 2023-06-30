@@ -3,6 +3,9 @@ package com.example.quizproject.userScreens
 import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Space
+import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
@@ -19,6 +22,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -44,6 +50,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 
 import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -54,6 +63,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -63,11 +73,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.quizproject.dataRepository.MongoRepositoryImpl
 import com.example.quizproject.viewModel.QuestionScreenViewModel
 import com.example.quizproject.viewModel.QuestionSetViewModel
@@ -90,6 +103,8 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
     var isOnClick by remember {
         mutableStateOf(false)
     }
+
+    var context = LocalContext.current
 
     var repository = MongoRepositoryImpl()
 
@@ -133,7 +148,7 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                                 ))
 
                             Box(modifier = Modifier.width(50.dp)){
-                                Text(text = "Solution",
+                                Text(text = "${item.solutionText}",
                                     style = TextStyle(
                                         fontSize = 12.sp,
                                         color = MaterialTheme.colorScheme.onPrimary
@@ -198,102 +213,170 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                  },
     ) { innerPadding ->
 
-        Column (
+        Column(
 
             modifier = Modifier
-                .padding(10.dp)
-                .fillMaxSize(),
-            ) {
+                .padding(15.dp)
+                .fillMaxSize()
 
-            for (item in questionScreenData.value) {
-
-                if (item._id == obj){
-
-                    Text(
-                        text = item.questionText,
-                        style = TextStyle(
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            lineHeight = 25.sp
-                        ),
-                        modifier = Modifier.padding(5.dp),
-
-                        )
+        ) {
 
 
-                    for (answerItem in item.answers){
+            //if (viewModel.questionSet.answers.isNotEmpty())
 
-                        Card(
 
-                            modifier = Modifier
-                                .padding(10.dp)
-                                .fillMaxWidth(),
-                            onClick = {
-                                isOnClick = !isOnClick
-                                Log.d("CardColor>>>>", "$isOnClick")
-                            },
-                            colors = CardDefaults.cardColors(
-                                containerColor = if (isOnClick) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
-                            )
+            LazyColumn() {
 
+                items(questionScreenData.value) { item ->
+
+                    if (item._id == obj) {
+
+                        Column(
+                            modifier = Modifier.padding(5.dp)
                         ) {
-                            Row (
-                                modifier = Modifier.padding( start = 10.dp )
-                            ){
 
-                                Box (
-                                    modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
+                            Text(
+                                text = item.questionText,
+                                style = TextStyle(
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    fontSize = 15.sp,
+                                    lineHeight = 25.sp
+                                ),
+                                modifier = Modifier.padding(5.dp),
 
-                                ){
-                                    Text(
-                                        text = answerItem.answerOption.toString(),
-                                        style = TextStyle(
-                                            color = MaterialTheme.colorScheme.onPrimary,
-                                            lineHeight = 25.sp)
-                                    )
-                                }
+                                )
 
+                            val uri = item.questionImage.toUri()
 
+                            OutlinedCard(
+                                shape = RoundedCornerShape(20.dp),
+                                border = BorderStroke(1.dp, Color.Black),
+                                modifier = Modifier
+                                    .padding(vertical = 10.dp)
+                                    .fillMaxSize()
 
-                                Box(
-                                    modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
-                                ) {
-                                    Text(
-                                        text = answerItem.answerText,
-                                        style = TextStyle(
-                                            color = MaterialTheme.colorScheme.onPrimary,
-                                            lineHeight = 25.sp)
-                                    )
+                            ) {
 
-                                }
+                                /*Text(
+                                            text = "${uri}", style = TextStyle(
+                                                fontSize = 16.sp,
+                                                color = MaterialTheme.colorScheme.onPrimary
+                                            )
+                                        )*/
+                                Image(
+                                    painter = rememberAsyncImagePainter(uri),
+                                    contentDescription = "Picture",
+                                )
 
+                                Log.d("IMSAGE QUESTION>><<<", "${uri}")
                             }
 
 
-                        }
+                            //for (answerItem in item.answers) {
 
+
+                            //val radioOptions : List<AnswerModel> = item.answers
+
+                            val checkedItems = remember { mutableStateListOf<String>() }
+
+                            /* for ( item in item.answers ){
+                                    //checkedItems.add(item.answerText)
+*/
+                            val (selectedOption, onOptionSelected) = remember {
+                                mutableStateOf("")
+                            }
+
+                            // Log.d("SIZE <>" , "${checkedItems.size}")
+
+
+                            Column {
+                                item.answers.forEach { text ->
+                                    Row(
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .selectable(
+                                                selected = (text.answerText == selectedOption),
+                                                onClick = {
+                                                    onOptionSelected(text.answerText)
+                                                    Log.d("Text<>", "$selectedOption")
+                                                }
+                                            )
+                                            .padding(horizontal = 8.dp, vertical = 15.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+
+                                    ) {
+                                        RadioButton(
+                                            selected = (text.answerText == selectedOption),
+                                            modifier = Modifier.size(20.dp),
+                                            onClick = {
+                                                onOptionSelected(text.answerText)
+
+                                                Log.d("CHECKITEMS :::::", "${checkedItems.size}")
+                                                Log.d("Text<>", "$selectedOption")
+
+                                            },
+                                            colors = RadioButtonDefaults.colors(
+                                                selectedColor = MaterialTheme.colorScheme.onPrimary,
+                                                unselectedColor = Color.LightGray
+                                            )
+
+                                        )
+                                        Text(
+                                            text = text.answerText,
+                                            style = TextStyle(
+                                                fontSize = 14.sp,
+                                                lineHeight = 25.sp,
+                                                color = MaterialTheme.colorScheme.onPrimary
+
+                                            ),
+                                            modifier = Modifier.padding(start = 10.dp)
+                                        )
+                                    }
+                                }
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.Center
+                                ) {
+
+                                    Button(
+                                        modifier = Modifier.padding(top = 30.dp),
+                                        onClick = {
+
+                                            if ( item.correctAnswerType == selectedOption){
+                                                Toast.makeText(context,"true", Toast.LENGTH_LONG ).show() }
+                                            else{
+                                                Toast.makeText(context,"false", Toast.LENGTH_LONG ).show()
+
+                                            }
+
+
+
+                                            Log.d("<<<<<>>>>>", "${questionScreenData.value.size}")
+                                        },
+                                    ) {
+                                        Text(
+                                            text = "Submit",
+                                            color = MaterialTheme.colorScheme.onPrimary,
+                                        )
+                                    }
+
+
+                                }
+                            }
+                        }
                     }
 
 
-
                 }
-
 
 
             }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ){
 
-                Button(modifier = Modifier.padding(top=30.dp),onClick = { /*TODO*/ },
-                ) {
-                    Text(text = "Submit",
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
 
-            }
+
+
+
         }
     }
 }
@@ -319,7 +402,8 @@ fun FavoriteButton(
             modifier = modifier.graphicsLayer {
                 scaleX = 1.3f
                 scaleY = 1.3f
-            },
+            }
+                .size(18.dp),
             imageVector = if (isFavorite) {
                 Icons.Filled.Favorite
             } else {
