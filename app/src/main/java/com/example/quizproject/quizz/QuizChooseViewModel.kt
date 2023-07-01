@@ -20,6 +20,13 @@ class QuizChooseViewModel(
 
 ) : ViewModel() {
 
+
+    val listId = mutableListOf<String>()
+
+    val listName = mutableListOf<String>()
+
+
+
     //Course
     var _courseData = mutableStateOf(emptyList<CourseModel>())
 
@@ -67,9 +74,17 @@ class QuizChooseViewModel(
 
             repository.getQuestionSetData().collect {
                 _questionSetData.value = it
+
             }
         }
     }
+
+
+
+
+
+
+
 
 
 

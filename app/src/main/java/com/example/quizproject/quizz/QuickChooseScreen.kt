@@ -68,6 +68,14 @@ import kotlinx.coroutines.withContext
 import org.mongodb.kbson.BsonObjectId
 import org.mongodb.kbson.ObjectId
 
+var repository = MongoRepositoryImpl()
+
+var viewModelQuiz: QuizChooseViewModel = QuizChooseViewModel(repository)
+
+var listId = viewModelQuiz.listId
+
+var listName = viewModelQuiz.listName
+
 @Composable
 fun QuickChooseScreen (navController: NavController, id : String?) {
 
@@ -77,7 +85,7 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
 
 
 
-    var repository = MongoRepositoryImpl()
+
 
     //Course
 
@@ -87,25 +95,9 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
 
 
 
-    //Book
-
-    var viewModelBook: QuizChooseViewModel = QuizChooseViewModel(repository)
-
-    var bookData = viewModelBook._bookData
 
 
-    //Chapter
 
-    var viewModelChapter: QuizChooseViewModel = QuizChooseViewModel( repository )
-
-    var chapterData = viewModelChapter._chapterData
-
-
-    //QuestionSet
-
-    var viewModelQuestionSet: QuizChooseViewModel = QuizChooseViewModel( repository )
-
-    var quickSetData = viewModelQuestionSet._questionSetData
 
 
 
@@ -118,13 +110,21 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
         mutableStateOf("")
 //
     }
+    
+
+
+
 
 
 
     //Choose Time and count
     var countTime by remember { mutableStateOf(0) }
 
+
+
     var count by remember { mutableStateOf(0) }
+
+
 
 
     //TestData
@@ -158,7 +158,7 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
     checkedItemsTwo.addAll(List(bookTwo.size) { false })
 
 
-    countTime = count
+
 
     Surface(
        color = MaterialTheme.colorScheme.secondary
@@ -218,7 +218,7 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
 
                             for(book in course.books) {
 
-                                Log.d("booknameQuizz>>>>>","${book.bookName}")
+
 
                                 Box(
                                     modifier =
@@ -235,14 +235,7 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
                                             color = MaterialTheme.colorScheme.primary,
                                             shape = RoundedCornerShape(20.dp)
                                         )
-                                        .clickable {
-
-                                            isClick.value = !isClick.value
-
-                                            bookId = book._id.toHexString()
-
-
-                                        },
+                                       ,
                                     contentAlignment = Alignment.Center,
 
                                     ) {
@@ -258,20 +251,12 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
 
 
 
-
                                     val checkedItems = remember { mutableStateListOf<Boolean>() }
 
-
-                                if (isClick.value) {
-
-                                        var obj: BsonObjectId? = bookId?.let { BsonObjectId(it) }
 
                                         checkedItems.addAll(List(book.chapters.size) { false })
 
                                         book.chapters.forEachIndexed { index, item ->
-
-                                            if( item.chapterBookId.equals(obj) ) {
-
 
 
                                                 Column {
@@ -288,6 +273,15 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
                                                             checked = checkedItems[index],
                                                             onCheckedChange = { isChecked ->
                                                                 checkedItems[index] = isChecked
+                                                                
+                                                                if (isChecked) {
+                                                                    listId.add(item._id.toHexString())
+                                                                    listName.add(item.chapterName)
+                                                                } else {
+                                                                    listId.remove(item._id.toHexString())
+                                                                    listName.remove(item.chapterName)
+                                                                }
+                                                                
                                                             },
                                                             modifier = Modifier.padding(start = 8.dp)
                                                         )
@@ -299,252 +293,257 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
                                                         )
                                                     }
                                                 }
-                                            }
 
 
 
 
 
-                                            /* Button(
-                                                 onClick = {
-                                                     val selectedItems = book.chapters.filterIndexed { index, _ ->
-                                                         checkedItems[index]
-                                                     }
-                                                     Toast.makeText(
-                                                         context,
-                                                         "Selected items: ${selectedItems.joinToString()}",
-                                                         Toast.LENGTH_SHORT
-                                                     ).show()
-                                                 },
-                                                 modifier = Modifier.padding(top = 16.dp)
-                                             ) {
-                                                 Text(text = "Get Selected Items")
-                                             }*/
-                                        }
+                            }
+                                Log.d("itemList", "$listId")
 
+//                                Button(
+//                                    onClick = {
+//                                        val selectedItems = book.chapters.filterIndexed { index, _ ->
+//                                            checkedItems[index]
+//                                        }
+//                                        Toast.makeText(
+//                                            context,
+//                                            "Selected items: ${selectedItems.joinToString()}",
+//                                            Toast.LENGTH_SHORT
+//                                        ).show()
+//
+//                                        Log.d(">>Selected item" , "${selectedItems.joinToString()}")
+//                                    },
+//                                    modifier = Modifier.padding(top = 16.dp)
+//                                ) {
+//                                    Text(text = "Get Selected Items")
+//                                }
+                            }
+                        }
+                    }
+
+                    Column {
+
+
+
+                        Spacer(modifier = Modifier.height(40.dp))
+
+                        Text(
+                            text = "Select Options",
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(start = 20.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(60.dp),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+
+                        ) {
+                            Text(
+                                text = "Select Questions Count",
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                fontSize = 14.sp,
+                                modifier = Modifier
+                                    .padding(start = 20.dp)
+                            )
+
+                            Spacer(modifier = Modifier.width(30.dp))
+
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(60.dp),
+                                horizontalAlignment = Alignment.End
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .width(150.dp)
+                                        .height(60.dp)
+                                        .padding(10.dp)
+                                        .border(
+                                            1.dp,
+                                            color = MaterialTheme.colorScheme.primary,
+                                            shape = RoundedCornerShape(15.dp)
+                                        ),
+                                    contentAlignment = Alignment.Center
+
+                                ) {
+
+                                    Row {
+                                        Icon(Icons.Default.Remove,
+                                            contentDescription = "minus",
+                                            tint = MaterialTheme.colorScheme.onPrimary,
+                                            modifier = Modifier
+                                                .alpha(if (count > 1) 1f else .4f)
+                                                .clickable {
+                                                    if (count > 1) {
+                                                        count -= 5
+                                                        countTime = count
+                                                    }
+                                                }
+                                                .size(20.dp)
+                                        )
+
+                                        Text(
+                                            count.toString(),
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier
+                                                .width(40.dp),
+                                            color = MaterialTheme.colorScheme.onPrimary
+
+                                        )
+
+                                        Icon(Icons.Default.Add,
+                                            contentDescription = "plus",
+                                            tint = MaterialTheme.colorScheme.onPrimary,
+                                            modifier = Modifier
+                                                .alpha(if (count < 80) 1f else .4f)
+                                                .clickable {
+                                                    if (count < 80) {
+                                                        count += 5
+                                                        countTime = count
+                                                    }
+                                                }
+                                                .size(20.dp)
+                                        )
                                     }
 
-
-
-
+                                }
                             }
+
+
                         }
-                    }
 
-
-                    Spacer(modifier = Modifier.height(40.dp))
-
-                    Text(
-                        text = "Select Options",
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(start = 20.dp)
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(60.dp),
-                        horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically
-
-                    ) {
-                        Text(
-                            text = "Select Questions Count",
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            fontSize = 14.sp,
-                            modifier = Modifier
-                                .padding(start = 20.dp)
-                        )
-
-                        Spacer(modifier = Modifier.width(30.dp))
-
-                        Column(
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(60.dp),
-                            horizontalAlignment = Alignment.End
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+
                         ) {
-                            Box(
+                            Text(
+                                text = " Select Time ",
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                fontSize = 14.sp,
                                 modifier = Modifier
-                                    .width(150.dp)
-                                    .height(60.dp)
-                                    .padding(10.dp)
-                                    .border(
-                                        1.dp,
-                                        color = MaterialTheme.colorScheme.primary,
-                                        shape = RoundedCornerShape(15.dp)
-                                    ),
-                                contentAlignment = Alignment.Center
+                                    .padding(start = 20.dp)
+                            )
 
+                            Spacer(modifier = Modifier.width(110.dp))
+
+
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(60.dp),
+                                horizontalAlignment = Alignment.End
                             ) {
+                                Box(
+                                    modifier = Modifier
+                                        .width(150.dp)
+                                        .height(60.dp)
+                                        .padding(10.dp)
+                                        .border(
+                                            1.dp,
+                                            color = MaterialTheme.colorScheme.primary,
+                                            shape = RoundedCornerShape(15.dp)
+                                        ),
+                                    contentAlignment = Alignment.Center
 
-                                Row {
-                                    Icon(Icons.Default.Remove,
-                                        contentDescription = "minus",
-                                        tint = MaterialTheme.colorScheme.onPrimary,
-                                        modifier = Modifier
-                                            .alpha(if (count > 1) 1f else .4f)
-                                            .clickable {
-                                                if (count > 1) {
-                                                    count -= 5
+                                ) {
+
+                                    Row {
+
+                                        Icon(Icons.Default.Remove,
+                                            contentDescription = "minus",
+                                            tint = MaterialTheme.colorScheme.onPrimary,
+                                            modifier = Modifier
+                                                .alpha(if (countTime > 1) 1f else .4f)
+                                                .clickable {
+                                                    if (countTime > 1) {
+                                                        countTime -= 1
+                                                    }
                                                 }
-                                            }
-                                            .size(20.dp)
-                                    )
+                                                .size(20.dp)
+                                        )
 
-                                    Text(
-                                        count.toString(),
-                                        textAlign = TextAlign.Center,
-                                        modifier = Modifier
-                                            .width(40.dp),
-                                        color = MaterialTheme.colorScheme.onPrimary
+                                        Text(
+                                            countTime.toString(),
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier
+                                                .width(40.dp),
+                                            color = MaterialTheme.colorScheme.onPrimary
 
-                                    )
 
-                                    Icon(Icons.Default.Add,
-                                        contentDescription = "plus",
-                                        tint = MaterialTheme.colorScheme.onPrimary,
-                                        modifier = Modifier
-                                            .alpha(if (count < 80) 1f else .4f)
-                                            .clickable {
-                                                if (count < 80) {
-                                                    count += 5
+                                        )
+
+                                        Icon(Icons.Default.Add,
+                                            contentDescription = "plus",
+                                            tint = MaterialTheme.colorScheme.onPrimary,
+                                            modifier = Modifier
+                                                .alpha(if (countTime < 80) 1f else .4f)
+                                                .clickable {
+                                                    if (countTime < 80) {
+                                                        countTime += 1
+                                                    }
                                                 }
-                                            }
-                                            .size(20.dp)
-                                    )
+                                                .size(20.dp)
+                                        )
+                                    }
+
                                 }
-
                             }
+
                         }
 
 
-                    }
+                        var localContext = LocalContext.current
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(60.dp),
-                        horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically
+                        Spacer(modifier = Modifier.height(40.dp))
 
-                    ) {
-                        Text(
-                            text = " Select Time ",
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            fontSize = 14.sp,
-                            modifier = Modifier
-                                .padding(start = 20.dp)
-                        )
-
-                        Spacer(modifier = Modifier.width(110.dp))
-
-
-                        Column(
+                        Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(60.dp),
-                            horizontalAlignment = Alignment.End
+                                .height(75.dp)
+                                .padding(10.dp)
+                                .background(
+                                    MaterialTheme.colorScheme.primary,
+                                    shape = RoundedCornerShape(20.dp)
+                                )
+                                .border(
+                                    1.dp,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    shape = RoundedCornerShape(20.dp)
+                                )
+                                .clickable {
+                                    navController.navigate("RandomQuestionScreen")
+                                },
+                            contentAlignment = Alignment.Center
                         ) {
-                            Box(
-                                modifier = Modifier
-                                    .width(150.dp)
-                                    .height(60.dp)
-                                    .padding(10.dp)
-                                    .border(
-                                        1.dp,
-                                        color = MaterialTheme.colorScheme.primary,
-                                        shape = RoundedCornerShape(15.dp)
-                                    ),
-                                contentAlignment = Alignment.Center
-
-                            ) {
-
-                                Row {
-
-                                    Icon(Icons.Default.Remove,
-                                        contentDescription = "minus",
-                                        tint = MaterialTheme.colorScheme.onPrimary,
-                                        modifier = Modifier
-                                            .alpha(if (countTime > 1) 1f else .4f)
-                                            .clickable {
-                                                if (countTime > 1) {
-                                                    countTime -= 1
-                                                }
-                                            }
-                                            .size(20.dp)
-                                    )
-
-                                    Text(
-                                        countTime.toString(),
-                                        textAlign = TextAlign.Center,
-                                        modifier = Modifier
-                                            .width(40.dp),
-                                        color = MaterialTheme.colorScheme.onPrimary
+                            Text(
+                                text = " Start Quizz ",
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold
+                            )
 
 
-                                    )
-
-                                    Icon(Icons.Default.Add,
-                                        contentDescription = "plus",
-                                        tint = MaterialTheme.colorScheme.onPrimary,
-                                        modifier = Modifier
-                                            .alpha(if (countTime < 80) 1f else .4f)
-                                            .clickable {
-                                                if (countTime < 80) {
-                                                    countTime += 1
-                                                }
-                                            }
-                                            .size(20.dp)
-                                    )
-                                }
-
-                            }
                         }
 
                     }
 
 
-                    var localContext = LocalContext.current
 
-                    Spacer(modifier = Modifier.height(40.dp))
-
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(75.dp)
-                            .padding(10.dp)
-                            .background(
-                                MaterialTheme.colorScheme.primary,
-                                shape = RoundedCornerShape(20.dp)
-                            )
-                            .border(
-                                1.dp,
-                                color = MaterialTheme.colorScheme.primary,
-                                shape = RoundedCornerShape(20.dp)
-                            )
-                            .clickable {
-                                Toast
-                                    .makeText(localContext, "Start Quizz", Toast.LENGTH_SHORT)
-                                    .show()
-                            },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = " Start Quizz ",
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-
-
-                    }
 
 
                 }
@@ -555,7 +554,28 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
         }
 
 
+
+    
+
+
     }
+
+
+@Composable
+fun getList() : List<String> {
+
+    return listId
+
+
+}
+
+@Composable
+fun getListName() : List<String> {
+
+    return listName
+
+
+}
 
 
 

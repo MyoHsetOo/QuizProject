@@ -17,6 +17,7 @@ import com.example.quizproject.adminScreens.QuestionEntryForm
 import com.example.quizproject.login.LoginPage
 import com.example.quizproject.login.RegisterPage
 import com.example.quizproject.quizz.QuickChooseScreen
+import com.example.quizproject.quizz.RandomQuestionScreen
 import com.example.quizproject.userScreens.AdminUserConnectedScreen
 import com.example.quizproject.userScreens.BookListScreen
 import com.example.quizproject.userScreens.ChapterScreen
@@ -157,6 +158,14 @@ fun Nav( id : String ) {
             val courseId = backStackEntry.arguments?.getString("courseId")
 
             QuickChooseScreen( navController,courseId)
+
+        }
+
+        composable(route = "RandomQuestionScreen"
+
+            ) {
+
+                       RandomQuestionScreen( navController)
 
         }
 
