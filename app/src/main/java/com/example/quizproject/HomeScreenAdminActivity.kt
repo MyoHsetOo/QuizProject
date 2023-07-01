@@ -723,24 +723,6 @@ class HomeScreenAdminActivity : ComponentActivity() {
                                                                 isExpanded = !isExpanded
                                                             })
 
-                                                    Text(text = "${item.courses}",
-                                                        style = TextStyle(
-                                                            fontSize = 12.sp,
-                                                            lineHeight = 20.sp,
-                                                            color = Color(0xFF6B7C97),
-
-                                                            ), maxLines = if (isExpanded) 4 else 2 , overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
-                                                        modifier = Modifier
-                                                            .padding(
-                                                                top = 5.dp,
-                                                                bottom = 10.dp,
-                                                                start = 30.dp,
-                                                                end = 30.dp
-                                                            )
-                                                            .clickable {
-                                                                isExpanded = !isExpanded
-                                                            })
-
                                                     Row (
                                                         modifier = Modifier
                                                             .fillMaxWidth()

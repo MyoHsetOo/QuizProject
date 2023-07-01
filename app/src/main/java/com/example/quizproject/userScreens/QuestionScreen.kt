@@ -98,7 +98,7 @@ import org.mongodb.kbson.BsonObjectId
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 //////
-fun QuestionScreen(navController: NavController , id : String? , number : String?) {
+fun QuestionScreen(navController: NavController , id : String? , number : String? , ind : Int?) {
 
     val scaffoldState = rememberBottomSheetScaffoldState()
 
@@ -219,7 +219,7 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
     ) { innerPadding ->
 
         val pages = questionScreenData.value
-        var currentPage by remember { mutableStateOf(0) }
+        var currentPage by remember { mutableStateOf(ind) }
 
 
         for ( item  in questionScreenData.value ){
@@ -227,9 +227,11 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
             if ( item._id == obj ){
 
                 Column(
-                    Modifier.fillMaxWidth()
-                        .fillMaxHeight()
+                    Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.9f)
                         .background(MaterialTheme.colorScheme.secondary)
+                        .verticalScroll(rememberScrollState())
                 ) {
                     // Display current page
                     Box(
@@ -251,7 +253,7 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                         ) {
 
                             Text(
-                                text = questionScreenData.value[currentPage].questionText,
+                                text = questionScreenData.value[currentPage!!].questionText,
                                 style = TextStyle(
                                     color = MaterialTheme.colorScheme.onPrimary,
                                     fontSize = 15.sp,
@@ -261,7 +263,7 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
 
                                 )
 
-                            val uri = questionScreenData.value[currentPage].questionImage.toUri()
+                            val uri = questionScreenData.value[currentPage!!].questionImage.toUri()
 
                             OutlinedCard(
                                 shape = RoundedCornerShape(20.dp),
@@ -290,8 +292,8 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                             // Log.d("SIZE <>" , "${checkedItems.size}")
 
 
-                            Column {
-                                questionScreenData.value[currentPage].answers.forEach { text ->
+
+                                questionScreenData.value[currentPage!!].answers.forEach { text ->
                                     Row(
                                         Modifier
                                             .fillMaxWidth()
@@ -336,17 +338,19 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                                 }
                                 // Button navigation
                                 Row(
-                                    modifier = Modifier.fillMaxWidth(),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 15.dp),
                                     horizontalArrangement = Arrangement.SpaceEvenly,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     IconButton(
                                         onClick = {
-                                            if (currentPage > 0) {
-                                                currentPage--
+                                            if (currentPage!! > 0) {
+                                                currentPage = currentPage!! - 1
                                             }
                                         },
-                                        enabled = currentPage > 0
+                                        enabled = currentPage!!> 0
                                     ) {
                                         Icon(imageVector = Icons.Default.ArrowBackIosNew, contentDescription = "Previous")
 
@@ -389,16 +393,16 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
 
                                     IconButton(
                                         onClick = {
-                                            if (currentPage < pages.size - 1) {
-                                                currentPage++
+                                            if (currentPage!! < pages.size - 1) {
+                                                currentPage = currentPage!! + 1
                                             }
                                         },
-                                        enabled = currentPage < pages.size - 1
+                                        enabled = currentPage!! < pages.size - 1
                                     ) {
                                         Icon(imageVector = Icons.Default.ArrowForwardIos, contentDescription = "Forward" )
                                     }
                                 }
-                            }
+
                         }
                     }
 

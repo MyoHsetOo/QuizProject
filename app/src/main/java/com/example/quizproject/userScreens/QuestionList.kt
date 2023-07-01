@@ -2,6 +2,7 @@ package com.example.quizproject.userScreens
 
 import android.annotation.SuppressLint
 import android.app.Notification.Style
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -111,14 +112,21 @@ fun QuestionList(navController: NavController , id : String? , name : String? ) 
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                for( item in chapterData.value) {
+                for( itemChapter in chapterData.value) {
 
-                    if (item._id == obj) {
+                    if (itemChapter._id == obj) {
 
                         LazyColumn {
-                            items(item.questions) { item ->
+                            items(itemChapter.questions.size) { index ->
+
+                               var item = itemChapter.questions[index]
+
                                 Button(
-                                    onClick = { navController.navigate("QuestionScreen/${item._id.toHexString()}/${item.questionNo}")},
+                                    onClick = {
+
+                                        Log.d("Navigate INdex", "$index")
+                                        navController.navigate("QuestionScreen/${item._id.toHexString()}/${item.questionNo}/${index}")
+                                     },
                                     modifier = Modifier
                                         .fillMaxWidth(0.95f)
                                         .height(80.dp)

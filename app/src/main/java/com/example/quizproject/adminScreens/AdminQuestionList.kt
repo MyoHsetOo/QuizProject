@@ -165,15 +165,17 @@ fun AdminQuestionList(navController: NavController , id : String?){
             ) {
 
 
-                for( item in chapterData.value)
+                for( itemChapter in chapterData.value)
                 {
-                    if ( item._id == obj){
+                    if ( itemChapter._id == obj){
 
                         LazyColumn {
-                            items(item.questions) { item ->
+                            items(itemChapter.questions.size) { index ->
+
+                                var item = itemChapter.questions[index]
                                 Button(
                                     onClick = {
-                                        navController.navigate("AdminQuestionScreen/${item._id.toHexString()}/${item.questionNo}" )
+                                        navController.navigate("AdminQuestionScreen/${item._id.toHexString()}/${item.questionNo}/${index}" )
 
                                         Log.d(">>>questionData" , "${item.questionNo}")
 

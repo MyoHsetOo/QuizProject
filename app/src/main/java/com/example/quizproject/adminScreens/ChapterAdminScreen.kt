@@ -133,12 +133,7 @@ fun ChapterAdminScreen( navController: NavController , id : String? , name : Str
                     )
                 )
 
-                Text(
-                    text = "$id", modifier = Modifier.padding(start = 5.dp), style = TextStyle(
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        fontSize = 16.sp
-                    )
-                )
+
 
             }
 

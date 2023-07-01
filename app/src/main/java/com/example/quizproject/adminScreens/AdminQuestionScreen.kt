@@ -27,6 +27,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
@@ -86,7 +88,8 @@ import org.mongodb.kbson.BsonObjectId
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdminQuestionScreen(navController: NavController,
-                        questionId : String?, questionNo : String?
+                        questionId : String?, questionNo : String?,
+                        ind : Int?
                         ) {
 
     val scaffoldState = rememberBottomSheetScaffoldState()
@@ -223,7 +226,7 @@ fun AdminQuestionScreen(navController: NavController,
 
                     Row(
                         modifier = Modifier
-                            .padding(10.dp)
+                            .padding(5.dp)
                             .fillMaxHeight(),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
@@ -236,14 +239,13 @@ fun AdminQuestionScreen(navController: NavController,
                             )
                         }
 
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.width(7.dp))
 
                         Text(
-                            text = questionNo!!,
+                            text =  "$questionNo",
                             style = TextStyle(
                                 color = MaterialTheme.colorScheme.onPrimary,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp
+                                fontSize = 14.sp
                             )
                         )
                     }
@@ -253,30 +255,42 @@ fun AdminQuestionScreen(navController: NavController,
         },
     ) { innerPadding ->
 
-        Column(
-
-            modifier = Modifier
-                .padding(15.dp)
-                .fillMaxSize()
-
-        ) {
+        val pages = questionScreenData.value
+        var currentPage by remember { mutableStateOf( ind ) }
 
 
-            //if (viewModel.questionSet.answers.isNotEmpty())
+        for ( item  in questionScreenData.value ){
 
+            if ( item._id == obj ){
 
-            LazyColumn() {
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.9f)
+                        .background(MaterialTheme.colorScheme.secondary)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    // Display current page
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        //contentAlignment = Alignment.Center
+                    ) {
+                        //Text(text = "${questionScreenData.value[currentPage].questionText}")
 
-                items(questionScreenData.value) { item ->
-
-                    if (item._id == obj) {
 
                         Column(
-                            modifier = Modifier.padding(5.dp)
+                            modifier = Modifier
+                                .padding(5.dp)
+                                .fillMaxSize()
+                                .verticalScroll(rememberScrollState())
+
                         ) {
 
                             Text(
-                                text = item.questionText,
+                                text = questionScreenData.value[currentPage!!].questionText,
                                 style = TextStyle(
                                     color = MaterialTheme.colorScheme.onPrimary,
                                     fontSize = 15.sp,
@@ -286,23 +300,17 @@ fun AdminQuestionScreen(navController: NavController,
 
                                 )
 
-                            val uri = item.questionImage.toUri()
+                            val uri = questionScreenData.value[currentPage!!].questionImage.toUri()
 
                             OutlinedCard(
                                 shape = RoundedCornerShape(20.dp),
                                 border = BorderStroke(1.dp, Color.Black),
                                 modifier = Modifier
                                     .padding(vertical = 10.dp)
-                                    .fillMaxSize()
+
 
                             ) {
 
-                                /*Text(
-                                            text = "${uri}", style = TextStyle(
-                                                fontSize = 16.sp,
-                                                color = MaterialTheme.colorScheme.onPrimary
-                                            )
-                                        )*/
                                 Image(
                                     painter = rememberAsyncImagePainter(uri),
                                     contentDescription = "Picture",
@@ -312,16 +320,8 @@ fun AdminQuestionScreen(navController: NavController,
                             }
 
 
-                            //for (answerItem in item.answers) {
-
-
-                            //val radioOptions : List<AnswerModel> = item.answers
-
                             val checkedItems = remember { mutableStateListOf<String>() }
 
-                            /* for ( item in item.answers ){
-                                    //checkedItems.add(item.answerText)
-*/
                             val (selectedOption, onOptionSelected) = remember {
                                 mutableStateOf("")
                             }
@@ -329,94 +329,124 @@ fun AdminQuestionScreen(navController: NavController,
                             // Log.d("SIZE <>" , "${checkedItems.size}")
 
 
-                            Column {
-                                item.answers.forEach { text ->
-                                    Row(
-                                        Modifier
-                                            .fillMaxWidth()
-                                            .selectable(
-                                                selected = (text.answerText == selectedOption),
-                                                onClick = {
-                                                    onOptionSelected(text.answerText)
-                                                    Log.d("Text<>", "$selectedOption")
-                                                }
-                                            )
-                                            .padding(horizontal = 8.dp, vertical = 15.dp),
-                                        verticalAlignment = Alignment.CenterVertically
 
-                                    ) {
-                                        RadioButton(
+                            questionScreenData.value[currentPage!!].answers.forEach { text ->
+                                Row(
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .selectable(
                                             selected = (text.answerText == selectedOption),
-                                            modifier = Modifier.size(20.dp),
                                             onClick = {
                                                 onOptionSelected(text.answerText)
-
-                                                Log.d("CHECKITEMS :::::", "${checkedItems.size}")
                                                 Log.d("Text<>", "$selectedOption")
-
-                                            },
-                                            colors = RadioButtonDefaults.colors(
-                                                selectedColor = MaterialTheme.colorScheme.onPrimary,
-                                                unselectedColor = Color.LightGray
-                                            )
-
-                                        )
-                                        Text(
-                                            text = text.answerText,
-                                            style = TextStyle(
-                                                fontSize = 14.sp,
-                                                lineHeight = 25.sp,
-                                                color = MaterialTheme.colorScheme.onPrimary
-
-                                            ),
-                                            modifier = Modifier.padding(start = 10.dp)
-                                        )
-                                    }
-                                }
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center
-                                ) {
-
-                                    Button(
-                                        modifier = Modifier.padding(top = 30.dp),
-                                        onClick = {
-
-                                            if ( item.correctAnswerType == selectedOption){
-                                                Toast.makeText(context,"true",Toast.LENGTH_LONG ).show() }
-                                            else{
-                                                Toast.makeText(context,"false",Toast.LENGTH_LONG ).show()
-
                                             }
-
-
-
-                                            Log.d("<<<<<>>>>>", "${questionScreenData.value.size}")
-                                        },
-                                    ) {
-                                        Text(
-                                            text = "Submit",
-                                            color = MaterialTheme.colorScheme.onPrimary,
                                         )
-                                    }
+                                        .padding(horizontal = 8.dp, vertical = 15.dp),
+                                    verticalAlignment = Alignment.CenterVertically
 
+                                ) {
+                                    RadioButton(
+                                        selected = (text.answerText == selectedOption),
+                                        modifier = Modifier.size(20.dp),
+                                        onClick = {
+                                            onOptionSelected(text.answerText)
 
+                                            Log.d("CHECKITEMS :::::", "${checkedItems.size}")
+                                            Log.d("Text<>", "$selectedOption")
+
+                                        },
+                                        colors = RadioButtonDefaults.colors(
+                                            selectedColor = MaterialTheme.colorScheme.onPrimary,
+                                            unselectedColor = Color.LightGray
+                                        )
+
+                                    )
+                                    Text(
+                                        text = text.answerText,
+                                        style = TextStyle(
+                                            fontSize = 14.sp,
+                                            lineHeight = 25.sp,
+                                            color = MaterialTheme.colorScheme.onPrimary
+
+                                        ),
+                                        modifier = Modifier.padding(start = 10.dp)
+                                    )
                                 }
                             }
+                            // Button navigation
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 15.dp),
+                                horizontalArrangement = Arrangement.SpaceEvenly,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                IconButton(
+                                    onClick = {
+                                        if (currentPage!! > 0) {
+                                            currentPage = currentPage!! - 1
+                                        }
+                                    },
+                                    enabled = currentPage!!> 0
+                                ) {
+                                    Icon(imageVector = Icons.Default.ArrowBackIosNew, contentDescription = "Previous")
+
+                                }
+
+                                Button(
+                                    onClick = {
+
+                                        /*if ( randomElements[pageIndex].correctAnswerType == selectedOption){
+                                            correctCount++
+                                        }
+
+                                        if(pageIndex == (randomElements.size-1)){
+
+                                            percent = ((correctCount.toFloat()/randomElements.size.toFloat())*100)
+
+                                            showDialog.value = true
+
+                                            Toast.makeText(context,"$percent%",Toast.LENGTH_SHORT).show()
+                                        }*/
+
+
+
+                                        /*if ( randomElements[pageIndex].correctAnswerType == selectedOption){
+                                            Toast.makeText(context,"true", Toast.LENGTH_LONG ).show() }
+                                        else{
+                                            Toast.makeText(context,"false", Toast.LENGTH_LONG ).show()
+
+                                        }*/
+
+                                    },
+                                ) {
+                                    Text(
+                                        text = "Submit",
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                    )
+                                }
+
+                                //Spacer(modifier = Modifier.width(16.dp))
+
+                                IconButton(
+                                    onClick = {
+                                        if (currentPage!! < pages.size - 1) {
+                                            currentPage = currentPage!! + 1
+                                        }
+                                    },
+                                    enabled = currentPage!! < pages.size - 1
+                                ) {
+                                    Icon(imageVector = Icons.Default.ArrowForwardIos, contentDescription = "Forward" )
+                                }
+                            }
+
                         }
                     }
 
 
                 }
 
-
             }
-
-
-
-
-
-
         }
 
     }

@@ -142,7 +142,7 @@ fun BookListAdminScreen (navController: NavController , id : String? ) {
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "ArrowBack", tint = MaterialTheme.colorScheme.onPrimary)
                     }
                     
-                    Text(text = "$id")
+                    Text(text = "")
                 }
 
         },

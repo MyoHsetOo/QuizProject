@@ -107,17 +107,19 @@ fun Nav( id : String ) {
 
         }
 
-        composable(route = "QuestionScreen/{questionId}/{questionNo}",
+        composable(route = "QuestionScreen/{questionId}/{questionNo}/{index}",
             arguments = listOf(
                 navArgument( "questionId" ){ type = NavType.StringType },
                 navArgument( "questionNo" ){ type = NavType.StringType },
+                navArgument( "index" ){ type = NavType.IntType },
 
             )
             ) { backStackEntry ->
             val questionId = backStackEntry.arguments?.getString("questionId")
             val questionNo = backStackEntry.arguments?.getString("questionNo")
+            val index = backStackEntry.arguments?.getInt("index")
 
-            QuestionScreen(navController , questionId , questionNo )
+            QuestionScreen(navController , questionId , questionNo,index )
 
         }
 

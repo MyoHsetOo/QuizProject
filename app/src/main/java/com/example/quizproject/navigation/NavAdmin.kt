@@ -103,13 +103,14 @@ fun NavAdmin( id : String ) {
         }
 
 
-        composable(route = "AdminQuestionScreen/{questionId}/{questionNo}"
+        composable(route = "AdminQuestionScreen/{questionId}/{questionNo}/{index}"
               ,
 
             arguments = listOf(
 
                 navArgument("questionId") { type = NavType.StringType },
-                navArgument("questionNo") { type = NavType.StringType }
+                navArgument("questionNo") { type = NavType.StringType },
+                navArgument("index") { type = androidx.navigation.NavType.IntType }
 
 
             )
@@ -118,8 +119,9 @@ fun NavAdmin( id : String ) {
 
             val questionId = backStackEntry.arguments?.getString("questionId")
             val questionNo = backStackEntry.arguments?.getString("questionNo")
+            val index = backStackEntry.arguments?.getInt("index")
 
-            AdminQuestionScreen(navController,questionId,questionNo)
+            AdminQuestionScreen(navController,questionId,questionNo,index)
 
         }
 
