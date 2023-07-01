@@ -24,10 +24,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
@@ -100,8 +104,16 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-    var isOnClick by remember {
+    var isNextQuestion by remember {
         mutableStateOf(false)
+    }
+
+    var isPreviousQuestion by remember {
+        mutableStateOf(false)
+    }
+
+    val (selectedOption, onOptionSelected) = remember {
+        mutableStateOf("")
     }
 
     var context = LocalContext.current
@@ -206,30 +218,40 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                  },
     ) { innerPadding ->
 
-        Column(
-
-            modifier = Modifier
-                .padding(15.dp)
-                .fillMaxSize()
-
-        ) {
+        val pages = questionScreenData.value
+        var currentPage by remember { mutableStateOf(0) }
 
 
-            //if (viewModel.questionSet.answers.isNotEmpty())
+        for ( item  in questionScreenData.value ){
 
+            if ( item._id == obj ){
 
-            LazyColumn() {
+                Column(
+                    Modifier.fillMaxWidth()
+                        .fillMaxHeight()
+                        .background(MaterialTheme.colorScheme.secondary)
+                ) {
+                    // Display current page
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        //contentAlignment = Alignment.Center
+                    ) {
+                        //Text(text = "${questionScreenData.value[currentPage].questionText}")
 
-                items(questionScreenData.value) { item ->
-
-                    if (item._id == obj) {
 
                         Column(
-                            modifier = Modifier.padding(5.dp)
+                            modifier = Modifier
+                                .padding(5.dp)
+                                .fillMaxSize()
+                                .verticalScroll(rememberScrollState())
+
                         ) {
 
                             Text(
-                                text = item.questionText,
+                                text = questionScreenData.value[currentPage].questionText,
                                 style = TextStyle(
                                     color = MaterialTheme.colorScheme.onPrimary,
                                     fontSize = 15.sp,
@@ -239,23 +261,17 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
 
                                 )
 
-                            val uri = item.questionImage.toUri()
+                            val uri = questionScreenData.value[currentPage].questionImage.toUri()
 
                             OutlinedCard(
                                 shape = RoundedCornerShape(20.dp),
                                 border = BorderStroke(1.dp, Color.Black),
                                 modifier = Modifier
                                     .padding(vertical = 10.dp)
-                                    .fillMaxSize()
+
 
                             ) {
 
-                                /*Text(
-                                            text = "${uri}", style = TextStyle(
-                                                fontSize = 16.sp,
-                                                color = MaterialTheme.colorScheme.onPrimary
-                                            )
-                                        )*/
                                 Image(
                                     painter = rememberAsyncImagePainter(uri),
                                     contentDescription = "Picture",
@@ -265,16 +281,8 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                             }
 
 
-                            //for (answerItem in item.answers) {
-
-
-                            //val radioOptions : List<AnswerModel> = item.answers
-
                             val checkedItems = remember { mutableStateListOf<String>() }
 
-                            /* for ( item in item.answers ){
-                                    //checkedItems.add(item.answerText)
-*/
                             val (selectedOption, onOptionSelected) = remember {
                                 mutableStateOf("")
                             }
@@ -283,7 +291,7 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
 
 
                             Column {
-                                item.answers.forEach { text ->
+                                questionScreenData.value[currentPage].answers.forEach { text ->
                                     Row(
                                         Modifier
                                             .fillMaxWidth()
@@ -326,25 +334,49 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                                         )
                                     }
                                 }
+                                // Button navigation
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center
+                                    horizontalArrangement = Arrangement.SpaceEvenly,
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
+                                    IconButton(
+                                        onClick = {
+                                            if (currentPage > 0) {
+                                                currentPage--
+                                            }
+                                        },
+                                        enabled = currentPage > 0
+                                    ) {
+                                        Icon(imageVector = Icons.Default.ArrowBackIosNew, contentDescription = "Previous")
+
+                                    }
 
                                     Button(
-                                        modifier = Modifier.padding(top = 30.dp),
                                         onClick = {
 
-                                            if ( item.correctAnswerType == selectedOption){
+                                            /*if ( randomElements[pageIndex].correctAnswerType == selectedOption){
+                                                correctCount++
+                                            }
+
+                                            if(pageIndex == (randomElements.size-1)){
+
+                                                percent = ((correctCount.toFloat()/randomElements.size.toFloat())*100)
+
+                                                showDialog.value = true
+
+                                                Toast.makeText(context,"$percent%",Toast.LENGTH_SHORT).show()
+                                            }*/
+
+
+
+                                            /*if ( randomElements[pageIndex].correctAnswerType == selectedOption){
                                                 Toast.makeText(context,"true", Toast.LENGTH_LONG ).show() }
                                             else{
                                                 Toast.makeText(context,"false", Toast.LENGTH_LONG ).show()
 
-                                            }
+                                            }*/
 
-
-
-                                            Log.d("<<<<<>>>>>", "${questionScreenData.value.size}")
                                         },
                                     ) {
                                         Text(
@@ -353,7 +385,18 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
                                         )
                                     }
 
+                                    //Spacer(modifier = Modifier.width(16.dp))
 
+                                    IconButton(
+                                        onClick = {
+                                            if (currentPage < pages.size - 1) {
+                                                currentPage++
+                                            }
+                                        },
+                                        enabled = currentPage < pages.size - 1
+                                    ) {
+                                        Icon(imageVector = Icons.Default.ArrowForwardIos, contentDescription = "Forward" )
+                                    }
                                 }
                             }
                         }
@@ -362,15 +405,432 @@ fun QuestionScreen(navController: NavController , id : String? , number : String
 
                 }
 
-
             }
-
-
-
-
-
-
         }
+
+
+
+
+
+       /* Column(
+
+            modifier = Modifier
+                .padding(15.dp)
+                .fillMaxSize()
+
+        ) {
+
+
+            //if (viewModel.questionSet.answers.isNotEmpty())
+
+
+            *//*LazyColumn() {
+
+                items(questionScreenData.value.size) {index ->
+
+                    //val index = questionScreenData.value.indexOf(item)
+
+                    //var item = questionScreenData.value[index]
+
+                    Log.d("Normal item<<>>>","${index}")
+                    
+                    Text(text = "${questionScreenData.value[index+3].questionText}")
+                    
+                    Text(text = "$index+3")
+
+                    Text(text = "$index")
+
+                   *//**//* if (item._id == obj) {
+
+                        if( isNextQuestion ){
+
+                            isNextQuestion = false
+
+                            var nextCount = index + 1
+
+                            var itemNext = questionScreenData.value[nextCount]
+
+                            Log.d("ADD Index<<>>>","$nextCount")
+
+                            Column(
+                                modifier = Modifier.padding(5.dp)
+                            ) {
+
+                                Text(
+                                    text = itemNext.questionText,
+                                    style = TextStyle(
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                        fontSize = 15.sp,
+                                        lineHeight = 25.sp
+                                    ),
+                                    modifier = Modifier.padding(5.dp),
+
+                                    )
+
+                                val uri = itemNext.questionImage.toUri()
+
+                                OutlinedCard(
+                                    shape = RoundedCornerShape(20.dp),
+                                    border = BorderStroke(1.dp, Color.Black),
+                                    modifier = Modifier
+                                        .padding(vertical = 10.dp)
+                                        .fillMaxSize()
+
+                                ) {
+
+                                    Text(
+                                                text = "${uri}", style = TextStyle(
+                                                    fontSize = 16.sp,
+                                                    color = MaterialTheme.colorScheme.onPrimary
+                                                )
+                                            )
+                                    Image(
+                                        painter = rememberAsyncImagePainter(uri),
+                                        contentDescription = "Picture",
+                                    )
+
+                                    Log.d("IMSAGE QUESTION>><<<", "${uri}")
+                                }
+
+
+                                //for (answerItem in item.answers) {
+
+
+                                //val radioOptions : List<AnswerModel> = item.answers
+
+                                val checkedItems = remember { mutableStateListOf<String>() }
+
+                                 for ( item in item.answers ){
+                                        //checkedItems.add(item.answerText)
+
+
+
+                                // Log.d("SIZE <>" , "${checkedItems.size}")
+
+
+                                Column {
+                                    itemNext.answers.forEach { text ->
+                                        Row(
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .selectable(
+                                                    selected = (text.answerText == selectedOption),
+                                                    onClick = {
+                                                        onOptionSelected(text.answerText)
+                                                        Log.d("Text<>", "$selectedOption")
+                                                    }
+                                                )
+                                                .padding(horizontal = 8.dp, vertical = 15.dp),
+                                            verticalAlignment = Alignment.CenterVertically
+
+                                        ) {
+                                            RadioButton(
+                                                selected = (text.answerText == selectedOption),
+                                                modifier = Modifier.size(20.dp),
+                                                onClick = {
+                                                    onOptionSelected(text.answerText)
+
+                                                    Log.d("CHECKITEMS :::::", "${checkedItems.size}")
+                                                    Log.d("Text<>", "$selectedOption")
+
+                                                },
+                                                colors = RadioButtonDefaults.colors(
+                                                    selectedColor = MaterialTheme.colorScheme.onPrimary,
+                                                    unselectedColor = Color.LightGray
+                                                )
+
+                                            )
+                                            Text(
+                                                text = text.answerText,
+                                                style = TextStyle(
+                                                    fontSize = 14.sp,
+                                                    lineHeight = 25.sp,
+                                                    color = MaterialTheme.colorScheme.onPrimary
+
+                                                ),
+                                                modifier = Modifier.padding(start = 10.dp)
+                                            )
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        } else if ( isPreviousQuestion ){
+
+                            isPreviousQuestion = false
+
+                            var previousItem = index - 1
+
+                            var itemPrevious = questionScreenData.value[previousItem]
+
+                            Log.d("ADD Index<<>>>","$previousItem")
+
+                            Column(
+                                modifier = Modifier.padding(5.dp)
+                            ) {
+
+                                Text(
+                                    text = itemPrevious.questionText,
+                                    style = TextStyle(
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                        fontSize = 15.sp,
+                                        lineHeight = 25.sp
+                                    ),
+                                    modifier = Modifier.padding(5.dp),
+
+                                    )
+
+                                val uri = itemPrevious.questionImage.toUri()
+
+                                OutlinedCard(
+                                    shape = RoundedCornerShape(20.dp),
+                                    border = BorderStroke(1.dp, Color.Black),
+                                    modifier = Modifier
+                                        .padding(vertical = 10.dp)
+                                        .fillMaxSize()
+
+                                ) {
+
+                                    Text(
+                                                text = "${uri}", style = TextStyle(
+                                                    fontSize = 16.sp,
+                                                    color = MaterialTheme.colorScheme.onPrimary
+                                                )
+                                            )
+                                    Image(
+                                        painter = rememberAsyncImagePainter(uri),
+                                        contentDescription = "Picture",
+                                    )
+
+                                    Log.d("IMSAGE QUESTION>><<<", "${uri}")
+                                }
+
+
+                                //for (answerItem in item.answers) {
+
+
+                                //val radioOptions : List<AnswerModel> = item.answers
+
+                                val checkedItems = remember { mutableStateListOf<String>() }
+
+                                 for ( item in item.answers ){
+                                        //checkedItems.add(item.answerText)
+
+
+
+                                // Log.d("SIZE <>" , "${checkedItems.size}")
+
+
+                                Column {
+                                    itemPrevious.answers.forEach { text ->
+                                        Row(
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .selectable(
+                                                    selected = (text.answerText == selectedOption),
+                                                    onClick = {
+                                                        onOptionSelected(text.answerText)
+                                                        Log.d("Text<>", "$selectedOption")
+                                                    }
+                                                )
+                                                .padding(horizontal = 8.dp, vertical = 15.dp),
+                                            verticalAlignment = Alignment.CenterVertically
+
+                                        ) {
+                                            RadioButton(
+                                                selected = (text.answerText == selectedOption),
+                                                modifier = Modifier.size(20.dp),
+                                                onClick = {
+                                                    onOptionSelected(text.answerText)
+
+                                                    Log.d("CHECKITEMS :::::", "${checkedItems.size}")
+                                                    Log.d("Text<>", "$selectedOption")
+
+                                                },
+                                                colors = RadioButtonDefaults.colors(
+                                                    selectedColor = MaterialTheme.colorScheme.onPrimary,
+                                                    unselectedColor = Color.LightGray
+                                                )
+
+                                            )
+                                            Text(
+                                                text = text.answerText,
+                                                style = TextStyle(
+                                                    fontSize = 14.sp,
+                                                    lineHeight = 25.sp,
+                                                    color = MaterialTheme.colorScheme.onPrimary
+
+                                                ),
+                                                modifier = Modifier.padding(start = 10.dp)
+                                            )
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        }else{
+
+                            Column(
+                                modifier = Modifier.padding(5.dp)
+                            ) {
+
+                                Text(
+                                    text = item.questionText,
+                                    style = TextStyle(
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                        fontSize = 15.sp,
+                                        lineHeight = 25.sp
+                                    ),
+                                    modifier = Modifier.padding(5.dp),
+
+                                    )
+
+                                val uri = item.questionImage.toUri()
+
+                                OutlinedCard(
+                                    shape = RoundedCornerShape(20.dp),
+                                    border = BorderStroke(1.dp, Color.Black),
+                                    modifier = Modifier
+                                        .padding(vertical = 10.dp)
+                                        .fillMaxSize()
+
+                                ) {
+
+                                    Text(
+                                                text = "${uri}", style = TextStyle(
+                                                    fontSize = 16.sp,
+                                                    color = MaterialTheme.colorScheme.onPrimary
+                                                )
+                                            )
+                                    Image(
+                                        painter = rememberAsyncImagePainter(uri),
+                                        contentDescription = "Picture",
+                                    )
+
+                                    Log.d("IMSAGE QUESTION>><<<", "${uri}")
+                                }
+
+
+                                //for (answerItem in item.answers) {
+
+
+                                //val radioOptions : List<AnswerModel> = item.answers
+
+                                val checkedItems = remember { mutableStateListOf<String>() }
+
+                                 for ( item in item.answers ){
+                                        //checkedItems.add(item.answerText)
+
+
+
+                                // Log.d("SIZE <>" , "${checkedItems.size}")
+
+
+                                Column {
+                                    item.answers.forEach { text ->
+                                        Row(
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .selectable(
+                                                    selected = (text.answerText == selectedOption),
+                                                    onClick = {
+                                                        onOptionSelected(text.answerText)
+                                                        Log.d("Text<>", "$selectedOption")
+                                                    }
+                                                )
+                                                .padding(horizontal = 8.dp, vertical = 15.dp),
+                                            verticalAlignment = Alignment.CenterVertically
+
+                                        ) {
+                                            RadioButton(
+                                                selected = (text.answerText == selectedOption),
+                                                modifier = Modifier.size(20.dp),
+                                                onClick = {
+                                                    onOptionSelected(text.answerText)
+
+                                                    Log.d("CHECKITEMS :::::", "${checkedItems.size}")
+                                                    Log.d("Text<>", "$selectedOption")
+
+                                                },
+                                                colors = RadioButtonDefaults.colors(
+                                                    selectedColor = MaterialTheme.colorScheme.onPrimary,
+                                                    unselectedColor = Color.LightGray
+                                                )
+
+                                            )
+                                            Text(
+                                                text = text.answerText,
+                                                style = TextStyle(
+                                                    fontSize = 14.sp,
+                                                    lineHeight = 25.sp,
+                                                    color = MaterialTheme.colorScheme.onPrimary
+
+                                                ),
+                                                modifier = Modifier.padding(start = 10.dp)
+                                            )
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                        Row(
+                            modifier = Modifier.fillMaxWidth()
+                                .padding( vertical = 20.dp ),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically
+
+                        ) {
+
+                            IconButton(onClick = {
+                                isPreviousQuestion = true
+                                Log.d("PREVIOUS<<>>", "$isPreviousQuestion")
+
+                            }) {
+
+                                Icon(imageVector = Icons.Default.ArrowBackIosNew, contentDescription = "Previous")
+
+                            }
+
+                            Button(
+                                //modifier = Modifier.padding(top = 30.dp),
+                                onClick = {
+
+                                    if ( item.correctAnswerType == selectedOption){
+                                        Toast.makeText(context,"true", Toast.LENGTH_LONG ).show() }
+                                    else{
+                                        Toast.makeText(context,"false", Toast.LENGTH_LONG ).show()
+
+                                    }
+
+
+
+                                    Log.d("<<<<<>>>>>", "${questionScreenData.value.size}")
+                                },
+                            ) {
+                                Text(
+                                    text = "Submit",
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                )
+                            }
+
+                            IconButton(onClick = {
+                                isNextQuestion = true
+                                index++
+                                Log.d("NEXT<<>>", "$isNextQuestion")
+
+                            }) {
+                                Icon(imageVector = Icons.Default.ArrowForwardIos, contentDescription = "Forward")
+                            }
+
+
+                        }
+                    }*//**//*
+                }
+            }*//*
+        }*/
     }
 }
 
@@ -392,10 +852,11 @@ fun FavoriteButton(
     ) {
         Icon(
             tint = color,
-            modifier = modifier.graphicsLayer {
-                scaleX = 1.3f
-                scaleY = 1.3f
-            }
+            modifier = modifier
+                .graphicsLayer {
+                    scaleX = 1.3f
+                    scaleY = 1.3f
+                }
                 .size(18.dp),
             imageVector = if (isFavorite) {
                 Icons.Filled.Favorite

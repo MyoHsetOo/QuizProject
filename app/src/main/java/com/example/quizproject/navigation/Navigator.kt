@@ -161,11 +161,16 @@ fun Nav( id : String ) {
 
         }
 
-        composable(route = "RandomQuestionScreen"
+        composable(route = "RandomQuestionScreen/{count}",
+            arguments = listOf(
+                navArgument( "count" ){ type = NavType.IntType },
 
-            ) {
+                )
 
-                       RandomQuestionScreen( navController)
+            ) {backStackEntry ->
+            val count = backStackEntry.arguments?.getInt("count")
+
+                       RandomQuestionScreen( navController,count)
 
         }
 

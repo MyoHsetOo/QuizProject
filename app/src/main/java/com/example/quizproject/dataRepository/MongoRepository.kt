@@ -28,7 +28,7 @@ interface MongoRepository {
 
     fun getCourseData() : kotlinx.coroutines.flow.Flow<List<CourseModel>>
 
-    fun getCourseDataById() : Category
+
 
     suspend fun insertCourse ( courseModel : CourseModel)
 
@@ -45,6 +45,7 @@ interface MongoRepository {
 
     suspend fun insertChapter ( chapterModel: ChapterModel )
 
+
     suspend fun updateChapter ( chapterModel: ChapterModel,
                                 questionNo : String ,
                                 questionType: String,
@@ -60,6 +61,9 @@ interface MongoRepository {
     fun getAnswerData() : kotlinx.coroutines.flow.Flow<List<AnswerModel>>
 
     suspend fun insertAnswer ( answerModel: AnswerModel)
+
+
+    suspend fun updateAnswer ( answerModel: AnswerModel , isAnswerClick : Boolean )
 
 
      fun getQuestionSetData() : kotlinx.coroutines.flow.Flow<List<QuestionSet>>

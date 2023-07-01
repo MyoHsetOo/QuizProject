@@ -30,6 +30,8 @@ class QuizChooseViewModel(
     //Course
     var _courseData = mutableStateOf(emptyList<CourseModel>())
 
+    val _listId = mutableListOf<String>()
+
     init {
         viewModelScope.launch {
 

@@ -115,6 +115,11 @@ dependencies {
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
+    implementation ("com.google.accompanist:accompanist-pager:0.20.0")
+
+    implementation ("com.google.accompanist:accompanist-pager:0.20.0")
+
+
 
 
 

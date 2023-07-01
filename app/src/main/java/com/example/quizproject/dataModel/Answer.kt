@@ -83,16 +83,19 @@ class AnswerModel( ) : RealmObject {
     @PrimaryKey
     var _id : ObjectId = ObjectId()
     var answerQuestionSetId : String = ""
+    var isAnswerClick : Boolean = false
     var answerType : String = ""
     var answerOption : Char = 'A'
     var answerText : String = ""
     var answerImage : String = ""
 
-    constructor( answerOption: Char, answerType: String ,answerText : String , answerImage: String ) : this() {
+
+    constructor( answerOption: Char, answerType: String ,answerText : String , answerImage: String ,isAnswerClick : Boolean ) : this() {
         this.answerOption = answerOption
         this.answerType = answerType
         this.answerText = answerText
         this.answerImage = answerImage
+        this.isAnswerClick = isAnswerClick
     }
 
 }

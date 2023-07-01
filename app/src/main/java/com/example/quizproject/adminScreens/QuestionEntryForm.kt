@@ -240,7 +240,6 @@ fun QuestionEntryForm ( navController: NavController, id : String? ) {
     )
 
 
-
     val answerPhotoPick = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
@@ -248,14 +247,11 @@ fun QuestionEntryForm ( navController: NavController, id : String? ) {
     )
 
 
-
     val solutionPhotoPick = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = {
             uriSolution.value = it }
     )
-
-
 
     Column (
         modifier = Modifier
@@ -467,8 +463,6 @@ fun QuestionEntryForm ( navController: NavController, id : String? ) {
                         )
                     }
 
-
-
                     //Answer Type
                     Text(
                         text = "Answer Type", style = TextStyle(
@@ -635,6 +629,7 @@ fun QuestionEntryForm ( navController: NavController, id : String? ) {
                                 answerType = answerType.value,
                                 answerText = answerText.value,
                                 answerImage = uriAnswer.value.toString(),
+                                isAnswerClick = false
                             )
 
                             answerListData.add(ans)
@@ -913,13 +908,10 @@ fun QuestionEntryForm ( navController: NavController, id : String? ) {
 
                         ) {
 
-
                         Button(
                             onClick = {
 
-
                                // viewModelQuestionSet.insertQuestionSet( answerListData )
-
 
                                 viewModelChapter.updateChapter(
                                     obj!! ,
@@ -932,8 +924,6 @@ fun QuestionEntryForm ( navController: NavController, id : String? ) {
                                     solutionType.value,
                                     solutionText.value,
                                     uriSolution.value.toString() )
-
-
 
                                 Log.d("QuestionSetList>>>>>>","${questionSetData.value.size}")
                                 navController.navigate("AdminQuestionList/${id}")
@@ -955,7 +945,6 @@ fun QuestionEntryForm ( navController: NavController, id : String? ) {
         }
 
     }
-
 }
 
 

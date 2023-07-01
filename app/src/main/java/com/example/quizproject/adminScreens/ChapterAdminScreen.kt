@@ -309,11 +309,6 @@ fun ChapterAdminScreen( navController: NavController , id : String? , name : Str
                                 }
 
                             }
-
-
-
-
-
                         }
                     }
 

@@ -526,7 +526,7 @@ fun QuickChooseScreen (navController: NavController, id : String?) {
                                     shape = RoundedCornerShape(20.dp)
                                 )
                                 .clickable {
-                                    navController.navigate("RandomQuestionScreen")
+                                    navController.navigate("RandomQuestionScreen/${count}")
                                 },
                             contentAlignment = Alignment.Center
                         ) {

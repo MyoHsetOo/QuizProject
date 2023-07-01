@@ -552,11 +552,13 @@ fun AdminFinalCard( count:String,text:String, id: ObjectId , navController: NavC
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
+
                     ) {
 
                         Box (
 
                             modifier = Modifier
+
 
                                 .indication(interactionSource, LocalIndication.current)
                                 .pointerInput(true) {

@@ -135,9 +135,6 @@ import org.mongodb.kbson.ObjectId
         }
     }
 
-    override fun getCourseDataById(): Category {
-        TODO("Not yet implemented")
-    }
 
 
 
@@ -184,6 +181,8 @@ import org.mongodb.kbson.ObjectId
         return realm.query<ChapterModel>().asFlow().map { it.list }
     }
 
+
+
     override suspend fun insertChapter( chapterModel: ChapterModel) {
         realm.write { copyToRealm( chapterModel) }
     }
@@ -207,7 +206,6 @@ import org.mongodb.kbson.ObjectId
             if (queriedPerson != null) {
 
                 queriedPerson.questions.add( QuestionSet().apply {
-
 
 
                     questionChapterId = chapterModel._id.toString()
@@ -266,6 +264,25 @@ import org.mongodb.kbson.ObjectId
 
     override suspend fun insertAnswer( answerModel: AnswerModel ) {
         realm.write { copyToRealm( answerModel) }
+    }
+
+
+    override suspend fun updateAnswer(answerModel: AnswerModel , isAnswerClick : Boolean) {
+
+        realm.write {
+            val queriedPerson =
+                query<AnswerModel>(query = "_id == $0", answerModel._id)
+                    .first()
+                    .find()
+            if (queriedPerson != null) {
+
+                queriedPerson.isAnswerClick = true
+
+            } else {
+                Log.d("MongoRepository", "Queried Person does not exist.")
+            }
+
+        }
     }
 
 

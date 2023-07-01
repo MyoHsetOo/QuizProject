@@ -6,9 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizproject.dataModel.AnswerModel
+import com.example.quizproject.dataModel.BookModel
 import com.example.quizproject.dataRepository.MongoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.mongodb.kbson.ObjectId
 
 class AnswerViewModel (
 
@@ -28,6 +30,8 @@ class AnswerViewModel (
 
     var _uriAnswer = mutableStateOf<Uri?>(null)
 
+    var _isAnswerClick = mutableStateOf(false)
+
     init {
         viewModelScope.launch {
 
@@ -37,6 +41,24 @@ class AnswerViewModel (
 
 
             }
+
+        }
+    }
+
+    fun updateAnswer( id : ObjectId , isAnswer_Click : Boolean ) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            repository.updateAnswer( answerModel = AnswerModel().apply {
+
+                _id = id
+
+                Log.d("IMPL id >>>>>","$_id")
+                /*CourseModel(
+                   courseId,
+                     courseName
+                )*/
+                //name = this@HomeViewModel.name.value
+            } , isAnswer_Click )
 
         }
     }
